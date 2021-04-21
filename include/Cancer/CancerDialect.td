@@ -1,4 +1,4 @@
-//===- StandaloneDialect.td - Standalone dialect -----------*- tablegen -*-===//
+//===- CancerDialect.td - Cancer dialect -----------*- tablegen -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,31 +6,31 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef STANDALONE_DIALECT
-#define STANDALONE_DIALECT
+#ifndef CANCER_DIALECT
+#define CANCER_DIALECT
 
 include "mlir/IR/OpBase.td"
 
 //===----------------------------------------------------------------------===//
-// Standalone dialect definition.
+// Cancer dialect definition.
 //===----------------------------------------------------------------------===//
 
-def Standalone_Dialect : Dialect {
-    let name = "standalone";
-    let summary = "A standalone out-of-tree MLIR dialect.";
+def Cancer_Dialect : Dialect {
+    let name = "cancer";
+    let summary = "A cancer out-of-tree MLIR dialect.";
     let description = [{
         This dialect is an example of an out-of-tree MLIR dialect designed to
         illustrate the basic setup required to develop MLIR-based tools without
         working inside of the LLVM source tree.
     }];
-    let cppNamespace = "::mlir::standalone";
+    let cppNamespace = "::mlir::cancer";
 }
 
 //===----------------------------------------------------------------------===//
-// Base standalone operation definition.
+// Base cancer operation definition.
 //===----------------------------------------------------------------------===//
 
-class Standalone_Op<string mnemonic, list<OpTrait> traits = []> :
-        Op<Standalone_Dialect, mnemonic, traits>;
+class Cancer_Op<string mnemonic, list<OpTrait> traits = []> :
+        Op<Cancer_Dialect, mnemonic, traits>;
 
-#endif // STANDALONE_DIALECT
+#endif // CANCER_DIALECT

@@ -1,4 +1,4 @@
-// RUN: standalone-translate --help | FileCheck %s
+// RUN: cancer-translate --help | FileCheck %s
 // CHECK: --avx512-mlir-to-llvmir
 // CHECK: --deserialize-spirv
 // CHECK: --import-llvm
