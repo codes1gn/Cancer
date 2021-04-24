@@ -6,9 +6,12 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "Cancer/CancerDialect.h"
 #include "Cancer/CancerOps.h"
+#include "Cancer/CancerDialect.h"
 #include "mlir/IR/OpImplementation.h"
+
+//===----------------------------------------------------------------------===//
+// ConstantOp
 
 #define GET_OP_CLASSES
 #include "Cancer/CancerOps.cpp.inc"
