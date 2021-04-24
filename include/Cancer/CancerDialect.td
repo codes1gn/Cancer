@@ -1,10 +1,4 @@
 //===- CancerDialect.td - Cancer dialect -----------*- tablegen -*-===//
-//
-// This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-// See https://llvm.org/LICENSE.txt for license information.
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-//
-//===----------------------------------------------------------------------===//
 
 #ifndef CANCER_DIALECT
 #define CANCER_DIALECT
@@ -17,11 +11,9 @@ include "mlir/IR/OpBase.td"
 
 def Cancer_Dialect : Dialect {
     let name = "cancer";
-    let summary = "A cancer out-of-tree MLIR dialect.";
+    let summary = "Cancer Dialect for Common Acceleration Computation Representation.";
     let description = [{
-        This dialect is an example of an out-of-tree MLIR dialect designed to
-        illustrate the basic setup required to develop MLIR-based tools without
-        working inside of the LLVM source tree.
+        This dialect is for Common Acceleration Computation Representation, which consumes numpy and pytorch programs as inputs, and make use of MLIR infrastructures and compiles with llvm codegen support.
     }];
     let cppNamespace = "::mlir::cancer";
 }
