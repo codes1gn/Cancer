@@ -15,6 +15,6 @@
 #include "mlir/Interfaces/SideEffectInterfaces.h"
 
 #define GET_OP_CLASSES
-#include "Cancer/CancerOps.h.inc"
+#include "Dialect/Cancer/CancerOps.h.inc"
 
 #endif // CANCER_CANCEROPS_H

@@ -10,8 +10,8 @@
 #include "mlir/IR/BuiltinTypes.h"
 #include "mlir/IR/OpImplementation.h"
 
-#include "Cancer/CancerDialect.h"
-#include "Cancer/CancerOps.h"
+#include "Dialect/Cancer/CancerDialect.h"
+#include "Dialect/Cancer/CancerOps.h"
 
 using namespace mlir;
 using namespace mlir::cancer;
@@ -23,6 +23,6 @@ using namespace mlir::cancer;
 void CancerDialect::initialize() {
   addOperations<
 #define GET_OP_LIST
-#include "Cancer/CancerOps.cpp.inc"
+#include "Dialect/Cancer/CancerOps.cpp.inc"
       >();
 }

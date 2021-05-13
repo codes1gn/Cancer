@@ -15,6 +15,6 @@
 #include "mlir/IR/Dialect.h"
 #include "mlir/Interfaces/SideEffectInterfaces.h"
 
-#include "Cancer/CancerOpsDialect.h.inc"
+#include "Dialect/Cancer/CancerOpsDialect.h.inc"
 
 #endif // CANCER_CANCERDIALECT_H

@@ -15,7 +15,7 @@
 #include "mlir/Support/LogicalResult.h"
 #include "mlir/Translation.h"
 
-#include "Cancer/CancerDialect.h"
+#include "Dialect/Cancer/CancerDialect.h"
 
 int main(int argc, char **argv) {
   mlir::registerAllTranslations();

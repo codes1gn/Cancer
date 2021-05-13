@@ -19,7 +19,7 @@
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/ToolOutputFile.h"
 
-#include "Cancer/CancerDialect.h"
+#include "Dialect/Cancer/CancerDialect.h"
 
 int main(int argc, char **argv) {
   mlir::registerAllPasses();

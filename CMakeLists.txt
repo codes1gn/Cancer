@@ -44,6 +44,7 @@ include(AddLLVM)
 include(AddMLIR)
 include(HandleLLVMOptions)
 include(EnvFuncs)
+include(AddCancer)
 
 set(CANCER_BUILT_STANDALONE 1)
 set(CANCER_TABLEGEN_ARGS "")
@@ -71,9 +72,11 @@ message(STATUS "Python prefix = '${PYTHON_MODULE_PREFIX}', "
     ¦   ¦   ¦  "suffix = '${PYTHON_MODULE_SUFFIX}', "
     ¦   ¦   ¦  "extension = '${PYTHON_MODULE_EXTENSION}")
 
+
+# build subcomponents
 add_subdirectory(include)
 add_subdirectory(lib)
-add_subdirectory(test)
+# add_subdirectory(test)
 add_subdirectory(cancer-opt)
 add_subdirectory(cancer-translate)
 
