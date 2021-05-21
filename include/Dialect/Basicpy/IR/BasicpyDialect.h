@@ -6,16 +6,16 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef NPCOMP_DIALECT_BASICPY_IR_BASICPY_DIALECT_H
-#define NPCOMP_DIALECT_BASICPY_IR_BASICPY_DIALECT_H
+#ifndef CANCER_DIALECT_BASICPY_IR_BASICPY_DIALECT_H
+#define CANCER_DIALECT_BASICPY_IR_BASICPY_DIALECT_H
 
+#include "Typing/Analysis/CPA/Interfaces.h"
 #include "mlir/IR/Attributes.h"
 #include "mlir/IR/Dialect.h"
 #include "mlir/IR/Types.h"
-#include "npcomp/Typing/Analysis/CPA/Interfaces.h"
 
 namespace mlir {
-namespace NPCOMP {
+namespace CANCER {
 namespace Basicpy {
 
 namespace detail {
@@ -97,7 +97,7 @@ public:
 
 /// An unknown type that could be any supported python type.
 class UnknownType : public Type::TypeBase<UnknownType, Type, TypeStorage,
-                                          NPCOMPTypingTypeMapInterface::Trait> {
+                                          CANCERTypingTypeMapInterface::Trait> {
 public:
   using Base::Base;
   static UnknownType get(MLIRContext *context) { return Base::get(context); }
@@ -106,9 +106,9 @@ public:
 };
 
 } // namespace Basicpy
-} // namespace NPCOMP
+} // namespace CANCER
 } // namespace mlir
 
-#include "npcomp/Dialect/Basicpy/IR/BasicpyOpsDialect.h.inc"
+#include "Dialect/Basicpy/IR/BasicpyOpsDialect.h.inc"
 
-#endif // NPCOMP_DIALECT_BASICPY_IR_BASICPY_DIALECT_H
+#endif // CANCER_DIALECT_BASICPY_IR_BASICPY_DIALECT_H

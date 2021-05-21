@@ -6,20 +6,20 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef CANCER_DIALECT_BASICPY_TRANSFORMS_PASSDETAIL_H
-#define CANCER_DIALECT_BASICPY_TRANSFORMS_PASSDETAIL_H
+#ifndef CANCER_TYPING_TRANSFORMS_PASSDETAIL_H
+#define CANCER_TYPING_TRANSFORMS_PASSDETAIL_H
 
 #include "mlir/Pass/Pass.h"
 
 namespace mlir {
 namespace CANCER {
-namespace Basicpy {
+namespace Typing {
 
 #define GEN_PASS_CLASSES
-#include "Dialect/Basicpy/Transforms/Passes.h.inc"
+#include "Typing/Transforms/Passes.h.inc"
 
-} // namespace Basicpy
+} // namespace Typing
 } // namespace CANCER
 } // end namespace mlir
 
-#endif // CANCER_DIALECT_BASICPY_TRANSFORMS_PASSDETAIL_H
+#endif // CANCER_TYPING_TRANSFORMS_PASSDETAIL_H

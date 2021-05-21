@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef CANCER_DIALECT_BASICPY_TRANSFORMS_PASSES_H
-#define CANCER_DIALECT_BASICPY_TRANSFORMS_PASSES_H
+#ifndef CANCER_TYPING_TRANSFORMS_PASSES_H
+#define CANCER_TYPING_TRANSFORMS_PASSES_H
 
 #include "mlir/Pass/Pass.h"
 
@@ -15,16 +15,16 @@
 
 namespace mlir {
 namespace CANCER {
-namespace Basicpy {
+namespace Typing {
 
-std::unique_ptr<OperationPass<FuncOp>> createFunctionTypeInferencePass();
+std::unique_ptr<OperationPass<FuncOp>> createCPAFunctionTypeInferencePass();
 
-} // namespace Basicpy
+} // namespace Typing
 
-/// Registers all Basicpy transformation passes.
-void registerBasicpyPasses();
+/// Registers all typing passes.
+void registerTypingPasses();
 
 } // namespace CANCER
 } // namespace mlir
 
-#endif // CANCER_DIALECT_BASICPY_TRANSFORMS_PASSES_H
+#endif // CANCER_TYPING_TRANSFORMS_PASSES_H

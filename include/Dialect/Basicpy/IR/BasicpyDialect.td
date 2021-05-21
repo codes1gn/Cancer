@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef NPCOMP_DIALECT_BASICPY_IR_BASICPY_DIALECT
-#define NPCOMP_DIALECT_BASICPY_IR_BASICPY_DIALECT
+#ifndef CANCER_DIALECT_BASICPY_IR_BASICPY_DIALECT
+#define CANCER_DIALECT_BASICPY_IR_BASICPY_DIALECT
 
 include "mlir/IR/OpBase.td"
 
@@ -21,7 +21,7 @@ def Basicpy_Dialect : Dialect {
   let description = [{
     Core types and ops
   }];
-  let cppNamespace = "::mlir::NPCOMP::Basicpy";
+  let cppNamespace = "::mlir::CANCER::Basicpy";
   let hasConstantMaterializer = 1;
 }
 
@@ -41,39 +41,39 @@ class Basicpy_Op<string mnemonic, list<OpTrait> traits = []> :
 //===----------------------------------------------------------------------===//
 
 def Basicpy_BoolType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::BoolType>()">, "Bool type">,
-    BuildableType<"$_builder.getType<::mlir::NPCOMP::Basicpy::BoolType>()"> {
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::BoolType>()">, "Bool type">,
+    BuildableType<"$_builder.getType<::mlir::CANCER::Basicpy::BoolType>()"> {
   let description = [{
     Type for 'True' and 'False' values.
   }];
 }
 
 def Basicpy_BytesType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::BytesType>()">, "Bytes type">,
-    BuildableType<"$_builder.getType<::mlir::NPCOMP::Basicpy::BytesType>()"> {
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::BytesType>()">, "Bytes type">,
+    BuildableType<"$_builder.getType<::mlir::CANCER::Basicpy::BytesType>()"> {
   let description = [{
     Represents Python 'bytes' values.
   }];
 }
 
 def Basicpy_EllipsisType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::EllipsisType>()">, "Ellipsis type">,
-    BuildableType<"$_builder.getType<::mlir::NPCOMP::Basicpy::EllipsisType>()"> {
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::EllipsisType>()">, "Ellipsis type">,
+    BuildableType<"$_builder.getType<::mlir::CANCER::Basicpy::EllipsisType>()"> {
   let description = [{
     Type of the Python 'Ellipsis' value.
   }];
 }
 
 def Basicpy_NoneType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::NoneType>()">, "None type">,
-    BuildableType<"$_builder.getType<::mlir::NPCOMP::Basicpy::NoneType>()"> {
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::NoneType>()">, "None type">,
+    BuildableType<"$_builder.getType<::mlir::CANCER::Basicpy::NoneType>()"> {
   let description = [{
     Type of the Python 'None' value.
   }];
 }
 
 def Basicpy_SlotObjectType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::SlotObjectType>()">,
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::SlotObjectType>()">,
     "Slot object"> {
   let description = [{
     Type for built-in objects which have a fixed number of slots and a type
@@ -83,15 +83,15 @@ def Basicpy_SlotObjectType : DialectType<Basicpy_Dialect,
 }
 
 def Basicpy_StrType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::StrType>()">,"String type">,
-    BuildableType<"$_builder.getType<::mlir::NPCOMP::Basicpy::StrType>()"> {
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::StrType>()">,"String type">,
+    BuildableType<"$_builder.getType<::mlir::CANCER::Basicpy::StrType>()"> {
   let description = [{
     Represents values of the python 'str' type.
   }];
 }
 
 def Basicpy_UnknownType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::UnknownType>()">,
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::UnknownType>()">,
     "Unknown type"> {
   let description = [{
     An unknown type (for the current phase of processing).
@@ -99,7 +99,7 @@ def Basicpy_UnknownType : DialectType<Basicpy_Dialect,
 }
 
 def Basicpy_ListType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::ListType>()">,
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::ListType>()">,
     "List type"> {
   let description = [{
     A Python list type. In the non-parameterized case, there are limited
@@ -112,7 +112,7 @@ def Basicpy_ListType : DialectType<Basicpy_Dialect,
 }
 
 def Basicpy_TupleType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::TupleType>()">,
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::TupleType>()">,
     "Tuple type"> {
   let description = [{
     A Python tuple type. In the non-parameterized case, there are limited
@@ -127,7 +127,7 @@ def Basicpy_TupleType : DialectType<Basicpy_Dialect,
 }
 
 def Basicpy_DictType : DialectType<Basicpy_Dialect,
-    CPred<"$_self.isa<::mlir::NPCOMP::Basicpy::DictType>()">,
+    CPred<"$_self.isa<::mlir::CANCER::Basicpy::DictType>()">,
     "Dict type"> {
   let description = [{
     A Python dict type. In the non-parameterized case, there are limited
@@ -154,7 +154,7 @@ class Basicpy_SlotObjectOfClassArity<string className, int arity> :
   And<[
     Basicpy_SlotObjectType.predicate,
     CPred<
-      "$_self.cast<::mlir::NPCOMP::Basicpy::SlotObjectType>().isOfClassArity(\""
+      "$_self.cast<::mlir::CANCER::Basicpy::SlotObjectType>().isOfClassArity(\""
       # className # "\", " # arity # ")">
   ]>;
 
@@ -163,4 +163,4 @@ class Basicpy_SlotObjectOfClassArity<string className, int arity> :
 def Basicpy_SliceSlotObjectType :
   Type<Basicpy_SlotObjectOfClassArity<"slice", 3>>;
 
-#endif // NPCOMP_DIALECT_BASICPY_IR_BASICPY_DIALECT
+#endif // CANCER_DIALECT_BASICPY_IR_BASICPY_DIALECT

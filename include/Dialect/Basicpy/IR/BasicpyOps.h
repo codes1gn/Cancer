@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef NPCOMP_DIALECT_BASICPY_IR_BASICPY_OPS_H
-#define NPCOMP_DIALECT_BASICPY_IR_BASICPY_OPS_H
+#ifndef CANCER_DIALECT_BASICPY_IR_BASICPY_OPS_H
+#define CANCER_DIALECT_BASICPY_IR_BASICPY_OPS_H
 
 #include "mlir/IR/Attributes.h"
 #include "mlir/IR/Builders.h"
@@ -21,9 +21,9 @@
 #include "mlir/Interfaces/ControlFlowInterfaces.h"
 #include "mlir/Interfaces/SideEffectInterfaces.h"
 
-#include "npcomp/Dialect/Basicpy/IR/BasicpyOpsEnums.h.inc"
+#include "Dialect/Basicpy/IR/BasicpyOpsEnums.h.inc"
 
 #define GET_OP_CLASSES
-#include "npcomp/Dialect/Basicpy/IR/BasicpyOps.h.inc"
+#include "Dialect/Basicpy/IR/BasicpyOps.h.inc"
 
-#endif // NPCOMP_DIALECT_BASICPY_IR_BASICPY_OPS_H
+#endif // CANCER_DIALECT_BASICPY_IR_BASICPY_OPS_H

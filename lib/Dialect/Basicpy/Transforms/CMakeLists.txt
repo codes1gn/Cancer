@@ -1,12 +1,12 @@
-add_npcomp_conversion_library(NPCOMPBasicpyPasses
+add_cancer_conversion_library(CANCERBasicpyPasses
   Passes.cpp
   TypeInference.cpp
 
   ADDITIONAL_HEADER_DIRS
-  ${PROJECT_SOURCE_DIR}/include/npcomp/Dialect/Basicpy/Transforms
+  ${PROJECT_SOURCE_DIR}/include/Dialect/Basicpy/Transforms
 
   DEPENDS
-  NPCOMPBasicpyPassIncGen
+  CANCERBasicpyPassIncGen
 
   LINK_COMPONENTS
   Core
@@ -14,5 +14,5 @@ add_npcomp_conversion_library(NPCOMPBasicpyPasses
   LINK_LIBS PUBLIC
   MLIRIR
   MLIRPass
-  NPCOMPTypingCPA
+  CANCERTypingCPA
 )

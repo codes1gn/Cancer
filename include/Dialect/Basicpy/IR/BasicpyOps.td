@@ -6,10 +6,10 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef NPCOMP_DIALECT_BASICPY_IR_BASICPY_OPS
-#define NPCOMP_DIALECT_BASICPY_IR_BASICPY_OPS
+#ifndef CANCER_DIALECT_BASICPY_IR_BASICPY_OPS
+#define CANCER_DIALECT_BASICPY_IR_BASICPY_OPS
 
-include "npcomp/Dialect/Basicpy/IR/BasicpyDialect.td"
+include "Dialect/Basicpy/IR/BasicpyDialect.td"
 include "mlir/Interfaces/CallInterfaces.td"
 include "mlir/Interfaces/ControlFlowInterfaces.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
@@ -55,7 +55,7 @@ def BinaryOperationAttr : StrEnumAttr<
       BINOP_RSHIFT,
       BINOP_SUB,
     ]> {
-  let cppNamespace = "::mlir::NPCOMP::Basicpy";
+  let cppNamespace = "::mlir::CANCER::Basicpy";
 }
 
 //===----------------------------------------------------------------------===//
@@ -87,7 +87,7 @@ def CompareOperationAttr : StrEnumAttr<
       CMPOP_NEQ,
       CMPOP_NOTIN,
     ]> {
-  let cppNamespace = "::mlir::NPCOMP::Basicpy";
+  let cppNamespace = "::mlir::CANCER::Basicpy";
 }
 
 //===----------------------------------------------------------------------===//
@@ -537,4 +537,4 @@ def Basicpy_SlotObjectGetOp : Basicpy_Op<"slot_object_get", [
   );
 }
 
-#endif // NPCOMP_DIALECT_BASICPY_IR_BASICPY_OPS
+#endif // CANCER_DIALECT_BASICPY_IR_BASICPY_OPS

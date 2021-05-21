@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "Dialect/Basicpy/Transforms/Passes.h"
+#include "Typing/Transforms/Passes.h"
 
 //===----------------------------------------------------------------------===//
 // Pass registration
@@ -14,7 +14,7 @@
 
 namespace {
 #define GEN_PASS_REGISTRATION
-#include "Dialect/Basicpy/Transforms/Passes.h.inc"
+#include "Typing/Transforms/Passes.h.inc"
 } // end namespace
 
-void mlir::CANCER::registerBasicpyPasses() { ::registerPasses(); }
+void mlir::CANCER::registerTypingPasses() { ::registerPasses(); }

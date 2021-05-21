@@ -9,6 +9,6 @@ add_mlir_dialect_library(MLIRBasicpy
   MLIRBasicpyOpsIncGen
 
   LINK_LIBS PUBLIC
-  NPCOMPTypingCPA
+  CANCERTypingCPA
   MLIRIR
 )

@@ -6,19 +6,19 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "npcomp/Dialect/Basicpy/IR/BasicpyDialect.h"
+#include "Dialect/Basicpy/IR/BasicpyDialect.h"
+#include "Dialect/Basicpy/IR/BasicpyOps.h"
 #include "mlir/IR/DialectImplementation.h"
-#include "npcomp/Dialect/Basicpy/IR/BasicpyOps.h"
 #include "llvm/ADT/TypeSwitch.h"
 
 using namespace mlir;
-using namespace mlir::NPCOMP;
-using namespace mlir::NPCOMP::Basicpy;
+using namespace mlir::CANCER;
+using namespace mlir::CANCER::Basicpy;
 
 void BasicpyDialect::initialize() {
   addOperations<
 #define GET_OP_LIST
-#include "npcomp/Dialect/Basicpy/IR/BasicpyOps.cpp.inc"
+#include "Dialect/Basicpy/IR/BasicpyOps.cpp.inc"
       >();
   addTypes<BoolType, BytesType, DictType, EllipsisType, ListType, NoneType,
            SlotObjectType, StrType, TupleType, UnknownType>();
@@ -133,7 +133,7 @@ void BasicpyDialect::printType(Type type, DialectAsmPrinter &os) const {
 // Type and attribute detail
 //----------------------------------------------------------------------------//
 namespace mlir {
-namespace NPCOMP {
+namespace CANCER {
 namespace Basicpy {
 namespace detail {
 
@@ -159,7 +159,7 @@ struct SlotObjectTypeStorage : public TypeStorage {
 };
 } // namespace detail
 } // namespace Basicpy
-} // namespace NPCOMP
+} // namespace CANCER
 } // namespace mlir
 
 StringAttr SlotObjectType::getClassName() { return getImpl()->className; }

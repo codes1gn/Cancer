@@ -6,17 +6,17 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "npcomp/Dialect/Basicpy/IR/BasicpyOps.h"
+#include "Dialect/Basicpy/IR/BasicpyOps.h"
+#include "Dialect/Basicpy/IR/BasicpyDialect.h"
+#include "Dialect/Basicpy/IR/BasicpyOpsEnums.cpp.inc"
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/IR/FunctionImplementation.h"
 #include "mlir/IR/OpImplementation.h"
 #include "mlir/IR/PatternMatch.h"
-#include "npcomp/Dialect/Basicpy/IR/BasicpyDialect.h"
-#include "npcomp/Dialect/Basicpy/IR/BasicpyOpsEnums.cpp.inc"
 
 using namespace mlir;
-using namespace mlir::NPCOMP::Basicpy;
+using namespace mlir::CANCER::Basicpy;
 
 // Fallback verifier for ops that don't have a dedicated one.
 template <typename T> static LogicalResult verify(T op) { return success(); }
@@ -406,4 +406,4 @@ void UnknownCastOp::getCanonicalizationPatterns(
 }
 
 #define GET_OP_CLASSES
-#include "npcomp/Dialect/Basicpy/IR/BasicpyOps.cpp.inc"
+#include "Dialect/Basicpy/IR/BasicpyOps.cpp.inc"

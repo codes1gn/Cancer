@@ -8,12 +8,12 @@
 
 #include "PassDetail.h"
 
+#include "Dialect/Basicpy/IR/BasicpyDialect.h"
+#include "Dialect/Basicpy/IR/BasicpyOps.h"
+#include "Dialect/Basicpy/Transforms/Passes.h"
 #include "mlir/Dialect/SCF/SCF.h"
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
 #include "mlir/Interfaces/ControlFlowInterfaces.h"
-#include "npcomp/Dialect/Basicpy/IR/BasicpyDialect.h"
-#include "npcomp/Dialect/Basicpy/IR/BasicpyOps.h"
-#include "npcomp/Dialect/Basicpy/Transforms/Passes.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/ilist.h"
 #include "llvm/Support/Allocator.h"
@@ -23,7 +23,7 @@
 
 using namespace llvm;
 using namespace mlir;
-using namespace mlir::NPCOMP::Basicpy;
+using namespace mlir::CANCER::Basicpy;
 
 namespace {
 
@@ -137,7 +137,7 @@ public:
     return typeNode;
   }
 
-  template <typename... Args> TypeEquation *addEquation(Args &&... args) {
+  template <typename... Args> TypeEquation *addEquation(Args &&...args) {
     TypeEquation *eq = allocator.Allocate<TypeEquation>(1);
     new (eq) TypeEquation(std::forward<Args>(args)...);
     equations.push_back(*eq);
@@ -485,6 +485,6 @@ public:
 } // namespace
 
 std::unique_ptr<OperationPass<FuncOp>>
-mlir::NPCOMP::Basicpy::createFunctionTypeInferencePass() {
+mlir::CANCER::Basicpy::createFunctionTypeInferencePass() {
   return std::make_unique<FunctionTypeInferencePass>();
 }
