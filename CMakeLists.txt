@@ -76,7 +76,7 @@ message(STATUS "Python prefix = '${PYTHON_MODULE_PREFIX}', "
 # build subcomponents
 add_subdirectory(include)
 add_subdirectory(lib)
-# add_subdirectory(test)
+add_subdirectory(test)
 add_subdirectory(cancer-opt)
 add_subdirectory(cancer-translate)
 
