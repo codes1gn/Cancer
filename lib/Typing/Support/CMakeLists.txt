@@ -5,5 +5,5 @@ add_cancer_library(CANCERTypingCPASupport
   PUBLIC
   MLIRIR
   CANCERTypingCPA
-  MLIRBasicpy
+  CANCERDialectBasicpy
 )

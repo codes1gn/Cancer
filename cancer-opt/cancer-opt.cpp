@@ -19,7 +19,9 @@
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/ToolOutputFile.h"
 
+//#include "Dialect/Basicpy/IR/BasicpyDialect.h"
 #include "Dialect/Cancer/CancerDialect.h"
+#include "InitAll.h"
 
 int main(int argc, char **argv) {
   mlir::registerAllPasses();
@@ -27,6 +29,9 @@ int main(int argc, char **argv) {
 
   mlir::DialectRegistry registry;
   registry.insert<mlir::cancer::CancerDialect>();
+  mlir::CANCER::registerAllDialects(registry);
+
+  //  registry.insert<mlir::cancer::CANCER::BasicpyDialect>();
   registry.insert<mlir::StandardOpsDialect>();
   // Add the following to include *all* MLIR Core dialects, or selectively
   // include what you need like above. You only need to register dialects that

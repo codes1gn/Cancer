@@ -1,4 +1,4 @@
-add_mlir_dialect_library(MLIRBasicpy
+add_mlir_dialect_library(CANCERDialectBasicpy
   BasicpyDialect.cpp
   BasicpyOps.cpp
 

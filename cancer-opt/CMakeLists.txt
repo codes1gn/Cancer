@@ -5,10 +5,11 @@ set(LIBS
         ${conversion_libs}
         MLIROptLib
         MLIRCancer
+        CANCERDialectBasicpy
+        CANCERInitAll
         )
-add_llvm_executable(cancer-opt cancer-opt.cpp)
+add_cancer_executable(cancer-opt cancer-opt.cpp)
 
-llvm_update_compile_flags(cancer-opt)
 target_link_libraries(cancer-opt PRIVATE ${LIBS})
 
 mlir_check_all_link_libraries(cancer-opt)
