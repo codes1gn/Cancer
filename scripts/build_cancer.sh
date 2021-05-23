@@ -15,3 +15,7 @@ cmake -G Ninja .. -DMLIR_DIR=${top_dir_realpath}/mlir_build/install_dir/lib/cmak
 
 cmake --build . --target cancer-opt
 cmake --build . --target cancer-translate
+
+# build mlir doc
+cmake --build . --target mlir-doc
+
