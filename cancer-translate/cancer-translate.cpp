@@ -16,6 +16,7 @@
 #include "mlir/Translation.h"
 
 #include "Dialect/Basicpy/IR/BasicpyDialect.h"
+#include "Dialect/Numpy/IR/NumpyDialect.h"
 
 int main(int argc, char **argv) {
   mlir::registerAllTranslations();

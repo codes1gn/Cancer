@@ -4,8 +4,12 @@ set(LIBS
         ${dialect_libs}
         ${conversion_libs}
         MLIROptLib
-        CANCERDialectBasicpy
+
         CANCERInit
+
+        # TODO remove explicity deps, use cancerinit as the merged deps
+        # CANCERDialectBasicpy
+        # CANCERDialectNumpy
         )
 add_cancer_executable(cancer-opt cancer-opt.cpp)
 
