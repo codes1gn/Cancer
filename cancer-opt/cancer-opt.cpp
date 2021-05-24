@@ -19,16 +19,19 @@
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/ToolOutputFile.h"
 
-#include "Dialect/Basicpy/IR/BasicpyDialect.h"
-#include "Dialect/Cancer/CancerDialect.h"
+// TODO delete demo dialect
+// #include "Dialect/Cancer/CancerDialect.h"
 // TODO should we use global register???
-// #include "InitAll.h"
+#include "CancerInit.h"
+// #include "Dialect/Basicpy/IR/BasicpyDialect.h"
 
 int main(int argc, char **argv) {
 
   mlir::DialectRegistry registry;
-  registry.insert<mlir::cancer::CancerDialect>();
-  registry.insert<mlir::CANCER::Basicpy::BasicpyDialect>();
+  // TODO delete demo dialect
+  // registry.insert<mlir::cancer::CancerDialect>();
+  // TODO alternative by explicitly register
+  // registry.insert<mlir::CANCER::Basicpy::BasicpyDialect>();
   registry.insert<mlir::StandardOpsDialect>();
   // Add the following to include *all* MLIR Core dialects, or selectively
   // include what you need like above. You only need to register dialects that
@@ -36,7 +39,7 @@ int main(int argc, char **argv) {
   // registerAllDialects(registry);
 
   // TODO should we use global register???
-  // mlir::CANCER::registerAllDialects(registry);
+  mlir::CANCER::registerAllDialects(registry);
 
   mlir::registerAllPasses();
   // TODO: Register cancer passes here.
