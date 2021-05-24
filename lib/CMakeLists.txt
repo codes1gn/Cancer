@@ -13,8 +13,8 @@ get_property(cancer_conversion_libs GLOBAL PROPERTY CANCER_CONVERSION_LIBS)
 message(STATUS "CANCER Dialect libs: ${cancer_dialect_libs}")
 message(STATUS "CANCER Conversion libs: ${cancer_conversion_libs}")
 
-add_cancer_library(CANCERInitAll
-  InitAll.cpp
+add_cancer_library(CANCERInit
+    CancerInit.cpp
 
   LINK_LIBS
 

@@ -6,7 +6,7 @@ set(LIBS
         MLIROptLib
         MLIRCancer
         CANCERDialectBasicpy
-        CANCERInitAll
+        CANCERInit
         )
 add_cancer_executable(cancer-opt cancer-opt.cpp)
 

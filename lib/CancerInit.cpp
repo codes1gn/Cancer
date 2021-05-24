@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "InitAll.h"
+#include "CancerInit.h"
 
 #include "Dialect/Basicpy/IR/BasicpyDialect.h"
 
