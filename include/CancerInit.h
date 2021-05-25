@@ -15,6 +15,7 @@ namespace mlir {
 namespace CANCER {
 
 void registerAllDialects(mlir::DialectRegistry &registry);
+void registerAllPasses();
 
 } // namespace CANCER
 } // namespace mlir

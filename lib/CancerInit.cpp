@@ -9,11 +9,18 @@
 #include "CancerInit.h"
 
 #include "Dialect/Basicpy/IR/BasicpyDialect.h"
+#include "Dialect/Basicpy/Transforms/Passes.h"
 #include "Dialect/Numpy/IR/NumpyDialect.h"
+#include "Dialect/Numpy/Transforms/Passes.h"
 
 void mlir::CANCER::registerAllDialects(mlir::DialectRegistry &registry) {
   // clang-format off
   registry.insert<Basicpy::BasicpyDialect>();
   registry.insert<Numpy::NumpyDialect>();
   // clang-format on
+}
+
+void mlir::CANCER::registerAllPasses() {
+  mlir::CANCER::registerBasicpyPasses();
+  mlir::CANCER::registerNumpyPasses();
 }
