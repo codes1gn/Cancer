@@ -22,6 +22,7 @@ add_cancer_library(CANCERInit
   # Local depends
   CANCERDialectBasicpy
   CANCERDialectNumpy
+  CANCERDialectRefbackrt
 
   ${cancer_dialect_libs}
   ${cancer_conversion_libs}

@@ -12,11 +12,13 @@
 #include "Dialect/Basicpy/Transforms/Passes.h"
 #include "Dialect/Numpy/IR/NumpyDialect.h"
 #include "Dialect/Numpy/Transforms/Passes.h"
+#include "Dialect/Refbackrt/IR/RefbackrtDialect.h"
 
 void mlir::CANCER::registerAllDialects(mlir::DialectRegistry &registry) {
   // clang-format off
   registry.insert<Basicpy::BasicpyDialect>();
   registry.insert<Numpy::NumpyDialect>();
+  registry.insert<refbackrt::RefbackrtDialect>();
   // clang-format on
 }
 
