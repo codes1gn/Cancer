@@ -12,12 +12,20 @@
 #include "Dialect/Basicpy/Transforms/Passes.h"
 #include "Dialect/Numpy/IR/NumpyDialect.h"
 #include "Dialect/Numpy/Transforms/Passes.h"
+#include "Dialect/Refback/IR/RefbackDialect.h"
 #include "Dialect/Refbackrt/IR/RefbackrtDialect.h"
+#include "Dialect/TCF/IR/TCFDialect.h"
+#include "Dialect/TCF/Transforms/Passes.h"
+#include "Dialect/TCP/IR/TCPDialect.h"
+#include "Dialect/TCP/Transforms/Passes.h"
 
 void mlir::CANCER::registerAllDialects(mlir::DialectRegistry &registry) {
   // clang-format off
   registry.insert<Basicpy::BasicpyDialect>();
   registry.insert<Numpy::NumpyDialect>();
+  registry.insert<tcf::TCFDialect>();
+  registry.insert<tcp::TCPDialect>();
+  registry.insert<refback::RefbackDialect>();
   registry.insert<refbackrt::RefbackrtDialect>();
   // clang-format on
 }
@@ -25,4 +33,6 @@ void mlir::CANCER::registerAllDialects(mlir::DialectRegistry &registry) {
 void mlir::CANCER::registerAllPasses() {
   mlir::CANCER::registerBasicpyPasses();
   mlir::CANCER::registerNumpyPasses();
+  mlir::CANCER::registerTCFPasses();
+  mlir::CANCER::registerTCPPasses();
 }
