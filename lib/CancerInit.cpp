@@ -19,6 +19,8 @@
 #include "Dialect/TCP/IR/TCPDialect.h"
 #include "Dialect/TCP/Transforms/Passes.h"
 
+#include "Conversion/Passes.h"
+
 void mlir::CANCER::registerAllDialects(mlir::DialectRegistry &registry) {
   // clang-format off
   registry.insert<Basicpy::BasicpyDialect>();
@@ -35,4 +37,5 @@ void mlir::CANCER::registerAllPasses() {
   mlir::CANCER::registerNumpyPasses();
   mlir::CANCER::registerTCFPasses();
   mlir::CANCER::registerTCPPasses();
+  mlir::CANCER::registerConversionPasses();
 }

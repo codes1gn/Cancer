@@ -1,4 +1,5 @@
 add_subdirectory(Dialect)
+add_subdirectory(Conversion)
 add_subdirectory(Typing)
 
 
@@ -31,6 +32,8 @@ add_cancer_library(CANCERInit
   CANCERNumpyPasses
   CANCERTCFPasses
   CANCERTCPPasses
+
+  CANCERConversionPasses
 
   ${cancer_dialect_libs}
   ${cancer_conversion_libs}
