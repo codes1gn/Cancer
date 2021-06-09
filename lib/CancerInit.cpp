@@ -20,6 +20,7 @@
 #include "Dialect/TCP/Transforms/Passes.h"
 
 #include "Conversion/Passes.h"
+#include "RefBackend/RefBackend.h"
 
 void mlir::CANCER::registerAllDialects(mlir::DialectRegistry &registry) {
   // clang-format off
@@ -38,4 +39,5 @@ void mlir::CANCER::registerAllPasses() {
   mlir::CANCER::registerTCFPasses();
   mlir::CANCER::registerTCPPasses();
   mlir::CANCER::registerConversionPasses();
+  mlir::CANCER::registerRefBackendPasses();
 }
