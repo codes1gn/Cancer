@@ -14,7 +14,8 @@ cd ${top_dir_realpath}/build
 cmake -G Ninja .. -DMLIR_DIR=${top_dir_realpath}/mlir_build/install_dir/lib/cmake/mlir -DLLVM_EXTERNAL_LIT=${top_dir_realpath}/mlir_build/bin/llvm-lit -DCMAKE_BUILD_TYPE=DEBUG
 
 cmake --build . --target cancer-opt
-# cmake --build . --target cancer-translate
+cmake --build . --target cancer-translate
+cmake --build . --target cancer-runner
 
 # build mlir doc
 cmake --build . --target mlir-doc

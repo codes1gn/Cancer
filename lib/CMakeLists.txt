@@ -1,3 +1,4 @@
+add_subdirectory(c_api)
 add_subdirectory(Dialect)
 add_subdirectory(Conversion)
 add_subdirectory(RefBackend)

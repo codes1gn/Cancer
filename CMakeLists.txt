@@ -15,6 +15,7 @@ endif()
 
 # set backend option, use refjit
 option(BUILD_CANCER_REFJIT "Enables the reference JIT backend." ON)
+option(CANCER_BUILD_CANCER_DYLIB "Enables shared build of NPCOMP dylib (depends on LLVM/MLIR dylib support)" ON)
 
 # build project as standalone structure, use mlir and llvm as external lib
 project(cancer LANGUAGES CXX C)
@@ -79,4 +80,6 @@ add_subdirectory(lib)
 add_subdirectory(test)
 add_subdirectory(cancer-opt)
 add_subdirectory(cancer-translate)
+add_subdirectory(cancer-shared-lib)
+add_subdirectory(cancer-runner)
 
