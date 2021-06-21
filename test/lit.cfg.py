@@ -52,11 +52,16 @@ config.cancer_tools_dir = os.path.join(config.cancer_obj_root, 'bin')
 # Tweak the PATH to include the tools dir.
 llvm_config.with_environment('PATH', config.llvm_tools_dir, append_path=True)
 
+config.cancer_runtime_shlib = os.path.join(
+    config.cancer_obj_root, 'lib',
+    'libCANCERCompilerRuntimeShlib' + config.llvm_shlib_ext)
+
 tool_dirs = [config.cancer_tools_dir, config.llvm_tools_dir]
 tools = [
     'cancer-opt',
     'cancer-translate',
-    'cancer-runner'
+    'cancer-runner',
+    ToolSubst('%cancer_runtime_shlib', config.cancer_runtime_shlib),
 ]
 
 llvm_config.add_tool_substitutions(tools, tool_dirs)
