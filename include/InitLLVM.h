@@ -1,4 +1,4 @@
-/*===-- npcomp-c/InitLLVM.h - C API for initializing LLVM  --------*- C -*-===*\
+/*===-- cancer-c/InitLLVM.h - C API for initializing LLVM  --------*- C -*-===*\
 |*                                                                            *|
 |* Part of the LLVM Project, under the Apache License v2.0 with LLVM          *|
 |* Exceptions.                                                                *|
@@ -7,8 +7,10 @@
 |*                                                                            *|
 \*===----------------------------------------------------------------------===*/
 
-#ifndef NPCOMP_C_INITLLVM_H
-#define NPCOMP_C_INITLLVM_H
+//#ifndef CANCER_C_INITLLVM_H
+//#define CANCER_C_INITLLVM_H
+#ifndef INITLLVM_H
+#define INITLLVM_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,4 +24,4 @@ void cancerInitializeLLVMCodegen();
 }
 #endif
 
-#endif // NPCOMP_C_INITLLVM_H
+#endif // INITLLVM_H
