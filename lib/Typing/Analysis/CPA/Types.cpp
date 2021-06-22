@@ -87,8 +87,8 @@ mlir::Type TypeVar::constructIrType(Context &context, const TypeVarMap &mapping,
   auto *resolvedTypeNode = mapping.lookup(this);
   if (!resolvedTypeNode) {
     if (loc) {
-      mlir::emitError(*loc)
-          << "type variable " << getOrdinal() << " was not assigned a type";
+      mlir::emitError(*loc) << "type variable " << getOrdinal()
+                            << " was not assigned a type";
     }
     return {};
   }

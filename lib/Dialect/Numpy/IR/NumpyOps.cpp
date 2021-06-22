@@ -7,12 +7,12 @@
 //===----------------------------------------------------------------------===//
 
 #include "Dialect/Numpy/IR/NumpyOps.h"
+#include "Dialect/Basicpy/IR/BasicpyDialect.h"
+#include "Dialect/Numpy/IR/NumpyDialect.h"
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/FunctionImplementation.h"
 #include "mlir/IR/OpImplementation.h"
 #include "mlir/IR/PatternMatch.h"
-#include "Dialect/Basicpy/IR/BasicpyDialect.h"
-#include "Dialect/Numpy/IR/NumpyDialect.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;

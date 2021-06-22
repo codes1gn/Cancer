@@ -9,9 +9,9 @@
 #ifndef CANCER_DIALECT_NUMPY_IR_NUMPY_DIALECT_H
 #define CANCER_DIALECT_NUMPY_IR_NUMPY_DIALECT_H
 
+#include "Typing/Analysis/CPA/Interfaces.h"
 #include "mlir/IR/BuiltinTypes.h"
 #include "mlir/IR/Dialect.h"
-#include "Typing/Analysis/CPA/Interfaces.h"
 
 namespace mlir {
 namespace CANCER {

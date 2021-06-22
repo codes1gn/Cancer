@@ -7,8 +7,8 @@
 //===----------------------------------------------------------------------===//
 
 #include "Dialect/Refbackrt/IR/RefbackrtDialect.h"
-#include "mlir/IR/DialectImplementation.h"
 #include "Dialect/Refbackrt/IR/RefbackrtOps.h"
+#include "mlir/IR/DialectImplementation.h"
 #include "llvm/ADT/TypeSwitch.h"
 
 using namespace mlir;

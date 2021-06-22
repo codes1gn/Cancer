@@ -7,8 +7,8 @@
 //===----------------------------------------------------------------------===//
 
 #include "Dialect/Refback/IR/RefbackDialect.h"
-#include "mlir/Transforms/InliningUtils.h"
 #include "Dialect/Refback/IR/RefbackOps.h"
+#include "mlir/Transforms/InliningUtils.h"
 
 using namespace mlir;
 using namespace mlir::CANCER::refback;

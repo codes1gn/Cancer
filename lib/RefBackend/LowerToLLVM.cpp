@@ -91,8 +91,8 @@ static LLVM::GlobalOp createGlobalString(ModuleOp module, StringAttr msg,
   // TODO: Deduplicate strings.
   std::string msgNulTerminated = msg.getValue().str();
   msgNulTerminated.push_back('\0');
-  auto arrayTy = LLVMArrayType::get(
-      IntegerType::get(module.getContext(), 8), msgNulTerminated.size());
+  auto arrayTy = LLVMArrayType::get(IntegerType::get(module.getContext(), 8),
+                                    msgNulTerminated.size());
   OpBuilder::InsertionGuard guard(builder);
   builder.setInsertionPointToStart(module.getBody());
 
@@ -128,9 +128,9 @@ public:
     auto globalOp = createGlobalString(op->getParentOfType<ModuleOp>(),
                                        op.msgAttr(), rewriter, op.getLoc());
     auto msgArray = rewriter.create<LLVM::AddressOfOp>(op.getLoc(), globalOp);
-    auto c0 = rewriter.create<LLVM::ConstantOp>(
-        op.getLoc(), IntegerType::get(context, 32),
-        rewriter.getI32IntegerAttr(0));
+    auto c0 = rewriter.create<LLVM::ConstantOp>(op.getLoc(),
+                                                IntegerType::get(context, 32),
+                                                rewriter.getI32IntegerAttr(0));
     auto msg =
         rewriter.create<LLVM::GEPOp>(op.getLoc(), getInt8PointerType(context),
                                      msgArray, ValueRange({c0, c0}));
@@ -181,9 +181,8 @@ createFuncDescriptorArray(ArrayRef<refbackrt::FuncMetadataOp> funcMetadatas,
 
   DenseMap<StringRef, LLVM::GlobalOp> globalsByName;
   for (auto funcMetadata : funcMetadatas) {
-    auto arrayTy =
-        LLVMArrayType::get(IntegerType::get(builder.getContext(), 8),
-                           funcMetadata.funcName().size());
+    auto arrayTy = LLVMArrayType::get(IntegerType::get(builder.getContext(), 8),
+                                      funcMetadata.funcName().size());
     std::string llvmSymbolName =
         (Twine("__cancer_internal_constant_") + funcMetadata.funcName()).str();
     auto global = builder.create<LLVM::GlobalOp>(

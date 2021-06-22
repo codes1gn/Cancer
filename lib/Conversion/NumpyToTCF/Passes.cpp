@@ -9,10 +9,10 @@
 #include "Conversion/NumpyToTCF/Passes.h"
 
 #include "../PassDetail.h"
-#include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 #include "Dialect/Numpy/IR/NumpyOps.h"
 #include "Dialect/TCF/IR/TCFDialect.h"
 #include "Dialect/TCF/IR/TCFOps.h"
+#include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;

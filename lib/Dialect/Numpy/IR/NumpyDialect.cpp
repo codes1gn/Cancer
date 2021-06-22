@@ -8,10 +8,10 @@
 
 #include "Dialect/Numpy/IR/NumpyDialect.h"
 
-#include "mlir/IR/DialectImplementation.h"
 #include "Dialect/Basicpy/IR/BasicpyDialect.h"
 #include "Dialect/Numpy/IR/NumpyOps.h"
 #include "Typing/Support/CPAIrHelpers.h"
+#include "mlir/IR/DialectImplementation.h"
 #include "llvm/ADT/TypeSwitch.h"
 
 using namespace mlir;
@@ -232,10 +232,9 @@ NdArrayType::mapToCPAType(Typing::CPA::Context &context) {
   }
   // Safe to capture an ArrayRef backed by type storage since it is uniqued.
   auto optionalShape = getOptionalShape();
-  auto irCtor = [optionalShape](Typing::CPA::ObjectValueType *ovt,
-                                llvm::ArrayRef<mlir::Type> fieldTypes,
-                                MLIRContext *mlirContext,
-                                llvm::Optional<Location>) {
+  auto irCtor = [optionalShape](
+      Typing::CPA::ObjectValueType *ovt, llvm::ArrayRef<mlir::Type> fieldTypes,
+      MLIRContext *mlirContext, llvm::Optional<Location>) {
     assert(fieldTypes.size() == 1);
     return NdArrayType::get(fieldTypes.front(), optionalShape);
   };

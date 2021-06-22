@@ -8,12 +8,12 @@
 
 #include "PassDetail.h"
 
-#include "mlir/Dialect/StandardOps/IR/Ops.h"
-#include "mlir/IR/Builders.h"
-#include "mlir/IR/BuiltinOps.h"
 #include "Dialect/TCF/IR/TCFDialect.h"
 #include "Dialect/TCF/IR/TCFOps.h"
 #include "Dialect/TCF/Transforms/Passes.h"
+#include "mlir/Dialect/StandardOps/IR/Ops.h"
+#include "mlir/IR/Builders.h"
+#include "mlir/IR/BuiltinOps.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;

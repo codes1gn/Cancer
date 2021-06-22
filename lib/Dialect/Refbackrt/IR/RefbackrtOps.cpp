@@ -7,11 +7,11 @@
 //===----------------------------------------------------------------------===//
 
 #include "Dialect/Refbackrt/IR/RefbackrtOps.h"
+#include "Dialect/Refbackrt/IR/RefbackrtDialect.h"
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/IR/SymbolTable.h"
 #include "mlir/IR/TypeUtilities.h"
-#include "Dialect/Refbackrt/IR/RefbackrtDialect.h"
 
 using namespace mlir;
 using namespace mlir::CANCER::refbackrt;

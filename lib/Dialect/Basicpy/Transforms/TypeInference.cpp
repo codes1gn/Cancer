@@ -137,7 +137,7 @@ public:
     return typeNode;
   }
 
-  template <typename... Args> TypeEquation *addEquation(Args &&...args) {
+  template <typename... Args> TypeEquation *addEquation(Args &&... args) {
     TypeEquation *eq = allocator.Allocate<TypeEquation>(1);
     new (eq) TypeEquation(std::forward<Args>(args)...);
     equations.push_back(*eq);

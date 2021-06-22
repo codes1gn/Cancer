@@ -8,6 +8,11 @@
 
 #include "PassDetail.h"
 
+#include "Dialect/Refback/IR/RefbackDialect.h"
+#include "Dialect/Refback/IR/RefbackOps.h"
+#include "Dialect/TCP/IR/TCPDialect.h"
+#include "Dialect/TCP/IR/TCPOps.h"
+#include "Dialect/TCP/Transforms/Passes.h"
 #include "mlir/Dialect/Linalg/IR/LinalgOps.h"
 #include "mlir/Dialect/SCF/SCF.h"
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
@@ -16,11 +21,6 @@
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/Transforms/Bufferize.h"
 #include "mlir/Transforms/DialectConversion.h"
-#include "Dialect/Refback/IR/RefbackDialect.h"
-#include "Dialect/Refback/IR/RefbackOps.h"
-#include "Dialect/TCP/IR/TCPDialect.h"
-#include "Dialect/TCP/IR/TCPOps.h"
-#include "Dialect/TCP/Transforms/Passes.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;
@@ -42,21 +42,19 @@ static SmallVector<Value, 6> bypassResultShapes(Operation &op) {
     auto inputType = pad.operand().getType().cast<RankedTensorType>();
     for (int i = 0, e = inputType.getRank(); i < e; i++) {
       auto dimIndex = builder.create<ConstantIndexOp>(op.getLoc(), i);
-      auto lowerExpansion =
-        builder.create<tensor::ExtractOp>(op.getLoc(), pad.lowerExpansion(),
-            ValueRange({dimIndex}));
-      auto upperExpansion =
-        builder.create<tensor::ExtractOp>(op.getLoc(), pad.upperExpansion(),
-            ValueRange({dimIndex}));
-      auto operandDim =
-        builder.create<DimOp>(op.getLoc(), pad.operand(), i);
+      auto lowerExpansion = builder.create<tensor::ExtractOp>(
+          op.getLoc(), pad.lowerExpansion(), ValueRange({dimIndex}));
+      auto upperExpansion = builder.create<tensor::ExtractOp>(
+          op.getLoc(), pad.upperExpansion(), ValueRange({dimIndex}));
+      auto operandDim = builder.create<DimOp>(op.getLoc(), pad.operand(), i);
       auto totalExpansion =
-        builder.create<AddIOp>(op.getLoc(), lowerExpansion, upperExpansion);
+          builder.create<AddIOp>(op.getLoc(), lowerExpansion, upperExpansion);
       auto outDim =
-        builder.create<AddIOp>(op.getLoc(), totalExpansion, operandDim);
+          builder.create<AddIOp>(op.getLoc(), totalExpansion, operandDim);
       outDims.push_back(outDim);
     }
-    Value outDimTensor = builder.create<tensor::FromElementsOp>(op.getLoc(), ValueRange(outDims));
+    Value outDimTensor = builder.create<tensor::FromElementsOp>(
+        op.getLoc(), ValueRange(outDims));
     return {outDimTensor};
   }
 
@@ -192,26 +190,24 @@ public:
     if (failed(resultsOrFailure))
       return failure();
     auto results = *resultsOrFailure;
-    auto c1 =
-      rewriter.create<ConstantOp>(op.getLoc(), rewriter.getIntegerAttr(
-            rewriter.getIndexType(), 1));
+    auto c1 = rewriter.create<ConstantOp>(
+        op.getLoc(), rewriter.getIntegerAttr(rewriter.getIndexType(), 1));
     SmallVector<Value, 6> offsets, sizes, strides;
     auto resultType = op.getType().cast<RankedTensorType>();
     for (int i = 0, e = resultType.getRank(); i < e; i++) {
       auto dimIndex = rewriter.create<ConstantIndexOp>(op.getLoc(), i);
-      auto offset =
-        rewriter.create<tensor::ExtractOp>(op.getLoc(), op.lowerExpansion(),
-            ValueRange({dimIndex}));
-      auto size     = rewriter.create<DimOp>(op.getLoc(), op.operand(), i);
-      auto stride   = c1;
+      auto offset = rewriter.create<tensor::ExtractOp>(
+          op.getLoc(), op.lowerExpansion(), ValueRange({dimIndex}));
+      auto size = rewriter.create<DimOp>(op.getLoc(), op.operand(), i);
+      auto stride = c1;
       offsets.push_back(offset);
       sizes.push_back(size);
       strides.push_back(stride);
     }
     rewriter.create<linalg::FillOp>(op.getLoc(), results[0], op.fillVal());
     auto unpadded =
-      rewriter.create<SubViewOp>(op.getLoc(), results[0], ValueRange(offsets),
-          ValueRange(sizes), ValueRange(strides));
+        rewriter.create<SubViewOp>(op.getLoc(), results[0], ValueRange(offsets),
+                                   ValueRange(sizes), ValueRange(strides));
     auto inputMemref = operands[0];
     rewriter.create<linalg::CopyOp>(op.getLoc(), inputMemref, unpadded);
     rewriter.replaceOp(op, results);

@@ -7,9 +7,9 @@
 //===----------------------------------------------------------------------===//
 
 #include "RefBackend/JITHelpers/JITModule.h"
+#include "RefBackend/RefBackend.h"
 #include "mlir/ExecutionEngine/CRunnerUtils.h"
 #include "mlir/ExecutionEngine/OptUtils.h"
-#include "RefBackend/RefBackend.h"
 
 using namespace refback;
 using namespace mlir;

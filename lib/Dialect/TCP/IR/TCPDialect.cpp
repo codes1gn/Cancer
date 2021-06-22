@@ -7,8 +7,8 @@
 //===----------------------------------------------------------------------===//
 
 #include "Dialect/TCP/IR/TCPDialect.h"
-#include "mlir/Transforms/InliningUtils.h"
 #include "Dialect/TCP/IR/TCPOps.h"
+#include "mlir/Transforms/InliningUtils.h"
 
 using namespace mlir;
 using namespace mlir::CANCER::tcp;

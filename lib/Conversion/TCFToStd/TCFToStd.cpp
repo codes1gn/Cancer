@@ -9,14 +9,14 @@
 #include "Conversion/TCFToStd/TCFToStd.h"
 
 #include "../PassDetail.h"
+#include "Dialect/TCF/IR/TCFOps.h"
+#include "Dialect/TCP/IR/TCPDialect.h"
+#include "Dialect/TCP/IR/TCPOps.h"
 #include "mlir/Dialect/Shape/IR/Shape.h"
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
 #include "mlir/Dialect/Traits.h"
 #include "mlir/Transforms/DialectConversion.h"
 #include "mlir/Transforms/GreedyPatternRewriteDriver.h"
-#include "Dialect/TCF/IR/TCFOps.h"
-#include "Dialect/TCP/IR/TCPDialect.h"
-#include "Dialect/TCP/IR/TCPOps.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;
