@@ -6,10 +6,10 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "capi/InitLLVM.h"
+
 #include "mlir/ExecutionEngine/OptUtils.h"
 #include "llvm/Support/TargetSelect.h"
-
-#include "capi/InitLLVM.h"
 
 void cancerInitializeLLVMCodegen() {
   llvm::InitializeNativeTarget();
