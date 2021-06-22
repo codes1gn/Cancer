@@ -15,7 +15,7 @@ target_link_libraries(cancer-runner PRIVATE
   CANCERSHLIB
   MLIR
 
-  ## CANCERCAPI
+  CANCERCAPI
   MLIRAnalysis
   MLIREDSC
   MLIRIR
