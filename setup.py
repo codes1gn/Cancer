@@ -7,7 +7,7 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name="cancer", 
+    name="Cancer", 
     version="0.1",
     author="Albert Shi, Tianyu Jiang",
     author_email="codefisheng@gmail.com",

@@ -46,6 +46,7 @@ include(AddMLIR)
 include(HandleLLVMOptions)
 include(EnvFuncs)
 include(AddCancer)
+include(CancerPython)
 
 set(CANCER_BUILT_STANDALONE 1)
 set(CANCER_TABLEGEN_ARGS "")

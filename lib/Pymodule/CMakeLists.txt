@@ -1,0 +1,51 @@
+
+if(CANCER_PYTHON_BINDINGS_VERSION_LOCKED)
+  set(CANCER_PYEXT_LINK_MODE SHARED)
+  set(CANCER_PYEXT_LIBADD ${Python3_LIBRARIES})
+else()
+  set(CANCER_PYEXT_LINK_MODE MODULE)
+  set(CANCER_PYEXT_LIBADD)
+endif()
+
+message(STATUS "CANCER_PYEXT_LINK_MODE = :${CANCER_PYEXT_LINK_MODE}")
+message(STATUS "CANCER_PYEXT_LIBADD = :${CANCER_PYEXT_LIBADD}")
+
+# TODO fix this init process to opt not to init
+get_property(mlir_dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
+get_property(mlir_conversion_libs GLOBAL PROPERTY MLIR_CONVERSION_LIBS)
+
+get_property(cancer_dialect_libs GLOBAL PROPERTY CANCER_DIALECT_LIBS)
+get_property(cancer_conversion_libs GLOBAL PROPERTY CANCER_CONVERSION_LIBS)
+
+message(STATUS "CANCER Dialect libs: ${cancer_dialect_libs}")
+message(STATUS "CANCER Conversion libs: ${cancer_conversion_libs}")
+
+add_library(CANCERPyExt ${CANCER_PYEXT_LINK_MODE}
+  cancer_pymodule.cpp
+)
+
+set_target_properties(CANCERPyExt PROPERTIES LIBRARY_OUTPUT_DIRECTORY
+                      "${CMAKE_CURRENT_BINARY_DIR}")
+set_target_properties(CANCERPyExt PROPERTIES OUTPUT_NAME pycancer)
+set_target_properties(CANCERPyExt PROPERTIES PREFIX
+                      "${PYTHON_MODULE_PREFIX}")
+set_target_properties(CANCERPyExt PROPERTIES SUFFIX
+                      "${PYTHON_MODULE_EXTENSION}")
+
+# pybind requires binding code to be compiled with -fvisibility=hidden
+# Better code can be generated if the entire project compiles that way, but
+# that is not enforced here.
+set_target_properties(CANCERPyExt PROPERTIES CXX_VISIBILITY_PRESET "hidden")
+
+target_link_libraries(CANCERPyExt
+  PRIVATE
+    # Transitive dep on the shared library links most things from there.
+    CANCER
+
+    CANCERInit
+    ${CANCER_PYEXT_LIBADD}
+  )
+cancer_python_target_compile_options(CANCERPyExt)
+
+mlir_check_all_link_libraries(CANCERPyExt)
+

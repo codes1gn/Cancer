@@ -4,6 +4,8 @@ add_subdirectory(RefBackend)
 add_subdirectory(Typing)
 add_subdirectory(capi)
 
+add_subdirectory(Pymodule)
+
 
 
 # TODO fix this init process to opt not to init
@@ -43,4 +45,5 @@ add_cancer_library(CANCERInit
   ${mlir_dialect_libs}
   ${mlir_conversion_libs}
 )
+
 
