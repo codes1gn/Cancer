@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "capi/InitLLVM.h"
+#include "Capi/InitLLVM.h"
 
 #include "mlir/ExecutionEngine/OptUtils.h"
 #include "llvm/Support/TargetSelect.h"

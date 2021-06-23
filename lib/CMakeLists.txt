@@ -2,10 +2,8 @@ add_subdirectory(Dialect)
 add_subdirectory(Conversion)
 add_subdirectory(RefBackend)
 add_subdirectory(Typing)
-add_subdirectory(capi)
-
+add_subdirectory(Capi)
 add_subdirectory(Pymodule)
-
 
 
 # TODO fix this init process to opt not to init

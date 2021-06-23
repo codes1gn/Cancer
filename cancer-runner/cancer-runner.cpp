@@ -12,8 +12,8 @@
 //===----------------------------------------------------------------------===//
 
 #include "CancerInit.h"
+#include "Capi/InitLLVM.h"
 #include "RefBackend/JITHelpers/JITModule.h"
-#include "capi/InitLLVM.h"
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
 #include "mlir/IR/AsmState.h"
 #include "mlir/InitAllDialects.h"
