@@ -1,4 +1,4 @@
-# Cancer Introduction
+# Introduction: Composite AI Compiler Experiment Platform
 
 The Composite AI Compiler Experiment Platform (Cancer) built with composite modularized frontend, midware and runtime backend. It builds with more flexible ways that allows you register new breed of frontend/backend implementations and compare with each other. It also relies on MLIR to provide fruitful manifolds and toolchains that allows you play with the IR design of the compiler part.
 
