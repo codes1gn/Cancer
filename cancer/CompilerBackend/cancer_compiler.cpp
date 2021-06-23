@@ -1,38 +1,33 @@
+#include <cstddef>
 #include <pybind11/pybind11.h>
+#include <unordered_map>
+
+#include "Capi/InitLLVM.h"
 
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
-
-int add(int i, int j) { return i + j; }
 
 namespace py = pybind11;
 
 PYBIND11_MODULE(cancer_compiler, m) {
   m.doc() = R"pbdoc(
-        Pybind11 example plugin
-        -----------------------
+        Cancer python module bindings
+        -----------------------------
 
-        .. currentmodule:: cmake_example
+        .. currentmodule:: cancer_compiler
 
         .. autosummary::
            :toctree: _generate
 
-           add
-           subtract
+           __version__
+           register_all_dialects
+           register_all_passes
+           initialize_llvm_codegen
     )pbdoc";
 
-  m.def("add", &add, R"pbdoc(
-        Add two numbers
-
-        Some other explanation about the add function.
-    )pbdoc");
-
-  m.def(
-      "subtract", [](int i, int j) { return i - j; }, R"pbdoc(
-        Subtract two numbers
-
-        Some other explanation about the subtract function.
-    )pbdoc");
+  // m.def("register_all_dialects", ::cancerRegisterAllDialects);
+  // m.def("register_all_passes", ::cancerRegisterAllPasses);
+  m.def("initialize_llvm_codegen", ::cancerInitializeLLVMCodegen);
 
 #ifdef VERSION_INFO
   m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);

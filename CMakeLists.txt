@@ -76,6 +76,7 @@ message(STATUS "Python prefix = '${PYTHON_MODULE_PREFIX}', "
 
 
 # build subcomponents
+add_subdirectory(external/pybind11)
 add_subdirectory(include)
 add_subdirectory(lib)
 add_subdirectory(test)
@@ -84,6 +85,5 @@ add_subdirectory(cancer-translate)
 add_subdirectory(cancer-shared-lib)
 add_subdirectory(cancer-runner)
 # include in order, to ensure targets of pybind11 are included
-add_subdirectory(external/pybind11)
 add_subdirectory(cancer)
 

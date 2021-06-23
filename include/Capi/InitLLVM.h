@@ -9,8 +9,8 @@
 
 //#ifndef CANCER_C_INITLLVM_H
 //#define CANCER_C_INITLLVM_H
-#ifndef INITLLVM_H
-#define INITLLVM_H
+#ifndef CAPI_INITLLVM_H
+#define CAPI_INITLLVM_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,4 +24,4 @@ void cancerInitializeLLVMCodegen();
 }
 #endif
 
-#endif // INITLLVM_H
+#endif // CAPI_INITLLVM_H
