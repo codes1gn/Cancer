@@ -83,10 +83,7 @@ add_subdirectory(cancer-opt)
 add_subdirectory(cancer-translate)
 add_subdirectory(cancer-shared-lib)
 add_subdirectory(cancer-runner)
-
+# include in order, to ensure targets of pybind11 are included
 add_subdirectory(external/pybind11)
-pybind11_add_module(cancer_compiler cancer/CompilerBackend/cancer_compiler.cpp)
+add_subdirectory(cancer)
 
-# EXAMPLE_VERSION_INFO is defined by setup.py and passed into the C++ code as a
-# define (VERSION_INFO) here.
-target_compile_definitions(cancer_compiler PRIVATE VERSION_INFO=${EXAMPLE_VERSION_INFO})
