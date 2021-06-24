@@ -1,2 +1,1 @@
 add_subdirectory(CompilerBackend)
-add_subdirectory(Pymodule)
