@@ -9,6 +9,8 @@
 
 namespace py = pybind11;
 
+int add(int i, int j) { return i + j; }
+
 PYBIND11_MODULE(cancer_compiler, m) {
   m.doc() = R"pbdoc(
         Cancer python module bindings
@@ -27,7 +29,11 @@ PYBIND11_MODULE(cancer_compiler, m) {
 
   // m.def("register_all_dialects", ::cancerRegisterAllDialects);
   // m.def("register_all_passes", ::cancerRegisterAllPasses);
-  m.def("initialize_llvm_codegen", ::cancerInitializeLLVMCodegen);
+  m.def("initialize_llvm_codegen", ::cancerInitializeLLVMCodegen,
+        R"pbdoc(
+        api that inits the llvm_codegen backend, which calls into LLVMInit.h
+        )pbdoc");
+  m.def("add", &add);
 
 #ifdef VERSION_INFO
   m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
