@@ -17,4 +17,4 @@ clang-format -i \
   $(find_cc_sources frontends/pytorch/csrc)
 
 # Python sources.
-yapf --recursive -i "$td/python" "$td/pytest"
+yapf --recursive -i "$td/cancer"

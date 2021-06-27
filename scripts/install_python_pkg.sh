@@ -13,6 +13,5 @@ cd ${top_dir_realpath}
 
 # invoke setup.py to build wheel installation pkg
 cat install_cache.txt | xargs rm -rf
-rm -rf dist
-python setup.py bdist_wheel
+python setup.py install --record install_cache.txt 
 
