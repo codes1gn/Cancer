@@ -1,4 +1,3 @@
-
 __all__ = [
     'classproperty',
     'memoized_classproperty',
@@ -9,7 +8,6 @@ __all__ = [
 
 class classproperty(object):
     """ @classmethod+@property """
-
     def __init__(self, f):
         self.f = classmethod(f)
 
@@ -19,7 +17,6 @@ class classproperty(object):
 
 class memoized_classproperty(object):
     """ @classmethod+@property """
-
     def __init__(self, f):
         self.f = classmethod(f)
 

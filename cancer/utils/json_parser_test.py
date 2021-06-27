@@ -23,8 +23,8 @@ def test_earley():
     tree = json_parser.parse(test_json)
 
     new_json = Reconstructor(json_parser).reconstruct(tree)
-    print (new_json)
-    print (json.loads(new_json) == json.loads(test_json))
+    print(new_json)
+    print(json.loads(new_json) == json.loads(test_json))
 
 
 def test_lalr():
@@ -33,8 +33,8 @@ def test_lalr():
     tree = json_parser.parse(test_json)
 
     new_json = Reconstructor(json_parser).reconstruct(tree)
-    print (new_json)
-    print (json.loads(new_json) == json.loads(test_json))
+    print(new_json)
+    print(json.loads(new_json) == json.loads(test_json))
 
 
 test_earley()

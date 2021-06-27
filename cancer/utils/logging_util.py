@@ -2,11 +2,7 @@ import os
 import ast
 import astunparse
 
-__all__ = [
-    'pretty_dump',
-    'vlog',
-    'ast_analysis'
-]
+__all__ = ['pretty_dump', 'vlog', 'ast_analysis']
 
 
 def pretty_dump(_ast_node):

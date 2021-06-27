@@ -7,7 +7,6 @@ import pkgutil
 import sys
 import types
 
-
 __all__ = [
     'get_python_library',
     'get_python_methods',
@@ -17,22 +16,28 @@ __all__ = [
 if sys.version_info[0:2] >= (3, 4):  # Python v3.4+?
     wraps = functools.wraps  # built-in has __wrapped__ attribute
 else:
-    def wraps(wrapped, assigned=functools.WRAPPER_ASSIGNMENTS,
+
+    def wraps(wrapped,
+              assigned=functools.WRAPPER_ASSIGNMENTS,
               updated=functools.WRAPPER_UPDATES):
         def wrapper(f):
             f = functools.wraps(wrapped, assigned, updated)(f)
             f.__wrapped__ = wrapped  # set attribute missing in earlier versions
             return f
+
         return wrapper
+
 
 # unify functions
 if sys.version_info[0] == 2:
     from itertools import izip as zip, imap as map, ifilter as filter
+
 filter = filter
 map = map
 zip = zip
 if sys.version_info[0] == 3:
     from functools import reduce
+
 reduce = reduce
 range = xrange if sys.version_info[0] == 2 else range
 
@@ -57,8 +62,10 @@ def get_python_library():
     }
 
     # Glob all the 'top_level.txt' files installed under site-packages.
-    site_packages = glob.iglob(os.path.join(os.path.dirname(os.__file__)
-                                            + '/site-packages', '*-info', 'top_level.txt'))
+    site_packages = glob.iglob(
+        os.path.join(
+            os.path.dirname(os.__file__) + '/site-packages', '*-info',
+            'top_level.txt'))
 
     # Read the files for the import names and remove them from the modules
     # list.

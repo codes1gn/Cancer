@@ -9,7 +9,6 @@ import sys
 
 from lark import Lark, Transformer, v_args
 
-
 __all__ = [
     'json_grammer',
     'TreeToJson',
@@ -45,20 +44,27 @@ class TreeToJson(Transformer):
     object = dict
     number = v_args(inline=True)(float)
 
-    def null(self, _): return None
-    def true(self, _): return True
-    def false(self, _): return False
+    def null(self, _):
+        return None
+
+    def true(self, _):
+        return True
+
+    def false(self, _):
+        return False
 
 
 # Create the JSON parser with Lark, using the LALR algorithm
-json_parser = Lark(json_grammar, parser='lalr',
-                   # Using the standard lexer isn't required, and isn't usually recommended.
-                   # But, it's good enough for JSON, and it's slightly faster.
-                   lexer='standard',
-                   # Disabling propagate_positions and placeholders slightly
-                   # improves speed
-                   propagate_positions=False,
-                   maybe_placeholders=False,
-                   # Using an internal transformer is faster and more memory
-                   # efficient
-                   transformer=TreeToJson())
+json_parser = Lark(
+    json_grammar,
+    parser='lalr',
+    # Using the standard lexer isn't required, and isn't usually recommended.
+    # But, it's good enough for JSON, and it's slightly faster.
+    lexer='standard',
+    # Disabling propagate_positions and placeholders slightly
+    # improves speed
+    propagate_positions=False,
+    maybe_placeholders=False,
+    # Using an internal transformer is faster and more memory
+    # efficient
+    transformer=TreeToJson())

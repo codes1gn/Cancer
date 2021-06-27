@@ -22,12 +22,7 @@ def dump_to_file(filename, text, prefix="anonymous"):
     # type: (basestring, basestring) -> None
     os.system('mkdir -p dump_ast')
     dirpath = os.path.join(
-        os.getcwd(),
-        "./dump_ast/" +
-        prefix +
-        '_' +
-        get_time_stamp() +
-        '/')
+        os.getcwd(), "./dump_ast/" + prefix + '_' + get_time_stamp() + '/')
     filepath = dirpath + str(filename)
     os.system('mkdir -p ' + dirpath)
     with open(os.path.join("./dump_ast", filepath), 'w') as fp:
