@@ -12,3 +12,4 @@ _deps
 *.egg-info
 dist
 install_cache.txt
+*__pycache__*

@@ -3,7 +3,7 @@ import os
 import sys
 import subprocess
 
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
 
 
@@ -76,4 +76,11 @@ setup(
     ext_modules=[CMakeExtension("cancer_compiler")],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
+    packages=find_packages(),
+    python_requires='>=3.6.12',
+    entry_points={
+        "console_scripts": [
+            "cancer_runner=cancer.bin.cancer_runner:main",
+        ]
+    }
 )
