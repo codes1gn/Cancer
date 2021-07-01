@@ -84,6 +84,7 @@ add_subdirectory(cancer-opt)
 add_subdirectory(cancer-translate)
 add_subdirectory(cancer-shared-lib)
 add_subdirectory(cancer-runner)
+add_subdirectory(cancer-pyrunner)
 # include in order, to ensure targets of pybind11 are included
 add_subdirectory(cancer)
 
