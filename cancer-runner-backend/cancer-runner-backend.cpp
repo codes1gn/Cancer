@@ -11,6 +11,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "Capi/cancer-runner-backend.h"
+
 #include "CancerInit.h"
 #include "Capi/InitLLVM.h"
 #include "RefBackend/JITHelpers/JITModule.h"
@@ -181,7 +183,7 @@ struct Options {
 };
 } // namespace
 
-int main(int argc, char **argv) {
+int cancerrun(int argc, char **argv) {
   mlir::DialectRegistry registry;
   mlir::registerAllDialects(registry);
   mlir::registerAllPasses();

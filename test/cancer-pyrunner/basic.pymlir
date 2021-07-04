@@ -1,0 +1,11 @@
+# RUN: python %s | FileCheck %s
+
+# CHECK: output #0: dense<2.000000e+00> : tensor<1xf32>
+import cancer_pyrunner
+
+argslist = ['/root/research/cancer/build/bin/cancer-runner', '/root/research/cancer/test/cancer-runner/basic.mlir', '-invoke', 'basic', '-arg-value=dense<[1.0]> : tensor<1xf32>', '-shared-libs=/root/research/cancer/build/lib/libCANCERCompilerRuntimeShlib.so']
+
+for arg in argslist:
+    print(arg)
+
+cancer_pyrunner.cancerrun(argslist)
