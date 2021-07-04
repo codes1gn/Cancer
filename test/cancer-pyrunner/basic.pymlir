@@ -1,11 +1,23 @@
-# RUN: python %s | FileCheck %s
+# RUN: python %s 1 2>&1 | FileCheck %s --check-prefix=CHECK-ONE
+#
+# RUN: python %s 2 2>&1 | FileCheck %s --check-prefix=CHECK-TWO
 
-# CHECK: output #0: dense<2.000000e+00> : tensor<1xf32>
+# CHECK-ONE: /root/research/cancer/build/bin/cancer-runner
+# CHECK-ONE: output #0: dense<2.000000e+00> : tensor<1xf32>
+# CHECK-TWO: /root/research/cancer/build/bin/cancer-runner
+# CHECK-TWO: output #0: dense<2.000000e+00> : tensor<1xf32>
+#
+# CHECK-NOT: output #0: dense<1.000000e+00> : tensor<1xf32>
+# CHECK-NOT: output #0: dense<1.000000e+00> : tensor<1xf16>
 import cancer_pyrunner
 
 argslist = ['/root/research/cancer/build/bin/cancer-runner', '/root/research/cancer/test/cancer-runner/basic.mlir', '-invoke', 'basic', '-arg-value=dense<[1.0]> : tensor<1xf32>', '-shared-libs=/root/research/cancer/build/lib/libCANCERCompilerRuntimeShlib.so']
+
+argslist2 = ['/root/research/cancer/build/bin/cancer-runner', '/root/research/cancer/test/cancer-runner/basic.mlir', '-invoke', 'basic', '-arg-value=dense<[1.3]> : tensor<1xf32>', '-shared-libs=/root/research/cancer/build/lib/libCANCERCompilerRuntimeShlib.so']
+
 
 for arg in argslist:
     print(arg)
 
 cancer_pyrunner.cancerrun(argslist)
+
