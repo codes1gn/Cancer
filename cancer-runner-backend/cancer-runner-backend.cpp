@@ -196,10 +196,6 @@ int cancerrun(int argc, char **argv) {
   mlir::registerAsmPrinterCLOptions();
   mlir::registerPassManagerCLOptions();
   Options options;
-  printf("%d\n", argc);
-  for (int i = 0; i < argc; ++i) {
-    printf("%s\n", argv[i]);
-  }
   llvm::cl::ParseCommandLineOptions(argc, argv, "cancer compile+run utility\n");
 
   SmallVector<StringRef, 6> sharedLibs(options.sharedLibs.begin(),
