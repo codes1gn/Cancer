@@ -21,11 +21,7 @@ class CMakeBuild(build_ext):
         # CMake lets you override the generator - we need to check this.
         cmake_generator = "-GNinja"
 
-        build_dir = os.path.abspath(
-          os.path.dirname(
-            self.get_ext_fullpath(ext.name)
-          )
-        )
+        build_dir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
         if not build_dir.endswith(os.path.sep):
             build_dir += os.path.sep
 
@@ -39,9 +35,10 @@ class CMakeBuild(build_ext):
         # EXAMPLE_VERSION_INFO shows you how to pass a value into the C++ code
         # from Python.
         cmake_args = [
-            "-DMLIR_DIR={}".format("/root/research/cancer/mlir_build/install_dir/lib/cmake/mlir"),
+            # TODO(albert) make it none hardcode
+            "-DMLIR_DIR={}".format("/root/coding/Cancer/mlir_build/install_dir/lib/cmake/mlir"),
             "-DPYTHON_EXECUTABLE={}".format(sys.executable),
-            "-DLLVM_EXTERNAL_LIT={}".format("/root/research/cancer/mlir_build/bin/llvm-lit"),
+            "-DLLVM_EXTERNAL_LIT={}".format("/root/coding/Cancer/mlir_build/bin/llvm-lit"),
             "-DCMAKE_BUILD_TYPE={}".format("DEBUG"),  # not used on MSVC, but no harm
             "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={}".format(build_dir),
             "-DEXAMPLE_VERSION_INFO={}".format(self.distribution.get_version()),
@@ -52,16 +49,13 @@ class CMakeBuild(build_ext):
         # build_args += ["--clean-first"]
         build_args += ["--target", "cancer_pyrunner"]
 
-        subprocess.check_call(
-            ["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp
-        )
+        subprocess.check_call(["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp)
+
+        subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
 
         subprocess.check_call(
-            ["cmake", "--build", "."] + build_args, cwd=self.build_temp
+            ["cp", "./cancer-pyrunner/cancer_pyrunner.cpython-36m-x86_64-linux-gnu.so", build_dir], cwd=self.build_temp
         )
-
-        subprocess.check_call(["cp", "./cancer-pyrunner/cancer_pyrunner.cpython-36m-x86_64-linux-gnu.so", build_dir], cwd=self.build_temp)
-
 
 
 # The information here can also be placed in setup.cfg - better separation of
@@ -77,10 +71,10 @@ setup(
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
     packages=find_packages(),
-    python_requires='>=3.6.12',
+    python_requires=">=3.6.12",
     entry_points={
         "console_scripts": [
             "cancer_runner=cancer.bin.cancer_runner:main",
         ]
-    }
+    },
 )

@@ -61,18 +61,10 @@ add_definitions(${LLVM_DEFINITIONS})
 # look for python env
 set(CANCER_PYTHON_BINDINGS_VERSION_LOCKED 1 CACHE BOOL
     ¦  "Links to specific python libraries, resolving all symbols.")
-find_package(Python COMPONENTS Interpreter Development REQUIRED)
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 message(STATUS "Found python include dirs: ${Python_INCLUDE_DIRS}")
 message(STATUS "Found python libraries: ${Python_LIBRARIES}")
 
-# look for pybind11 env
-cancer_detect_pybind11_install()
-find_package(pybind11 2.6 CONFIG REQUIRED)
-set(pybind11_INCLUDE_DIR ${pybind11_INCLUDE_DIR})
-message(STATUS "Found pybind11 v${pybind11_VERSION}: ${pybind11_INCLUDE_DIR}")
-message(STATUS "Python prefix = '${PYTHON_MODULE_PREFIX}', "
-    ¦   ¦   ¦  "suffix = '${PYTHON_MODULE_SUFFIX}', "
-    ¦   ¦   ¦  "extension = '${PYTHON_MODULE_EXTENSION}")
 
 
 # build subcomponents
