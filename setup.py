@@ -6,6 +6,9 @@ import subprocess
 from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
 
+__TOP_DIR_PATH__ = os.path.abspath(os.path.dirname(__file__))
+if not __TOP_DIR_PATH__.endswith(os.path.sep):
+    __TOP_DIR_PATH__ += os.path.sep
 
 # A CMakeExtension needs a sourcedir instead of a file list.
 # The name must be the _single_ output extension from the CMake build.
@@ -36,9 +39,9 @@ class CMakeBuild(build_ext):
         # from Python.
         cmake_args = [
             # TODO(albert) make it none hardcode
-            "-DMLIR_DIR={}".format("/root/coding/Cancer/mlir_build/install_dir/lib/cmake/mlir"),
+            "-DMLIR_DIR={}".format(__TOP_DIR_PATH__ + "mlir_build/install_dir/lib/cmake/mlir"),
             "-DPYTHON_EXECUTABLE={}".format(sys.executable),
-            "-DLLVM_EXTERNAL_LIT={}".format("/root/coding/Cancer/mlir_build/bin/llvm-lit"),
+            "-DLLVM_EXTERNAL_LIT={}".format(__TOP_DIR_PATH__ + "mlir_build/bin/llvm-lit"),
             "-DCMAKE_BUILD_TYPE={}".format("DEBUG"),  # not used on MSVC, but no harm
             "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={}".format(build_dir),
             "-DEXAMPLE_VERSION_INFO={}".format(self.distribution.get_version()),
