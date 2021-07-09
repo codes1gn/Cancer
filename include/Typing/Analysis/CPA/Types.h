@@ -304,12 +304,9 @@ private:
                   size_t fieldCount, Identifier *const *fieldIdentifiers,
                   TypeNode *const *fieldTypes)
       // TODO: Real hashcode.
-      : ValueType(Kind::ObjectValueType, 0),
-        irCtor(std::move(irCtor)),
-        typeIdentifier(typeIdentifier),
-        fieldCount(fieldCount),
-        fieldIdentifiers(fieldIdentifiers),
-        fieldTypes(fieldTypes) {}
+      : ValueType(Kind::ObjectValueType, 0), irCtor(std::move(irCtor)),
+        typeIdentifier(typeIdentifier), fieldCount(fieldCount),
+        fieldIdentifiers(fieldIdentifiers), fieldTypes(fieldTypes) {}
   IrTypeConstructor irCtor;
   Identifier *typeIdentifier;
   size_t fieldCount;

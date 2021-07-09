@@ -232,9 +232,10 @@ NdArrayType::mapToCPAType(Typing::CPA::Context &context) {
   }
   // Safe to capture an ArrayRef backed by type storage since it is uniqued.
   auto optionalShape = getOptionalShape();
-  auto irCtor = [optionalShape](
-      Typing::CPA::ObjectValueType *ovt, llvm::ArrayRef<mlir::Type> fieldTypes,
-      MLIRContext *mlirContext, llvm::Optional<Location>) {
+  auto irCtor = [optionalShape](Typing::CPA::ObjectValueType *ovt,
+                                llvm::ArrayRef<mlir::Type> fieldTypes,
+                                MLIRContext *mlirContext,
+                                llvm::Optional<Location>) {
     assert(fieldTypes.size() == 1);
     return NdArrayType::get(fieldTypes.front(), optionalShape);
   };
