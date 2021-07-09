@@ -1,6 +1,6 @@
-# RUN: python %s 1 2>&1 | FileCheck %s --check-prefix=CHECK-ONE
+# RUN: python %s 1 cancer-runner 2>&1 | FileCheck %s --check-prefix=CHECK-ONE
 #
-# RUN: python %s 2 2>&1 | FileCheck %s --check-prefix=CHECK-TWO
+# RUN: python %s 2 cancer-runner 2>&1 | FileCheck %s --check-prefix=CHECK-TWO
 
 # CHECK-ONE: output #0: dense<2.000000e+00> : tensor<1xf32>
 # CHECK-TWO: output #0: dense<2.600000e+00> : tensor<1xf32>
@@ -15,16 +15,26 @@ import sys
 import cancer_pyrunner
 
 # TODO(albert) make this none hardcode of path
-argslist = ['root/coding/Cancer/build/bin/cancer-runner', '/root/coding/Cancer/test/cancer-runner/basic.mlir', '-invoke', 'basic', '-arg-value=dense<[1.0]> : tensor<1xf32>', '-shared-libs=/root/coding/Cancer/build/lib/libCANCERCompilerRuntimeShlib.so']
+argslist = ['placeholder', 'placeholder', '-invoke', 'basic', '-arg-value=dense<[1.0]> : tensor<1xf32>', '-shared-libs=/root/coding/Cancer/build/lib/libCANCERCompilerRuntimeShlib.so']
 
-argslist2 = ['/root/coding/Cancer/build/bin/cancer-runner', '/root/coding/Cancer/test/cancer-runner/basic.mlir', '-invoke', 'basic', '-arg-value=dense<[1.3]> : tensor<1xf32>', '-shared-libs=/root/coding/Cancer/build/lib/libCANCERCompilerRuntimeShlib.so']
+argslist2 = ['placeholder', 'placeholder', '-invoke', 'basic', '-arg-value=dense<[1.3]> : tensor<1xf32>', '-shared-libs=/root/coding/Cancer/build/lib/libCANCERCompilerRuntimeShlib.so']
 
 
 if __name__ == '__main__':
-  assert(len(sys.argv) > 1)
+  assert(len(sys.argv) > 2)
   if int(sys.argv[1]) == 1:
     _args = argslist
   else:
     _args = argslist2
+
+  # get cancer-runner from argv[2]
+  # assert(_args[0] == sys.argv[2]), "{} vs {}".format(_args[0], sys.argv[2])
+  _args[0] = sys.argv[2]
+
+  # get %s from argv[0]
+  # assert(_args[1] == sys.argv[0].replace('py', '')), "{} vs {}".format(_args[1], sys.argv[0])
+  _args[1] = sys.argv[0].replace('py', '')
+
+  # execution
   cancer_pyrunner.cancerrun(_args)
 
