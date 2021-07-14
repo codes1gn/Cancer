@@ -24,32 +24,32 @@ message(STATUS "CANCER Conversion libs: ${cancer_conversion_libs}")
 
 
 
-# TODO(albert) use cancer_pyrunner as target name for resolve python 
+# TODO(albert) use cancer_compiler_module as target name for resolve python 
 # slash issue
-pybind11_add_module(cancer_pyrunner cancer-pyrunner.cpp)
-# add_library(cancer_pyrunner ${CANCER_PYEXT_LINK_MODE} 
-#     cancer-pyrunner.cpp
+pybind11_add_module(cancer_compiler_module cancer-compiler-module.cpp)
+# add_library(cancer_compiler_module ${CANCER_PYEXT_LINK_MODE} 
+#     cancer-compiler-module.cpp
 # )
 
 # EXAMPLE_VERSION_INFO is defined by setup.py and passed into the C++ code as a
 # define (VERSION_INFO) here.
-# target_compile_definitions(cancer_pyrunner PRIVATE VERSION_INFO=${EXAMPLE_VERSION_INFO})
+# target_compile_definitions(cancer_compiler_module PRIVATE VERSION_INFO=${EXAMPLE_VERSION_INFO})
 
-set_target_properties(cancer_pyrunner PROPERTIES LIBRARY_OUTPUT_DIRECTORY
+set_target_properties(cancer_compiler_module PROPERTIES LIBRARY_OUTPUT_DIRECTORY
                       "${CMAKE_CURRENT_BINARY_DIR}")
-set_target_properties(cancer_pyrunner PROPERTIES OUTPUT_NAME cancer_pyrunner)
-set_target_properties(cancer_pyrunner PROPERTIES PREFIX
+set_target_properties(cancer_compiler_module PROPERTIES OUTPUT_NAME cancer_compiler_module)
+set_target_properties(cancer_compiler_module PROPERTIES PREFIX
                       "${PYTHON_MODULE_PREFIX}")
-set_target_properties(cancer_pyrunner PROPERTIES SUFFIX
+set_target_properties(cancer_compiler_module PROPERTIES SUFFIX
                       "${PYTHON_MODULE_EXTENSION}")
 
 message(STATUS "CANCERSHLIB is ${CANCERSHLIB}")
 # pybind requires binding code to be compiled with -fvisibility=hidden
 # Better code can be generated if the entire project compiles that way, but
 # that is not enforced here.
-set_target_properties(cancer_pyrunner PROPERTIES CXX_VISIBILITY_PRESET "hidden")
+set_target_properties(cancer_compiler_module PROPERTIES CXX_VISIBILITY_PRESET "hidden")
 
-target_link_libraries(cancer_pyrunner
+target_link_libraries(cancer_compiler_module
   PRIVATE
     # Transitive dep on the shared library links most things from there.
     # Shared library deps first ensure we get most of what we need from libraries.
@@ -58,6 +58,6 @@ target_link_libraries(cancer_pyrunner
     cancer-runner-backend
     ${CANCER_PYEXT_LIBADD}
   )
-cancer_python_target_compile_options(cancer_pyrunner)
+cancer_python_target_compile_options(cancer_compiler_module)
 
-mlir_check_all_link_libraries(cancer_pyrunner)
+mlir_check_all_link_libraries(cancer_compiler_module)

@@ -77,5 +77,5 @@ add_subdirectory(cancer-translate)
 add_subdirectory(cancer-shared-lib)
 add_subdirectory(cancer-runner)
 add_subdirectory(cancer-runner-backend)
-add_subdirectory(cancer-pyrunner)
+add_subdirectory(cancer-compiler-module)
 

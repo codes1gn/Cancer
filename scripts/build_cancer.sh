@@ -17,7 +17,7 @@ cmake --build . --target cancer-opt
 cmake --build . --target cancer-translate
 cmake --build . --target cancer-runner
 cmake --build . --target cancer-runner-backend
-cmake --build . --target cancer_pyrunner
+cmake --build . --target cancer_compiler_module
 
 # build mlir doc
 cmake --build . --target mlir-doc

@@ -11,7 +11,7 @@ set(CANCER_TEST_DEPENDS
         cancer-translate
         cancer-runner
         cancer-runner-backend
-        cancer_pyrunner
+        cancer_compiler_module
         )
 
 add_lit_testsuite(check-cancer "Running the cancer regression tests"

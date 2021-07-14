@@ -22,12 +22,12 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(cancer_pyrunner, m) {
+PYBIND11_MODULE(cancer_compiler_module, m) {
   m.doc() = R"pbdoc(
         Pybind11 example plugin
         -----------------------
 
-        .. currentmodule:: cmake_example
+        .. currentmodule:: cancer_compiler_module
 
         .. autosummary::
            :toctree: _generate
@@ -35,6 +35,7 @@ PYBIND11_MODULE(cancer_pyrunner, m) {
            cancerrun
     )pbdoc";
   m.def(
+      // TODO, change interface
       "cancerrun",
       [](std::vector<std::string> args) {
         std::vector<char *> cstrs;
