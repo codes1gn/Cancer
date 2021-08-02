@@ -38,7 +38,7 @@ endforeach()
 llvm_add_library(
   CANCERSHLIB
   SHARED
-  cancer-shared-lib.cpp
+  cancer-compiler-shlib.cpp
   ${_OBJECTS}
   LINK_LIBS PUBLIC
   # Public dependencies on the MLIR public API and impl shared libraries.
