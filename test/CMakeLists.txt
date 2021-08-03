@@ -9,9 +9,9 @@ set(CANCER_TEST_DEPENDS
         FileCheck count not
         cancer-opt
         cancer-translate
-        cancer-runner
-        cancer-runner-backend
-        cancer_pyrunner
+        cancer-compiler-runmlir
+        cancer-compiler-runmlir-capi
+        cancer_compiler_module
         )
 
 add_lit_testsuite(check-cancer "Running the cancer regression tests"

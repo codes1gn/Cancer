@@ -15,9 +15,9 @@ cmake -G Ninja .. -DMLIR_DIR=${top_dir_realpath}/mlir_build/install_dir/lib/cmak
 
 cmake --build . --target cancer-opt
 cmake --build . --target cancer-translate
-cmake --build . --target cancer-runner
-cmake --build . --target cancer-runner-backend
-cmake --build . --target cancer_pyrunner
+cmake --build . --target cancer-compiler-runmlir
+cmake --build . --target cancer-compiler-runmlir-capi
+cmake --build . --target cancer_compiler_module
 
 # build mlir doc
 cmake --build . --target mlir-doc

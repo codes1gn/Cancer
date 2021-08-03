@@ -50,14 +50,19 @@ class CMakeBuild(build_ext):
         build_args += ["-j8"]
         build_args += ["--verbose"]
         # build_args += ["--clean-first"]
-        build_args += ["--target", "cancer_pyrunner"]
+        build_args += ["--target", "cancer_compiler_module"]
 
         subprocess.check_call(["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp)
 
         subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
 
         subprocess.check_call(
-            ["cp", "./cancer-pyrunner/cancer_pyrunner.cpython-36m-x86_64-linux-gnu.so", build_dir], cwd=self.build_temp
+            [
+                "cp",
+                "./cancer-compiler/cancer-compiler-module/cancer_compiler_module.cpython-36m-x86_64-linux-gnu.so",
+                build_dir,
+            ],
+            cwd=self.build_temp,
         )
 
 
@@ -70,14 +75,14 @@ setup(
     author_email="codefisheng@gmail.com",
     description="Composite AI Compiler Experiment Platform",
     long_description="",
-    ext_modules=[CMakeExtension("cancer_pyrunner")],
+    ext_modules=[CMakeExtension("cancer_compiler_module")],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
     packages=find_packages(),
     python_requires=">=3.6.12",
     entry_points={
-        "console_scripts": [
-            "cancer_runner=cancer.bin.cancer_runner:main",
-        ]
+        # "console_scripts": [
+        #     "cancer_runner=cancer.bin.cancer_runner:main",
+        # ]
     },
 )
