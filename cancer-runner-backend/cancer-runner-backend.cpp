@@ -216,3 +216,9 @@ int cancerrun(int argc, char **argv) {
                         });
   return exitCode;
 }
+
+int main(int argc, char **argv) {
+  int exitCode = EXIT_SUCCESS;
+  exitCode = cancerrun(argc, argv);
+  return exitCode;
+}

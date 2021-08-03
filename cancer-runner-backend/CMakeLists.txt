@@ -41,3 +41,29 @@ add_dependencies(cancer-runner-backend
   CANCERSHLIB
   )
 
+add_cancer_executable(cancer-runner
+  cancer-runner-backend.cpp
+  )
+
+llvm_update_compile_flags(cancer-runner)
+target_link_libraries(cancer-runner PRIVATE
+  # Shared library deps first ensure we get most of what we need from libraries.
+  CANCERSHLIB
+  MLIR
+
+  CANCERCAPI
+  MLIRAnalysis
+  MLIREDSC
+  MLIRIR
+  MLIRJitRunner
+  MLIRParser
+  MLIRSupport
+  CANCERInit
+  CANCERRefBackendJITHelpers
+  ${conversion_libs}
+  ${dialect_libs}
+)
+add_dependencies(cancer-runner
+  CANCERCompilerRuntimeShlib
+  CANCERSHLIB
+  )

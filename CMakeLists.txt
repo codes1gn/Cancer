@@ -75,7 +75,6 @@ add_subdirectory(test)
 add_subdirectory(cancer-opt)
 add_subdirectory(cancer-translate)
 add_subdirectory(cancer-compiler-shlib)
-add_subdirectory(cancer-runner)
 add_subdirectory(cancer-runner-backend)
 add_subdirectory(cancer-compiler-module)
 
