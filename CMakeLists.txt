@@ -53,8 +53,8 @@ set(CANCER_TABLEGEN_ARGS "")
 
 include_directories(${LLVM_INCLUDE_DIRS})
 include_directories(${MLIR_INCLUDE_DIRS})
-include_directories(${PROJECT_SOURCE_DIR}/include)
-include_directories(${PROJECT_BINARY_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/cancer-compiler-src/include)
+include_directories(${PROJECT_BINARY_DIR}/cancer-compiler-src/include)
 link_directories(${LLVM_BUILD_LIBRARY_DIR})
 add_definitions(${LLVM_DEFINITIONS})
 
@@ -69,10 +69,11 @@ message(STATUS "Found python libraries: ${Python_LIBRARIES}")
 
 # build subcomponents
 add_subdirectory(external/pybind11)
-add_subdirectory(include)
-add_subdirectory(lib)
 add_subdirectory(test)
+add_subdirectory(cancer-compiler-src)
 
 # add cancer-compiler utils
 add_subdirectory(cancer-compiler)
+# add_subdirectory(include)
+# add_subdirectory(lib)
 
