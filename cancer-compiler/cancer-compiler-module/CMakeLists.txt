@@ -55,7 +55,7 @@ target_link_libraries(cancer_compiler_module
     # Shared library deps first ensure we get most of what we need from libraries.
     CANCERSHLIB
 
-    cancer-runner-backend
+    cancer-compiler-runmlir-capi
     ${CANCER_PYEXT_LIBADD}
   )
 cancer_python_target_compile_options(cancer_compiler_module)

@@ -1,4 +1,4 @@
-// RUN: not cancer-runner %s \
+// RUN: not cancer-compiler-runmlir %s \
 // RUN:   -invoke invalid_broadcast \
 // RUN:   -arg-value="dense<[1.0, 2.0]> : tensor<2xf32>" \
 // RUN:   -arg-value="dense<[3.0, 4.0, 5.0]> : tensor<3xf32>" \

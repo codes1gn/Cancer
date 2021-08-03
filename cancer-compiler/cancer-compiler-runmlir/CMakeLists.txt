@@ -15,8 +15,8 @@ set(LLVM_LINK_COMPONENTS
   nativecodegen
   )
 
-add_cancer_library(cancer-runner-backend 
-  cancer-runner-backend.cpp
+add_cancer_library(cancer-compiler-runmlir-capi
+  cancer-compiler-runmlir.cpp
 
   LINK_LIBS PUBLIC
   # Shared library deps first ensure we get most of what we need from libraries.
@@ -36,17 +36,17 @@ add_cancer_library(cancer-runner-backend
   ${dialect_libs}
 )
 
-add_dependencies(cancer-runner-backend
+add_dependencies(cancer-compiler-runmlir-capi
   CANCERCompilerRuntimeShlib
   CANCERSHLIB
   )
 
-add_cancer_executable(cancer-runner
-  cancer-runner-backend.cpp
+add_cancer_executable(cancer-compiler-runmlir
+  cancer-compiler-runmlir.cpp
   )
 
-llvm_update_compile_flags(cancer-runner)
-target_link_libraries(cancer-runner PRIVATE
+llvm_update_compile_flags(cancer-compiler-runmlir)
+target_link_libraries(cancer-compiler-runmlir PRIVATE
   # Shared library deps first ensure we get most of what we need from libraries.
   CANCERSHLIB
   MLIR
@@ -63,7 +63,7 @@ target_link_libraries(cancer-runner PRIVATE
   ${conversion_libs}
   ${dialect_libs}
 )
-add_dependencies(cancer-runner
+add_dependencies(cancer-compiler-runmlir
   CANCERCompilerRuntimeShlib
   CANCERSHLIB
   )

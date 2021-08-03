@@ -1,24 +1,24 @@
-// RUN: cancer-runner %s \
+// RUN: cancer-compiler-runmlir %s \
 // RUN:   -invoke max \
 // RUN:   -arg-value="dense<[1.0]> : tensor<1xf32>" \
 // RUN:   -arg-value="dense<[3.0]> : tensor<1xf32>" \
 // RUN:   -shared-libs=%cancer_runtime_shlib 2>&1 \
 // RUN:   | FileCheck %s --check-prefix=MAX
 
-// RUN: cancer-runner %s \
+// RUN: cancer-compiler-runmlir %s \
 // RUN:   -invoke mul \
 // RUN:   -arg-value="dense<[1.0, 2.0]> : tensor<2xf32>" \
 // RUN:   -arg-value="dense<[3.0, 4.0]> : tensor<2xf32>" \
 // RUN:   -shared-libs=%cancer_runtime_shlib 2>&1 \
 // RUN:   | FileCheck %s --check-prefix=MUL
 
-// RUN: cancer-runner %s \
+// RUN: cancer-compiler-runmlir %s \
 // RUN:   -invoke exp \
 // RUN:   -arg-value="dense<[0.0, 1.0]> : tensor<2xf32>" \
 // RUN:   -shared-libs=%cancer_runtime_shlib 2>&1 \
 // RUN:   | FileCheck %s --check-prefix=EXP
 
-// RUN: cancer-runner %s \
+// RUN: cancer-compiler-runmlir %s \
 // RUN:   -invoke tanh \
 // RUN:   -arg-value="dense<[0.0, 1.0]> : tensor<2xf32>" \
 // RUN:   -shared-libs=%cancer_runtime_shlib 2>&1 \

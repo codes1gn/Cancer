@@ -9,8 +9,8 @@ set(CANCER_TEST_DEPENDS
         FileCheck count not
         cancer-opt
         cancer-translate
-        cancer-runner
-        cancer-runner-backend
+        cancer-compiler-runmlir
+        cancer-compiler-runmlir-capi
         cancer_compiler_module
         )
 

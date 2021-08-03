@@ -1,4 +1,4 @@
-// RUN: not cancer-runner %s \
+// RUN: not cancer-compiler-runmlir %s \
 // RUN:   -invoke matmul \
 // RUN:   -arg-value="dense<[[1.0, 0.0, 1.0], [1.0, 1.0, 1.0]]> : tensor<2x3xf32>" \
 // RUN:   -arg-value="dense<[[1.0, 2.0], [3.0, 4.0]]> : tensor<2x2xf32>" \

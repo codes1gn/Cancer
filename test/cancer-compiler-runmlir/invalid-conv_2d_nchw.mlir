@@ -1,18 +1,18 @@
-// RUN: not cancer-runner %s \
+// RUN: not cancer-compiler-runmlir %s \
 // RUN:   -invoke conv_2d_nchw \
 // RUN:   -arg-value="dense<0.0> : tensor<1x1x2x2xf32>" \
 // RUN:   -arg-value="dense<0.0> : tensor<1x2x2x2xf32>" \
 // RUN:   -shared-libs=%cancer_runtime_shlib 2>&1 \
 // RUN:   | FileCheck %s --check-prefix=CHANNELS
 
-// RUN: not cancer-runner %s \
+// RUN: not cancer-compiler-runmlir %s \
 // RUN:   -invoke conv_2d_nchw \
 // RUN:   -arg-value="dense<0.0> : tensor<1x1x2x2xf32>" \
 // RUN:   -arg-value="dense<0.0> : tensor<1x1x3x2xf32>" \
 // RUN:   -shared-libs=%cancer_runtime_shlib 2>&1 \
 // RUN:   | FileCheck %s --check-prefix=HEIGHT
 
-// RUN: not cancer-runner %s \
+// RUN: not cancer-compiler-runmlir %s \
 // RUN:   -invoke conv_2d_nchw \
 // RUN:   -arg-value="dense<0.0> : tensor<1x1x2x2xf32>" \
 // RUN:   -arg-value="dense<0.0> : tensor<1x1x2x3xf32>" \

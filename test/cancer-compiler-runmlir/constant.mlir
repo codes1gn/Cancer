@@ -1,4 +1,4 @@
-// RUN: cancer-runner %s \
+// RUN: cancer-compiler-runmlir %s \
 // RUN:   -invoke constant \
 // RUN:   -shared-libs=%cancer_runtime_shlib 2>&1 \
 // RUN:   | FileCheck %s

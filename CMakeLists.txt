@@ -79,7 +79,4 @@ add_subdirectory(cancer-translate)
 
 # add cancer-compiler utils
 add_subdirectory(cancer-compiler)
-# add_subdirectory(cancer-compiler-shlib)
-# add_subdirectory(cancer-compiler-runmlir)
-# add_subdirectory(cancer-compiler-module)
 

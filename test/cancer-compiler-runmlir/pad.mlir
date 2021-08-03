@@ -1,4 +1,4 @@
-// RUN: cancer-runner %s \
+// RUN: cancer-compiler-runmlir %s \
 // RUN:   -invoke pad \
 // RUN:   -arg-value="dense<[1.2, 3.4]> : tensor<2xf32>" \
 // RUN:   -shared-libs=%cancer_runtime_shlib 2>&1 \

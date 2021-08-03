@@ -1,6 +1,6 @@
-# RUN: python %s 1 cancer-runner 2>&1 | FileCheck %s --check-prefix=CHECK-ONE
+# RUN: python %s 1 2>&1 | FileCheck %s --check-prefix=CHECK-ONE
 #
-# RUN: python %s 2 cancer-runner 2>&1 | FileCheck %s --check-prefix=CHECK-TWO
+# RUN: python %s 2 2>&1 | FileCheck %s --check-prefix=CHECK-TWO
 
 # CHECK-ONE: output #0: dense<2.000000e+00> : tensor<1xf32>
 # CHECK-TWO: output #0: dense<2.600000e+00> : tensor<1xf32>
@@ -21,19 +21,15 @@ argslist2 = ['placeholder', 'placeholder', '-invoke', 'basic', '-arg-value=dense
 
 
 if __name__ == '__main__':
-  assert(len(sys.argv) > 2)
+  assert(len(sys.argv) > 1)
   if int(sys.argv[1]) == 1:
     _args = argslist
   else:
     _args = argslist2
 
-  # get cancer-runner from argv[2]
-  # assert(_args[0] == sys.argv[2]), "{} vs {}".format(_args[0], sys.argv[2])
-  _args[0] = sys.argv[2]
-
   # get %s from argv[0]
   # assert(_args[1] == sys.argv[0].replace('py', '')), "{} vs {}".format(_args[1], sys.argv[0])
-  _args[1] = sys.argv[0].replace('-compiler-module', '-runner')
+  _args[1] = sys.argv[0].replace('-compiler-module', '-compiler-runmlir')
   _args[1] = _args[1].replace('py', '')
 
   # execution

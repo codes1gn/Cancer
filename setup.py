@@ -57,7 +57,11 @@ class CMakeBuild(build_ext):
         subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
 
         subprocess.check_call(
-            ["cp", "./cancer-compiler-module/cancer_compiler_module.cpython-36m-x86_64-linux-gnu.so", build_dir],
+            [
+                "cp",
+                "./cancer-compiler/cancer-compiler-module/cancer_compiler_module.cpython-36m-x86_64-linux-gnu.so",
+                build_dir,
+            ],
             cwd=self.build_temp,
         )
 
