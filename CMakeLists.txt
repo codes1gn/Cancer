@@ -73,9 +73,6 @@ add_subdirectory(include)
 add_subdirectory(lib)
 add_subdirectory(test)
 
-# add tools
-add_subdirectory(cancer-translate)
-
 # add cancer-compiler utils
 add_subdirectory(cancer-compiler)
 
