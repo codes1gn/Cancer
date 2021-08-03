@@ -11,7 +11,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "Capi/cancer-runner-backend.h"
+#include "Capi/cancer-compiler-runmlir-capi.h"
 
 #include <cstddef>
 #include <pybind11/pybind11.h>
