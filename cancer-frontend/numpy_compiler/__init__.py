@@ -6,14 +6,16 @@ def _load_extension():
     #   mlir::detail::TypeIDExported::get<mlir::FuncOp>()::instance
     import sys
     import ctypes
+
     flags = sys.getdlopenflags()
     sys.setdlopenflags(flags | ctypes.RTLD_GLOBAL)
-    import cancer_compiler
+    import cancer_compiler_module
+
     sys.setdlopenflags(flags)
 
     # import mlir
     # mlir._cext.globals.append_dialect_search_prefix("npcomp.dialects")
-    return cancer_compiler
+    return cancer_compiler_module
 
 
 cancer_compiler_ext = _load_extension()
