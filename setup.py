@@ -78,7 +78,6 @@ setup(
     ext_modules=[CMakeExtension("cancer_compiler_module")],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
-    # packages=["cancer_frontend.python_cancer"],
     packages=find_packages(),
     python_requires=">=3.6.12",
     entry_points={
