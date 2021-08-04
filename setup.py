@@ -70,7 +70,7 @@ class CMakeBuild(build_ext):
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
     name="cancer",
-    version="0.0.1",
+    version="0.2.0",
     author="Albert Shi, Tianyu Jiang",
     author_email="codefisheng@gmail.com",
     description="Composite AI Compiler Experiment Platform",
