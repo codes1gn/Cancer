@@ -26,3 +26,4 @@ cancer_compiler_ext = _load_extension()
 
 # from . import tracing
 # from . import utils
+from .numpy_jit_runner import *

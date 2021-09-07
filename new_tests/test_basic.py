@@ -1,14 +1,14 @@
 """ Tests pyMLIR on examples that use the Toy dialect. """
-
-from mlir import parse_string, parse_path
 import os
+
+from cancer_frontend.numpy_jit_runner import NumpyRunner
 
 
 def test_basic():
-    module = parse_path(os.path.join(os.path.dirname(__file__), "basic.mlir"))
-    print(module.pretty())
+    np_runner = NumpyRunner()
+    np_runner.parse(os.path.join(os.path.dirname(__file__), "basic.mlir"))
+    np_runner.pretty_print()
 
 
 if __name__ == "__main__":
     test_basic()
-
