@@ -1,7 +1,7 @@
 """ Tests pyMLIR on examples that use the Toy dialect. """
 import os
 
-from cancer_frontend.numpy_jit_runner import NumpyRunner
+from cancer_frontend.numpy import NumpyRunner
 
 MLIR_INPUTS = [
     "basic.mlir",

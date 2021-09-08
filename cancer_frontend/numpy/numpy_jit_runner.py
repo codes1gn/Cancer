@@ -1,7 +1,8 @@
 """ Contains jit runner class for compilation and execution """
 
 import mlir
-from cancer_frontend.scaffold.mlir import *
+from cancer_frontend.scaffold.mlir_dialects import *
+
 
 __all__ = [
     "NumpyRunner",
@@ -31,9 +32,9 @@ class NumpyRunner:
     def parse_mlir(self, code_path: str) -> None:
         """
         Parses the code by providing its path
-        # TODO change in parse_mlir
+        :param
         """
-        self.module = mlir.parse_path(code_path, dialects=[my_dialect])
+        self.module = mlir.parse_path(code_path, dialects=CANCER_DIALECTS)
 
     def pretty_mlir(self):
         print(self.module.pretty())
