@@ -11,6 +11,7 @@ MLIR_INPUTS = [
     "identity.mlir",
     "matmul.mlir",
     "mixed-rank.mlir",
+    "scalar.mlir",
 ]
 
 
