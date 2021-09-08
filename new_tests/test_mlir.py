@@ -10,6 +10,7 @@ MLIR_INPUTS = [
     "elementwise.mlir",
     "identity.mlir",
     "matmul.mlir",
+    "mixed-rank.mlir",
 ]
 
 
