@@ -6,14 +6,23 @@ from cancer_frontend.numpy_jit_runner import NumpyRunner
 MLIR_INPUTS = [
     "basic.mlir",
     "broadcast.mlir",
+    # "constant-add.mlir",
+    # "constant-add-scalar.mlir",
+    # "constant.mlir",
+    # "control-flow-basic.mlir",
     "conv_2d_nchw.mlir",
     "elementwise.mlir",
     "identity.mlir",
+    # "invalid-broadcast.mlir",
+    # "invalid-conv_2d_nchw.mlir",
+    # "invalid-matmul.mlir",
+    # "invalid-num-inputs.mlir",
     "matmul.mlir",
     "mixed-rank.mlir",
     "scalar.mlir",
     "multi-output.mlir",
     "multiple-ops.mlir",
+    # "pad.mlir",
 ]
 
 
