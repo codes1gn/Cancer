@@ -6,10 +6,11 @@ from cancer_frontend.numpy_jit_runner import NumpyRunner
 MLIR_INPUTS = [
     "basic.mlir",
     "broadcast.mlir",
+    "conv_2d_nchw.mlir",
 ]
 
 
-def test_basic():
+def test_main():
     np_runner = NumpyRunner()
     for input_file in MLIR_INPUTS:
         print("*****************************************************************")
@@ -23,4 +24,4 @@ def test_basic():
 
 
 if __name__ == "__main__":
-    test_basic()
+    test_main()
