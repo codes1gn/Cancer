@@ -7,6 +7,7 @@ MLIR_INPUTS = [
     "basic.mlir",
     "broadcast.mlir",
     "conv_2d_nchw.mlir",
+    "elementwise.mlir",
 ]
 
 
