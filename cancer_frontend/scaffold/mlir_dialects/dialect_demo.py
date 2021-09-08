@@ -1,4 +1,4 @@
-""" Test that creates and uses a custom dialect. """
+""" Dialect classes that create and custom dialect as example. """
 
 from mlir import parse_string
 from mlir.astnodes import Node, dump_or_value
@@ -7,6 +7,10 @@ from mlir.dialect import Dialect, DialectOp, DialectType
 
 ##############################################################################
 # Dialect Types
+
+__all__ = [
+    "DIALECT_DEMO",
+]
 
 
 class RaggedTensorType(DialectType):
@@ -58,7 +62,7 @@ class DensifyOp(DialectOp):
 ##############################################################################
 # Dialect
 
-my_dialect = Dialect(
+DIALECT_DEMO = Dialect(
     "toy",
     ops=[DensifyOp],
     types=[RaggedTensorType],
