@@ -9,6 +9,7 @@ MLIR_INPUTS = [
     "conv_2d_nchw.mlir",
     "elementwise.mlir",
     "identity.mlir",
+    "matmul.mlir",
 ]
 
 
