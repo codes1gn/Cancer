@@ -13,6 +13,7 @@ MLIR_INPUTS = [
     "mixed-rank.mlir",
     "scalar.mlir",
     "multi-output.mlir",
+    "multiple-ops.mlir",
 ]
 
 
