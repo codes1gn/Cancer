@@ -21,9 +21,9 @@ class ConstantOper(DialectOp):
     """AST node for an operation with an optional value."""
 
     _syntax_ = [
-        "pynative.constant {arg.ssa_id} : {type.tensor_type}",
-        "pynative.constant {arg.constant_literal} : {type.tensor_type}",
-        "pynative.constant {arg.float_literal} : {type.tensor_type}",
+        "pynative.constant {arg.elements_attribute}",
+        "pynative.constant {arg.float_attribute}",
+        "pynative.constant {arg.integer_attribute}",
     ]
 
 
