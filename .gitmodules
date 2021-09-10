@@ -7,3 +7,4 @@
 [submodule "external/pymlir"]
 	path = external/pymlir
 	url = git@github.com:spcl/pymlir.git
+    ignore = dirty
