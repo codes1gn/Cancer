@@ -2,14 +2,14 @@
 
 from mlir import parse_string
 from mlir.astnodes import Node, dump_or_value
-from mlir.dialect import Dialect, DialectOp, DialectType
+from mlir.dialect import Dialect, DialectOp, DialectType, BinaryOperation
 
 
 ##############################################################################
 # Dialect Types
 
 __all__ = [
-    "DIALECT_PYNATIVE",
+    "DIALECT_TCF",
 ]
 
 
@@ -17,22 +17,27 @@ __all__ = [
 # Dialect Operations
 
 
-class PYNATIVE_ConstantOp(DialectOp):
+class TCF_AddOp(DialectOp):
     """AST node for an operation with an optional value."""
 
+    _opname_ = "tcf.add"
+
+    # TODO in syntax, between string_literals and non-terminals, must be seperated with whitespace
     _syntax_ = [
-        "pynative.constant {arg.elements_attribute}",
-        "pynative.constant {arg.float_attribute}",
-        "pynative.constant {arg.integer_attribute}",
+        "tcf.add {operand_a.ssa_use} , {operand_b.ssa_use} : {type.type}",
     ]
+
+
+# class TCF_AddOp(BinaryOperation):
+#    _opname_ = "tcf.add"
 
 
 ##############################################################################
 # Dialect
 
-DIALECT_PYNATIVE = Dialect(
-    "pynative",
-    ops=[PYNATIVE_ConstantOp],
+DIALECT_TCF = Dialect(
+    "tcf",
+    ops=[TCF_AddOp],
     types=[],
     preamble="",
     transformers=None,

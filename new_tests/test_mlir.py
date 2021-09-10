@@ -6,10 +6,10 @@ from cancer_frontend.python import PythonRunner
 MLIR_INPUTS = [
     "constant.mlir",
     "identity.mlir",
+    "basic.mlir",
     # "constant-add.mlir",
     # "constant-add-scalar.mlir",
     # "control-flow-basic.mlir",
-    # "basic.mlir",
     # "broadcast.mlir",
     # "conv_2d_nchw.mlir",
     # "elementwise.mlir",
