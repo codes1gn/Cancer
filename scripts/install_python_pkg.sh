@@ -11,6 +11,10 @@ echo "top dir = "$top_dir_realpath
 # create mlir build path
 cd ${top_dir_realpath}
 
+# uninstall bad installations
+yes|pip uninstall cancer
+yes|pip uninstall pymlir
+
 # invoke setup.py to build wheel installation pkg
 cat install_cache.txt | xargs rm -rf
 python setup.py install --record install_cache.txt 

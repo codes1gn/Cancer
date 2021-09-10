@@ -36,5 +36,8 @@ class PythonRunner:
         """
         self.module = mlir.parse_path(code_path, dialects=CANCER_DIALECTS)
 
-    def pretty_mlir(self):
+    def dump_module(self):
+        print("*******************&&&&&")
+        print(self.module)
         print(self.module.pretty())
+        print("*******************&&&&&")
