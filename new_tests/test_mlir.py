@@ -20,8 +20,8 @@ MLIR_INPUTS = [
     "invalid-num-inputs.mlir",
     "multi-output.mlir",
     # "control-flow-basic.mlir",
-    # "mixed-rank.mlir",
-    # "multiple-ops.mlir",
+    "mixed-rank.mlir",
+    "multiple-ops.mlir",
     # "pad.mlir",
 ]
 
