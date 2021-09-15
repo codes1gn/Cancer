@@ -8,7 +8,7 @@ MLIR_INPUTS = [
     "identity.mlir",
     "basic.mlir",
     "constant-add.mlir",
-    # "constant-add-scalar.mlir",
+    "constant-add-scalar.mlir",
     # "control-flow-basic.mlir",
     # "broadcast.mlir",
     # "conv_2d_nchw.mlir",
