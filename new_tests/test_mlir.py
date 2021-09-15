@@ -11,7 +11,7 @@ MLIR_INPUTS = [
     "constant-add-scalar.mlir",
     # "control-flow-basic.mlir",
     "broadcast.mlir",
-    # "conv_2d_nchw.mlir",
+    "conv_2d_nchw.mlir",
     "elementwise.mlir",
     # "invalid-broadcast.mlir",
     # "invalid-conv_2d_nchw.mlir",
