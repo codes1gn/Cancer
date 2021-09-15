@@ -2,6 +2,7 @@
 
 import mlir
 from cancer_frontend.scaffold.mlir_dialects import *
+from cancer_frontend.scaffold.utils import *
 
 
 __all__ = [
@@ -17,27 +18,37 @@ class PythonRunner:
         PythonRunner: returns the instance of this class
     """
 
-    __slots__ = [
-        "module",
-        "source_code",
-    ]
+    __slots__ = ["mlir_ast", "mlir_code", "python_code", "python_ast"]
 
     def __init__(self):
         """
         Initializes the PythonRunner
         """
-        self.module = None
-        self.source_code = None
+        self.mlir_ast = None
+        self.python_ast = None
+        self.mlir_code = None
+        self.python_code = None
 
     def parse_mlir(self, code_path: str) -> None:
         """
         Parses the code by providing its path
         :param
         """
-        self.module = mlir.parse_path(code_path, dialects=CANCER_DIALECTS)
+        self.mlir_ast = mlir.parse_path(code_path, dialects=CANCER_DIALECTS)
 
-    def dump_module(self):
+    def dump_mlir(self):
         print("*******************&&&&&")
-        print(self.module)
-        print(self.module.pretty())
+        print("dumping mlir ast")
+        print(self.mlir_ast)
+        print("dumping mlir IR")
+        print(self.mlir_ast.pretty())
         print("*******************&&&&&")
+
+    def parse_python(self, code_path: str) -> None:
+        """
+        Parses the code by providing its path
+        :param
+        """
+        src_code = read_src(code_path)
+        print(src_code)
+        assert 0

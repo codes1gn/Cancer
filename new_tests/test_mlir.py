@@ -19,20 +19,32 @@ MLIR_INPUTS = [
     "invalid-matmul.mlir",
     "invalid-num-inputs.mlir",
     "multi-output.mlir",
-    # "control-flow-basic.mlir",
     "mixed-rank.mlir",
     "multiple-ops.mlir",
     # "pad.mlir",
+    # "control-flow-basic.mlir",
 ]
 
 
-def test_main():
+def test_mlir_parser():
     py_runner = PythonRunner()
     for input_file in MLIR_INPUTS:
         print("*****************************************************************")
         print("testing " + input_file + "\n")
         py_runner.parse_mlir(os.path.join(os.path.dirname(__file__), input_file))
-        py_runner.dump_module()
+        py_runner.dump_mlir()
+        print("")
+        print("*****************************************************************")
+        print("")
+        print("")
+
+
+def test_python_parser():
+    py_runner = PythonRunner()
+    for input_file in MLIR_INPUTS:
+        print("*****************************************************************")
+        print("testing " + input_file + "\n")
+        py_runner.parse_python(os.path.join(os.path.dirname(__file__), input_file))
         print("")
         print("*****************************************************************")
         print("")
@@ -40,4 +52,5 @@ def test_main():
 
 
 if __name__ == "__main__":
-    test_main()
+    test_mlir_parser()
+    test_python_parser()
