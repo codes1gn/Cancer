@@ -53,6 +53,18 @@ class TCF_MulOp(DialectOp):
     ]
 
 
+class TCF_MatmulOp(DialectOp):
+    """AST node for an operation with an optional value."""
+
+    _opname_ = "tcf.matmul"
+
+    # TODO in syntax, between string_literals and non-terminals, must be
+    # seperated with whitespace
+    _syntax_ = [
+        "tcf.matmul {operand_a.ssa_use} , {operand_b.ssa_use} : {type.function_type}",
+    ]
+
+
 class TCF_Conv2DChannelFirstOp(DialectOp):
     """AST node for an operation with an optional value."""
 
@@ -90,7 +102,16 @@ class TCF_ExpOp(UnaryOperation):
 
 DIALECT_TCF = Dialect(
     "tcf",
-    ops=[TCF_AddOp, TCF_MulOp, TCF_MaxOp, TCF_ExpOp, TCF_TanhOp, TCF_Conv2DChannelLastOp, TCF_Conv2DChannelFirstOp],
+    ops=[
+        TCF_AddOp,
+        TCF_MulOp,
+        TCF_MaxOp,
+        TCF_ExpOp,
+        TCF_TanhOp,
+        TCF_Conv2DChannelLastOp,
+        TCF_Conv2DChannelFirstOp,
+        TCF_MatmulOp,
+    ],
     types=[],
     preamble="",
     transformers=None,
