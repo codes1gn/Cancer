@@ -25,7 +25,7 @@ class TCF_AddOp(DialectOp):
     # TODO in syntax, between string_literals and non-terminals, must be
     # seperated with whitespace
     _syntax_ = [
-        "tcf.add {operand_a.ssa_use} , {operand_b.ssa_use} : {type.type} , {type.type}",
+        "tcf.add {operand_a.ssa_use} , {operand_b.ssa_use} : {type.function_type}",
     ]
 
 
