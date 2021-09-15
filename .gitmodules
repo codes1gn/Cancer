@@ -4,3 +4,7 @@
 [submodule "external/pybind11"]
 	path = external/pybind11
 	url = git@github.com:pybind/pybind11.git
+[submodule "external/pymlir"]
+	path = external/pymlir
+	url = git@github.com:spcl/pymlir.git
+    ignore = dirty
