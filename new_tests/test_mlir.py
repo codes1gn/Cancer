@@ -7,7 +7,7 @@ MLIR_INPUTS = [
     "constant.mlir",
     "identity.mlir",
     "basic.mlir",
-    # "constant-add.mlir",
+    "constant-add.mlir",
     # "constant-add-scalar.mlir",
     # "control-flow-basic.mlir",
     # "broadcast.mlir",
