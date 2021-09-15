@@ -18,9 +18,9 @@ MLIR_INPUTS = [
     "invalid-conv_2d_nchw.mlir",
     "invalid-matmul.mlir",
     "invalid-num-inputs.mlir",
+    "multi-output.mlir",
     # "control-flow-basic.mlir",
     # "mixed-rank.mlir",
-    # "multi-output.mlir",
     # "multiple-ops.mlir",
     # "pad.mlir",
 ]
