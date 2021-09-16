@@ -1,8 +1,11 @@
-""" Dialect classes that create and custom dialect as example. """
+""" Implemented classes of Tensor Computation Flow Dialect. """
+
+import inspect
+import sys
 
 from mlir import parse_string
 from mlir.astnodes import Node, dump_or_value
-from mlir.dialect import Dialect, DialectOp, DialectType, UnaryOperation, BinaryOperation
+from mlir.dialect import Dialect, DialectOp, DialectType, UnaryOperation, BinaryOperation, is_op
 
 
 ##############################################################################
@@ -102,16 +105,7 @@ class TCF_ExpOp(UnaryOperation):
 
 DIALECT_TCF = Dialect(
     "tcf",
-    ops=[
-        TCF_AddOp,
-        TCF_MulOp,
-        TCF_MaxOp,
-        TCF_ExpOp,
-        TCF_TanhOp,
-        TCF_Conv2DChannelLastOp,
-        TCF_Conv2DChannelFirstOp,
-        TCF_MatmulOp,
-    ],
+    ops=[m[1] for m in inspect.getmembers(sys.modules[__name__], lambda obj: is_op(obj, __name__))],
     types=[],
     preamble="",
     transformers=None,
