@@ -21,7 +21,6 @@ python setup.py install --record install_cache.txt
 
 # install pymlir
 cd external/pymlir
-cat install_cache.txt | xargs rm -rf
-python setup.py install --record install_cache.txt 
+pip install .
 cd -
 
