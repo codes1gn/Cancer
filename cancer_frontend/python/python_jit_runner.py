@@ -21,15 +21,6 @@ __all__ = [
 ]
 
 
-# TODO move to display utils
-class bcolors:
-    HEADER = "\033[95m"
-    WARNING = "\033[93m"
-    ENDC = "\033[0m"
-    FAIL = "\033[91m"
-    HEADER = "\033[95m"
-
-
 class PythonRunner:
     """
     PythonRunner class that is a compiler supports jit functionalities for numpy DSL.
@@ -48,28 +39,28 @@ class PythonRunner:
     def dump_mlir(self, _ast: mlir_ast.Node) -> str:
         dump_str = ""
         dump_str += "*******************&&&&&"
-        dump_str += bcolors.FAIL
+        dump_str += ColorPalette.FAIL
         dump_str += "\ndumping mlir ast\n"
         dump_str += str(_ast)
-        dump_str += bcolors.ENDC
-        dump_str += bcolors.HEADER
+        dump_str += ColorPalette.ENDC
+        dump_str += ColorPalette.HEADER
         dump_str += "\ndumping mlir IR\n"
         dump_str += _ast.pretty()
-        dump_str += bcolors.ENDC
+        dump_str += ColorPalette.ENDC
         dump_str += "\n*******************&&&&&"
         return dump_str
 
     def dump_python(self, _ast: ast.AST) -> str:
         dump_str = ""
         dump_str += "*******************&&&&&"
-        dump_str += bcolors.FAIL
+        dump_str += ColorPalette.FAIL
         dump_str += "\ndumping python ast\n"
-        dump_str += str(_ast)
-        dump_str += bcolors.ENDC
-        dump_str += bcolors.HEADER
-        dump_str += "\ndumping python code\n"
         dump_str += astunparse.dump(_ast)
-        dump_str += bcolors.ENDC
+        dump_str += ColorPalette.ENDC
+        dump_str += ColorPalette.HEADER
+        dump_str += "\ndumping python code\n"
+        dump_str += astunparse.unparse(_ast)
+        dump_str += ColorPalette.ENDC
         dump_str += "\n*******************&&&&&"
         return dump_str
 
