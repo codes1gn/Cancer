@@ -4,9 +4,13 @@ import inspect
 import sys
 
 from mlir import parse_string
-from mlir.astnodes import Node, dump_or_value
+from dataclasses import dataclass
+import mlir.astnodes as mast
 from mlir.dialect import Dialect, DialectOp, DialectType, is_op
+from typing import Union, Optional, List
 
+Literal = Union[mast.StringLiteral, float, int, bool]
+SsaUse = Union[mast.SsaId, Literal]
 
 ##############################################################################
 # Dialect Types
@@ -20,8 +24,11 @@ __all__ = [
 # Dialect Operations
 
 
+@dataclass
 class PYNATIVE_ConstantOp(DialectOp):
     """AST node for an operation with an optional value."""
+
+    arg: Union[mast.ElementsAttr, mast.FloatAttr, mast.IntegerAttr]
 
     _syntax_ = [
         "pynative.constant {arg.elements_attribute}",
@@ -34,9 +41,5 @@ class PYNATIVE_ConstantOp(DialectOp):
 # Dialect
 
 DIALECT_PYNATIVE = Dialect(
-    "pynative",
-    ops=[m[1] for m in inspect.getmembers(sys.modules[__name__], lambda obj: is_op(obj, __name__))],
-    types=[],
-    preamble="",
-    transformers=None,
+    "pynative", ops=[m[1] for m in inspect.getmembers(sys.modules[__name__], lambda obj: is_op(obj, __name__))]
 )
