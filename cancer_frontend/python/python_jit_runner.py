@@ -11,9 +11,32 @@ from imp import new_module
 import traceback
 
 import mlir
-from mlir import astnodes as mlir_ast
+from mlir import astnodes
 from cancer_frontend.scaffold.mlir_dialects import *
 from cancer_frontend.scaffold.utils import *
+
+
+MlirNode = astnodes.Node
+import types
+
+
+def _pretty(self):
+    result = self.dump_ast()
+    lines = [""]
+    indent = 0
+    for char in result:
+        if char == "[":
+            indent += 1
+        if char == "]":
+            indent -= 1
+        if char != "\n":
+            lines[-1] += char
+        if char in "[\n":
+            lines.append(indent * "  ")
+    return "\n".join(lines)
+
+
+MlirNode.pretty = _pretty
 
 
 __all__ = [
@@ -36,16 +59,16 @@ class PythonRunner:
         Initializes the PythonRunner
         """
 
-    def dump_mlir(self, _ast: mlir_ast.Node) -> str:
+    def dump_mlir(self, _ast: MlirNode) -> str:
         dump_str = ""
         dump_str += "*******************&&&&&"
         dump_str += ColorPalette.FAIL
         dump_str += "\ndumping mlir ast\n"
-        dump_str += str(_ast)
+        dump_str += _ast.pretty()
         dump_str += ColorPalette.ENDC
         dump_str += ColorPalette.HEADER
         dump_str += "\ndumping mlir IR\n"
-        dump_str += _ast.pretty()
+        dump_str += _ast.dump()
         dump_str += ColorPalette.ENDC
         dump_str += "\n*******************&&&&&"
         return dump_str
@@ -55,6 +78,7 @@ class PythonRunner:
         dump_str += "*******************&&&&&"
         dump_str += ColorPalette.FAIL
         dump_str += "\ndumping python ast\n"
+        # TODO use astunparse as alternative to ast pretty dump. this is not supported before py 3.8
         dump_str += astunparse.dump(_ast)
         dump_str += ColorPalette.ENDC
         dump_str += ColorPalette.HEADER
@@ -64,7 +88,7 @@ class PythonRunner:
         dump_str += "\n*******************&&&&&"
         return dump_str
 
-    def parse_mlir(self, code_path: str) -> mlir_ast.Node:
+    def parse_mlir(self, code_path: str) -> MlirNode:
         """
         Parses the code by providing its path
         :param
