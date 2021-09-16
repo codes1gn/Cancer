@@ -31,8 +31,8 @@ def test_mlir_parser():
     for input_file in MLIR_INPUTS:
         print("*****************************************************************")
         print("testing " + input_file + "\n")
-        py_runner.parse_mlir(os.path.join(os.path.dirname(__file__), input_file))
-        py_runner.dump_mlir()
+        _ = py_runner.parse_mlir(os.path.join(os.path.dirname(__file__), input_file))
+        print(py_runner.dump_mlir(_))
         print("")
         print("*****************************************************************")
         print("")
@@ -41,14 +41,13 @@ def test_mlir_parser():
 
 def test_python_parser():
     py_runner = PythonRunner()
-    for input_file in MLIR_INPUTS:
-        print("*****************************************************************")
-        print("testing " + input_file + "\n")
-        py_runner.parse_python(os.path.join(os.path.dirname(__file__), input_file))
-        print("")
-        print("*****************************************************************")
-        print("")
-        print("")
+
+    def func_a():
+        b = 1 + 1
+        return b
+
+    _ = py_runner.parse_python(func_a)
+    print(py_runner.dump_python(_))
 
 
 if __name__ == "__main__":
