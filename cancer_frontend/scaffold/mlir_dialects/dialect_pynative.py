@@ -19,7 +19,6 @@ __all__ = [
     "DIALECT_PYNATIVE",
 ]
 
-
 ##############################################################################
 # Dialect Operations
 
@@ -41,5 +40,8 @@ class PYNATIVE_ConstantOp(DialectOp):
 # Dialect
 
 DIALECT_PYNATIVE = Dialect(
-    "pynative", ops=[m[1] for m in inspect.getmembers(sys.modules[__name__], lambda obj: is_op(obj, __name__))]
-)
+    "pynative",
+    ops=[
+        m[1] for m in inspect.getmembers(sys.modules[__name__],
+                                         lambda obj: is_op(obj, __name__))
+    ])

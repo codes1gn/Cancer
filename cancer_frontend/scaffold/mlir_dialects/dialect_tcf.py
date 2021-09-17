@@ -21,7 +21,6 @@ __all__ = [
     "DIALECT_TCF",
 ]
 
-
 ##############################################################################
 # Dialect Operations
 
@@ -140,7 +139,10 @@ class TCF_ExpOp(UnaryOperation):
 
 DIALECT_TCF = Dialect(
     "tcf",
-    ops=[m[1] for m in inspect.getmembers(sys.modules[__name__], lambda obj: is_op(obj, __name__))],
+    ops=[
+        m[1] for m in inspect.getmembers(sys.modules[__name__],
+                                         lambda obj: is_op(obj, __name__))
+    ],
     types=[],
     preamble="",
     transformers=None,

@@ -12,9 +12,8 @@ function find_cc_sources() {
 # C/C++ sources.
 set -o xtrace
 clang-format -i \
-  $(find_cc_sources include) \
-  $(find_cc_sources lib) \
-  $(find_cc_sources frontends/pytorch/csrc)
+  $(find_cc_sources cancer-compiler) \
+  $(find_cc_sources cancer-compiler-src)
 
 # Python sources.
-yapf --recursive -i "$td/cancer"
+yapf --recursive -i "$td/cancer_frontend"
