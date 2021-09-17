@@ -9,10 +9,12 @@
 // CHECK-SAME: > : tensor<5xf32>
 
 func @pad(%arg0: tensor<?xf32> ) -> tensor<?xf32> {
+  //%lowerExpansion = shape.const_shape []
+  // %lowerExpansion = shape.const_shape [1, 2]
   %lowerExpansion = shape.const_shape [1] : tensor<?xindex>
-  %upperExpansion = shape.const_shape [2] : tensor<?xindex>
-  %fillVal = constant 0.0 : f32
-  %0 = tcp.pad %arg0, %lowerExpansion, %upperExpansion, %fillVal : (tensor<?xf32>, tensor<?xindex>, tensor<?xindex>, f32) -> tensor<?xf32>
+  //%upperExpansion = shape.const_shape [2] : tensor<?xindex>
+  %fillVal = pynative.constant 0.0 : f32
+  //%0 = tcp.pad %arg0, %lowerExpansion, %upperExpansion, %fillVal : (tensor<?xf32>, tensor<?xindex>, tensor<?xindex>, f32) -> tensor<?xf32>
   return %0 : tensor<?xf32>
 }
 
