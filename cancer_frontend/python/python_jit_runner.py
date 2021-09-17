@@ -15,7 +15,6 @@ from mlir import astnodes
 from cancer_frontend.scaffold.mlir_dialects import *
 from cancer_frontend.scaffold.utils import *
 
-
 MlirNode = astnodes.Node
 import types
 
@@ -66,7 +65,6 @@ def _pretty(self):
 
 
 MlirNode.pretty = _pretty
-
 
 __all__ = [
     "PythonRunner",
