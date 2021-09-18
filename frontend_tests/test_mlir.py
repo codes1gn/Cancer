@@ -21,7 +21,7 @@ MLIR_INPUTS = [
     "multi-output.mlir",
     "mixed-rank.mlir",
     "multiple-ops.mlir",
-    "pad.mlir",
+    # "pad.mlir",
     # "control-flow-basic.mlir",
 ]
 
