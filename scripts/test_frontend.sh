@@ -10,4 +10,4 @@ sh ${top_dir_realpath}/scripts/_install_python_package.sh
 
 cd ${top_dir_realpath}
 
-python new_tests/test_mlir.py
+python frontend_tests/test_mlir.py
