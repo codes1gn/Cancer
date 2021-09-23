@@ -9,6 +9,7 @@ import sys
 from typing import Callable
 from imp import new_module
 import traceback
+import types
 
 import mlir
 from mlir import astnodes
@@ -17,10 +18,9 @@ from cancer_frontend.scaffold.utils import *
 
 MlirNode = astnodes.Node
 MlirSsaId = astnodes.SsaId
-import types
 
 
-def _pretty(self):
+def _pretty(self: MlirNode) -> str:
     result = self.dump_ast()
     lines = [""]
     indent = 0
@@ -148,6 +148,7 @@ class PythonRunner:
 
         self.pass_manager = PastToMlirPassManager()
         self.pass_manager.register_passes()
+        _ast = self.pass_manager.run(pyast)
         return astnodes.Block(label=None, body=[astnodes.FloatType(type=astnodes.FloatTypeEnum.f32)])
         # return self.pass_manager.run(pyast)
 
