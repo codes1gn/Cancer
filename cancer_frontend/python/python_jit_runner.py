@@ -80,7 +80,7 @@ class PythonRunner:
         PythonRunner: returns the instance of this class
     """
 
-    __slots__ = []
+    __slots__ = ["pass_manager"]
 
     def __init__(self):
         """
@@ -138,9 +138,23 @@ class PythonRunner:
 
     # TODO may change into classmethod or staticmethod
     def convert_python_to_mlir(self, pyast: ast.AST) -> MlirNode:
+        """
+        usage:
+        self.pass_manager = PastToMlirPassManager()
+        self.pass_manager.register_passes()
+        return self.pass_manager.run(pyast)
+        """
+        from cancer_frontend.pass_manager import PastToMlirPassManager
+
+        self.pass_manager = PastToMlirPassManager()
+        self.pass_manager.register_passes()
+        return astnodes.Block(label=None, body=[astnodes.FloatType(type=astnodes.FloatTypeEnum.f32)])
+        # return self.pass_manager.run(pyast)
+
+
+"""
         from mlir.dialects.standard import ReturnOperation
         from cancer_frontend.scaffold.mlir_dialects.dialect_tcf import TCF_AddOp
-
         # this is return op
         #############################################################################
         # TODO understand what does match means
@@ -200,3 +214,5 @@ class PythonRunner:
         #############################################################################
 
         return _module
+
+"""
