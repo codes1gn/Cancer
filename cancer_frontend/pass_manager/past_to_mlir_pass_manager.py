@@ -1,6 +1,5 @@
-from .pass_manager_base import PassManagerBase
-
-from .passes.plugin_multiply_pass import PluginMultiplyPass
+from cancer_frontend.pass_manager.pass_manager_base import PassManagerBase
+from cancer_frontend.pass_manager.passes import *
 
 __all__ = [
     "PastToMlirPassManager",
@@ -10,6 +9,6 @@ __all__ = [
 class PastToMlirPassManager(PassManagerBase):
     def register_passes(self):
         print("PastToMlirPassManager::register_passes")
-        self.add_pass(PluginMultiplyPass)
+        self.add_pass(IdenticalPastPass)
 
         return
