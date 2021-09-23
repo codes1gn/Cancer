@@ -10,5 +10,5 @@ sh ${top_dir_realpath}/scripts/_install_python_package.sh
 
 cd ${top_dir_realpath}
 
-python frontend_examples/test_python.py > log_run
-python frontend_tests/test_debug.py > log_ref
+python frontend_examples/test_python.py
+# python frontend_tests/test_debug.py

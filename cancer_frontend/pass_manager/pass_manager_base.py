@@ -1,4 +1,5 @@
 from .pass_registry import PassRegistry
+import ast
 
 
 class PassManagerBase(object):
