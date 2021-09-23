@@ -3,6 +3,7 @@ from cancer_frontend.scaffold.utils import *
 from .passes import *
 
 
+# lazy load the pass register
 class PassRegistry(object):
     @memoized_classproperty
     def pass_table(cls):
@@ -18,6 +19,6 @@ class PassRegistry(object):
 
         # register passes
         register_pass.id_cnt = 0
-        register_pass(PluginMultiplyPass)
+        register_pass(IdenticalPastPass)
 
         return _pass_table
