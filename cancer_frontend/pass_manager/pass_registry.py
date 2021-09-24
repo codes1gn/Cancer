@@ -20,5 +20,6 @@ class PassRegistry(object):
         # register passes
         register_pass.id_cnt = 0
         register_pass(IdenticalPastPass)
+        register_pass(StatementConversionPass)
 
         return _pass_table

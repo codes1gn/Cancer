@@ -15,7 +15,5 @@ class IdenticalPastTransformer(NodeTransformerBase):
     def __init__(self):
         super(self.__class__, self).__init__()
 
-    def visit_Call(self, node):
-
-        ast.fix_missing_locations(node)
+    def visit_Call(self, node: ast.AST) -> ast.AST:
         return node

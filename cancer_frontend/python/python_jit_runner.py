@@ -92,7 +92,7 @@ class PythonRunner:
         dump_str += "*******************&&&&&"
         dump_str += ColorPalette.FAIL
         dump_str += "\ndumping mlir ast\n"
-        # dump_str += _ast.pretty()
+        dump_str += _ast.pretty()
         dump_str += ColorPalette.ENDC
         dump_str += ColorPalette.HEADER
         dump_str += "\ndumping mlir IR\n"
@@ -107,7 +107,7 @@ class PythonRunner:
         dump_str += ColorPalette.FAIL
         dump_str += "\ndumping python ast\n"
         # TODO use astunparse as alternative to ast pretty dump. this is not supported before py 3.8
-        # dump_str += astunparse.dump(_ast)
+        dump_str += astunparse.dump(_ast)
         dump_str += ColorPalette.ENDC
         dump_str += ColorPalette.HEADER
         dump_str += "\ndumping python code\n"
