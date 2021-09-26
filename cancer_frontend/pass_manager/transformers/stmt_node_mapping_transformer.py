@@ -94,7 +94,7 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
             attributes=None,
         )
         _function_wrapper = astnodes.Operation(result_list=[], op=_function, location=None)
-        print(_function_wrapper.pretty())
+        print(self.pretty_mlir(_function_wrapper))
         setattr(node, "mast_node", _function_wrapper)
 
         return node
@@ -111,7 +111,7 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         _module = astnodes.Module(name=None, attributes=None, region=_out_region, location=None)
         _mlirfile = astnodes.MLIRFile(definitions=[], modules=[_module])
 
-        print(_mlirfile.pretty())
+        print(self.pretty_mlir(_mlirfile))
         setattr(node, "mast_node", _mlirfile)
 
         return node
@@ -127,7 +127,7 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         _returnop.values = node.value
         _returnop.types = None
         _returnop_wrapper = astnodes.Operation(result_list=None, op=_returnop, location=None)
-        print(_returnop_wrapper.pretty())
+        print(self.pretty_mlir(_returnop_wrapper))
         setattr(node, "mast_node", _returnop_wrapper)
 
         return node
