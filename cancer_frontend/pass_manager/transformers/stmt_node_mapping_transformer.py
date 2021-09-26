@@ -60,11 +60,11 @@ def _pretty(self: MlirNode) -> str:
 MlirNode.pretty = _pretty
 
 __all__ = [
-    "ReturnOpTransformer",
+    "StmtNodeMappingTransformer",
 ]
 
 
-class ReturnOpTransformer(NodeTransformerBase):
+class StmtNodeMappingTransformer(NodeTransformerBase):
 
     __slots__ = []
 
