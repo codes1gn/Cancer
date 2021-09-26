@@ -69,11 +69,14 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
     __slots__ = []
 
     def __init__(self):
-        super(self.__class__, self).__init__()
+        super().__init__()
 
     def visit_FunctionDef(self, node: ast.AST) -> ast.AST:
+        """
+        Method that constructs the FunctionDef in python_native dialect
+        """
         super().generic_visit(node)
-        print("\nhandling functiondef = ", ast.dump(node))
+        print(self.__str__(), "handling visit_FunctionDef on node\n", astunparse.dump(node))
 
         _block = astnodes.Block(label=None, body=[None])
         _region = astnodes.Region(body=[_block])
@@ -97,8 +100,11 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         return node
 
     def visit_Module(self, node: ast.AST) -> ast.AST:
+        """
+        Method that constructs the Module in python_native dialect
+        """
         super().generic_visit(node)
-        print("\nhandling module = ", ast.dump(node))
+        print(self.__str__(), "handling visit_Module on node\n", astunparse.dump(node))
 
         _out_block = astnodes.Block(label=None, body=[None])
         _out_region = astnodes.Region(body=[_out_block])
@@ -111,7 +117,11 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         return node
 
     def visit_Return(self, node: ast.AST) -> ast.AST:
+        """
+        Method that constructs the ReturnOperation in python_native dialect
+        """
         super().generic_visit(node)
+        print(self.__str__(), "handling visit_Return on node\n", astunparse.dump(node))
 
         _returnop = ReturnOperation(match=0)
         _returnop.values = node.value

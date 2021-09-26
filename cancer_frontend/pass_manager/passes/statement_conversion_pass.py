@@ -74,6 +74,7 @@ class StatementConversionPass(PassBase):
         super().__init__()
         self.solvers = []
         self.solvers.append(StmtNodeMappingTransformer)
+        self.solvers.append(StmtConversionReadyCheckTransformer)
 
     def run_pass(self, ast_root: ast.AST) -> ast.AST:
         for _solver in self.solvers:
