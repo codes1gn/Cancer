@@ -13,11 +13,11 @@ MlirSsaId = astnodes.SsaId
 
 
 __all__ = [
-    "StmtConversionReadyCheckTransformer",
+    "StmtConversionReadyCheckVisitor",
 ]
 
 
-class StmtConversionReadyCheckTransformer(NodeVisitorBase):
+class StmtConversionReadyCheckVisitor(NodeVisitorBase):
 
     __slots__ = []
 
