@@ -27,12 +27,14 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
     def visit_FunctionDef(self, node: ast.AST) -> ast.AST:
         """
         Method that constructs the FunctionDef in python_native dialect
+        : param node,
         """
         super().generic_visit(node)
         print(self.__str__(), "handling visit_FunctionDef on node\n", astunparse.dump(node))
 
         # fix body elements in function region block
         _blocks = node.mast_node.op.region.body
+        # TODO remove all hardcode in for loop
         for _block in _blocks:
             _block.body[0] = node.body[0].mast_node
 
