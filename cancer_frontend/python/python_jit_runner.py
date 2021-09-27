@@ -1,17 +1,17 @@
 """ Contains jit runner class for compilation and execution """
+import sys
 import inspect
 import textwrap
+import copy
+import traceback
+import types
 import ast
 import astunparse
-import copy
-import sys
 
 from typing import Callable
 from imp import new_module
-import traceback
-import types
 
-import mlir
+from mlir import parse_path
 from mlir import astnodes
 from cancer_frontend.scaffold.mlir_dialects import *
 from cancer_frontend.scaffold.utils import *
@@ -121,7 +121,7 @@ class PythonRunner:
         Parses the code by providing its path
         :param
         """
-        return mlir.parse_path(code_path, dialects=CANCER_DIALECTS)
+        return parse_path(code_path, dialects=CANCER_DIALECTS)
 
     def parse_python(self, func: Callable) -> ast.AST:
         """

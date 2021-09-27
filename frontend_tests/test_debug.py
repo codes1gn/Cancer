@@ -4,7 +4,8 @@ import os
 from cancer_frontend.python import PythonRunner
 
 DEBUG_MLIR_INPUTS = [
-    "scalar_add_float.mlir",
+    "return_op_without_operand.mlir",
+    # "return_op_with_operand.mlir",
 ]
 
 

@@ -5,8 +5,7 @@
 // RUN:   | FileCheck %s
 
 // CHECK: output #0: dense<2.000000e+00> : tensor<1xf32>
-func @scalar_add_float(%arg0: f32) -> f32 {
-  %0 =  tcf.add %arg0, %arg0 : (f32, f32) -> f32
-  return %0 : f32
+func @constant1(){
+  return
 }
 
