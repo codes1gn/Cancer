@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# from Cancer.cancer_frontend import python
 import os
 import sys
 import subprocess
@@ -13,6 +14,8 @@ if not __TOP_DIR_PATH__.endswith(os.path.sep):
 # A CMakeExtension needs a sourcedir instead of a file list.
 # The name must be the _single_ output extension from the CMake build.
 # If you need multiple extensions, see scikit-build.
+
+
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir=""):
         Extension.__init__(self, name, sources=[])
@@ -24,7 +27,8 @@ class CMakeBuild(build_ext):
         # CMake lets you override the generator - we need to check this.
         cmake_generator = "-GNinja"
 
-        build_dir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
+        build_dir = os.path.abspath(
+            os.path.dirname(self.get_ext_fullpath(ext.name)))
         if not build_dir.endswith(os.path.sep):
             build_dir += os.path.sep
 
@@ -39,27 +43,34 @@ class CMakeBuild(build_ext):
         # from Python.
         cmake_args = [
             # TODO(albert) make it none hardcode
-            "-DMLIR_DIR={}".format(__TOP_DIR_PATH__ + "mlir_build/install_dir/lib/cmake/mlir"),
+            "-DMLIR_DIR={}".format(__TOP_DIR_PATH__ + \
+                                   "mlir_build/install_dir/lib/cmake/mlir"),
             "-DPYTHON_EXECUTABLE={}".format(sys.executable),
-            "-DLLVM_EXTERNAL_LIT={}".format(__TOP_DIR_PATH__ + "mlir_build/bin/llvm-lit"),
-            "-DCMAKE_BUILD_TYPE={}".format("DEBUG"),  # not used on MSVC, but no harm
+            "-DLLVM_EXTERNAL_LIT={}".format(__TOP_DIR_PATH__ + \
+                                            "mlir_build/bin/llvm-lit"),
+            # not used on MSVC, but no harm
+            "-DCMAKE_BUILD_TYPE={}".format("DEBUG"),
             "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={}".format(build_dir),
-            "-DEXAMPLE_VERSION_INFO={}".format(self.distribution.get_version()),
+            "-DEXAMPLE_VERSION_INFO={}".format(
+                self.distribution.get_version()),
         ]
         build_args = []
-        build_args += ["-j8"]
-        build_args += ["--verbose"]
+        # build_args += ["-j8"]
+        # build_args += ["--verbose"]
         # build_args += ["--clean-first"]
         build_args += ["--target", "cancer_compiler_module"]
 
-        subprocess.check_call(["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp)
+        subprocess.check_call(["cmake", ext.sourcedir] +
+                              cmake_args, cwd=self.build_temp)
 
-        subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
+        subprocess.check_call(["cmake", "--build", "."] +
+                              build_args, cwd=self.build_temp)
 
+        print("pwd:", os.getcwd())
         subprocess.check_call(
             [
                 "cp",
-                "./cancer-compiler/cancer-compiler-module/cancer_compiler_module.cpython-36m-x86_64-linux-gnu.so",
+                os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/cancer_compiler_module.cpython-37m-x86_64-linux-gnu.so",
                 build_dir,
             ],
             cwd=self.build_temp,
