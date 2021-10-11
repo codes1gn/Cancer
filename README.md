@@ -35,14 +35,14 @@ sudo ./llvm.sh 11
 ```
 After ensuring that all of the environment dependencies are ready, let's start building the project as follows
 
-**STEP1** The project depends on three externals included that llvm-project, pybind11 and pymlir, so them must be cloned firstly as follow.
+<font color=Blue>**STEP1**</font> The project depends on three externals included that llvm-project, pybind11 and pymlir, so them must be cloned firstly as follow.
 ```sh
 git submodule init
 git submodule update
 ```
 After cloning is complete, llvm-project, pybind11 and pymlir will appear in the external directory.
 
-**STEP2** Build the Cancer, in order to build project successfully, the LLVM+MLIR must be build successfully first, here provide the complete build script as follow.
+<font color=Blue>**STEP2**</font> Build the Cancer, in order to build project successfully, the LLVM+MLIR must be build successfully first, here provide the complete build script as follow.
 ```shell
 cd Cancer/
 bash script/build_and_install.sh
@@ -82,7 +82,7 @@ cmake -G Ninja \
     -DLLVM_BUILD_LLVM_DYLIB=ON \
     -DLLVM_LINK_LLVM_DYLIB=ON
 ```
-**Notice**: 
+<font color=Red>**Notice**</font>: 
 - Have to make sure build successfully, that is built LLVM + MLIR in `$BUILD_DIR=${top_dir_realpath}/mlir_build` and installed them to `$PREFIX=${top_dir_realpath}/mlir_build/install_dir`;
 
 - Make sure to pass `-DLLVM_INSTALL_UTILS=ON` when building LLVM with CMake in order to install `FileCheck` to the chosen installation prefix.
