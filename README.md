@@ -110,3 +110,8 @@ cd Cancer/
 bash scripts/_build_python_package.sh
 bash scripts/_install_python_package.sh
 ```
+After install python package successfully, can run the following script to test frontend functionality.
+```sh
+bash scripts/python_test.sh
+```
+**Notice**: Python version should be at least 3.8
