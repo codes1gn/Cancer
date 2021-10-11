@@ -70,7 +70,7 @@ class CMakeBuild(build_ext):
         subprocess.check_call(
             [
                 "cp",
-                os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/cancer_compiler_module.cpython-37m-x86_64-linux-gnu.so",
+                os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/cancer_compiler_module.cpython-38-x86_64-linux-gnu.so",
                 build_dir,
             ],
             cwd=self.build_temp,

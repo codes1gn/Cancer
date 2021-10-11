@@ -102,4 +102,11 @@ cmake --build . --target mlir-doc
 ```
 
 ## Cancer Frontend
-Cancer is a multi-frontend design with preferred support for `native python` and `numpy+scipy`, And strive to design the frontend as uniformly functional expression as possible. 
+Cancer is a multi-frontend design with preferred support for `native python` and `numpy+scipy`, And strive to design the frontend as uniformly functional expression as possible. Let's try using `native python` firstly to implement front-end functionality, as follow.
+
+<font color=Blue>**STEP1**</font>: Build and install python package
+```sh
+cd Cancer/
+bash scripts/_build_python_package.sh
+bash scripts/_install_python_package.sh
+```
