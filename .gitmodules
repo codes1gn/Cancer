@@ -1,6 +1,6 @@
 [submodule "external/llvm-project"]
 	path = external/llvm-project
-	url = git@github.com:codes1gn/llvm-project.git
+	url = git@github.com:llvm/llvm-project.git
 [submodule "external/pybind11"]
 	path = external/pybind11
 	url = git@github.com:pybind/pybind11.git
