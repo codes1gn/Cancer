@@ -7,3 +7,6 @@
 [submodule "external/pymlir"]
 	path = external/pymlir
 	url = git@github.com:spcl/pymlir.git
+[submodule "external/iree"]
+	path = external/iree
+	url = git@github.com:google/iree.git
