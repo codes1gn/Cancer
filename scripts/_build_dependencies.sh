@@ -13,7 +13,10 @@ cd ${top_dir_realpath}/mlir_build
 mkdir -p ${top_dir_realpath}/mlir_build/install_dir
 
 # try to fix linker issue
-export LDFLAGS=-fuse-ld=$(which ld.lld)
+echo "albert"
+echo $(which ld.lld)
+echo $(which ld.lld-11)
+# export LDFLAGS=-fuse-ld=$(which ld.lld)
 
 # config mlir
 # build with clang
@@ -30,6 +33,7 @@ cmake -G Ninja \
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_BUILD_LLVM_DYLIB=ON \
     -DLLVM_LINK_LLVM_DYLIB=ON
+    -DLLVM_USE_LINKER=lld
     # -DLLVM_ENABLE_LLD=ON \
 # build with gcc
 # cmake -G Ninja ../llvm -DLLVM_ENABLE_PROJECTS=mlir -DLLVM_BUILD_EXAMPLES=ON -DLLVM_TARGETS_TO_BUILD="X86" -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_INSTALL_PREFIX=./install_dir
