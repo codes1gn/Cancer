@@ -181,4 +181,9 @@ MLIRFile(
                 location=None)])]),
       location=None)])
 ```
-
+And the corresponding MLIR is
+```python
+func @constant1(){
+  return
+}
+```
