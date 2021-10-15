@@ -114,4 +114,65 @@ After install python package successfully, can run the following script to test 
 ```sh
 bash scripts/python_test.sh
 ```
-**Notice**: Python version should be at least 3.8
+More detailly, For given a simple python code:
+```python
+def constant1():
+    return 
+```
+And the corresponding python native AST is
+```python
+Module(
+  body=[FunctionDef(
+    name='constant1',
+    args=arguments(
+      posonlyargs=[],
+      args=[],
+      vararg=None,
+      kwonlyargs=[],
+      kw_defaults=[],
+      kwarg=None,
+      defaults=[]),
+    body=[Return(value=None)],
+    decorator_list=[],
+    returns=None,
+    type_comment=None)],
+  type_ignores=[])
+```
+Ok, Now we constructs the MLIR AST via above python native AST, format as follow.
+```python
+MLIRFile(
+  definitions=[],
+  modules=[
+    Module(
+      name=None,
+      attributes=None,
+      region=Region(
+        body=[
+          Block(
+            label=None,
+            body=[
+              Operation(
+                result_list=[],
+                op=Function(
+                  name=SymbolRefId(
+                    value='constant1'),
+                  args=None,
+                  result_types=None,
+                  attributes=None,
+                  region=Region(
+                    body=[
+                      Block(
+                        label=None,
+                        body=[
+                          Operation(
+                            result_list=None,
+                            op=ReturnOperation(
+                              match=0,
+                              values=None,
+                              types=None),
+                            location=None)])]),
+                  location=None),
+                location=None)])]),
+      location=None)])
+```
+
