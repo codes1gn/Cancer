@@ -26,19 +26,14 @@
 #include "RefBackend/RefBackend.h"
 #include "PassDetail.h"
 
-#include "Conversion/TCFToLinalg/TCFToLinalg.h"
-#include "Conversion/TCFToStd/TCFToStd.h"
-#include "Conversion/TCFToTCP/TCFToTCP.h"
-#include "Dialect/Refback/IR/RefbackOps.h"
-#include "Dialect/TCP/IR/TCPDialect.h"
-#include "Dialect/TCP/IR/TCPOps.h"
-#include "Dialect/TCP/Transforms/Passes.h"
 #include "mlir/Conversion/AffineToStandard/AffineToStandard.h"
 #include "mlir/Conversion/SCFToStandard/SCFToStandard.h"
 #include "mlir/Conversion/ShapeToStandard/ShapeToStandard.h"
 #include "mlir/Dialect/Linalg/IR/LinalgOps.h"
 #include "mlir/Dialect/Linalg/IR/LinalgTypes.h"
 #include "mlir/Dialect/Linalg/Passes.h"
+// to fix memref ops
+#include "mlir/Dialect/MemRef/IR/MemRef.h"
 #include "mlir/Dialect/SCF/Passes.h"
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
 #include "mlir/Dialect/StandardOps/Transforms/Passes.h"
@@ -49,6 +44,14 @@
 #include "mlir/Transforms/DialectConversion.h"
 #include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 #include "mlir/Transforms/Passes.h"
+
+#include "Conversion/TCFToLinalg/TCFToLinalg.h"
+#include "Conversion/TCFToStd/TCFToStd.h"
+#include "Conversion/TCFToTCP/TCFToTCP.h"
+#include "Dialect/Refback/IR/RefbackOps.h"
+#include "Dialect/TCP/IR/TCPDialect.h"
+#include "Dialect/TCP/IR/TCPOps.h"
+#include "Dialect/TCP/Transforms/Passes.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;
