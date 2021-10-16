@@ -22,7 +22,7 @@ using namespace mlir::CANCER::refbackrt;
 
 static void printModuleMetadataOp(OpAsmPrinter &p, ModuleMetadataOp &op) {
   p << "refbackrt.module_metadata";
-  p.printOptionalAttrDictWithKeyword(op.getAttrs());
+  p.printOptionalAttrDictWithKeyword(op->getAttrs());
   p.printRegion(op.metadatas(), /*printEntryBlockArgs=*/false,
                 /*printBlockTerminators=*/false);
 }
