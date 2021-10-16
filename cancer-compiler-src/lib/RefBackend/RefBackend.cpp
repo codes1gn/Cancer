@@ -105,7 +105,7 @@ public:
         dynamicExtents.push_back(extent);
       }
     }
-    rewriter.replaceOpWithNewOp<AllocOp>(op, memrefType, dynamicExtents);
+    rewriter.replaceOpWithNewOp<memref::AllocOp>(op, memrefType, dynamicExtents);
     return success();
   }
 };
@@ -123,7 +123,7 @@ class LowerAllocMemRefOps
     ConversionTarget target(*context);
     target.addIllegalOp<refback::AllocMemRefOp>();
     target.addLegalOp<tensor::ExtractOp>();
-    target.addLegalOp<AllocOp>();
+    target.addLegalOp<memref::AllocOp>();
     target.addLegalOp<ConstantOp>();
     if (failed(applyPartialConversion(func, target, std::move(patterns)))) {
       return signalPassFailure();
