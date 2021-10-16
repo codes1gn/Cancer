@@ -6,10 +6,12 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "mlir/IR/DialectImplementation.h"
+#include "mlir/Transforms/InliningUtils.h"
+#include "llvm/ADT/TypeSwitch.h"
+
 #include "Dialect/Basicpy/IR/BasicpyDialect.h"
 #include "Dialect/Basicpy/IR/BasicpyOps.h"
-#include "mlir/IR/DialectImplementation.h"
-#include "llvm/ADT/TypeSwitch.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;
