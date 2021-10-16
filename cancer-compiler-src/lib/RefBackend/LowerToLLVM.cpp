@@ -12,6 +12,8 @@
 #include "mlir/Conversion/StandardToLLVM/ConvertStandardToLLVM.h"
 #include "mlir/Conversion/StandardToLLVM/ConvertStandardToLLVMPass.h"
 #include "mlir/Dialect/LLVMIR/LLVMDialect.h"
+// to fix Math ops
+#include "mlir/Dialect/Math/Transforms/Passes.h"
 #include "mlir/Dialect/StandardOps/Transforms/Passes.h"
 #include "mlir/Transforms/DialectConversion.h"
 
@@ -463,16 +465,16 @@ class LowerToLLVM : public LowerToLLVMBase<LowerToLLVM> {
 
     LLVMTypeConverter converter(context);
 
-    OwningRewritePatternList patterns;
+    RewritePatternSet patterns(context);
     LLVMConversionTarget target(*context);
     populateCompilerRuntimePatterns(module, patterns, converter);
-    target.addLegalOp<ModuleOp, ModuleTerminatorOp>();
+    target.addLegalOp<ModuleOp>();
     populateStdToLLVMConversionPatterns(converter, patterns);
     patterns.insert<LowerModuleMetadata>(context);
 
     // TODO: Move these "std to std" legalizations to their own pass if we grow
     // lots of these patterns.
-    populateExpandTanhPattern(patterns, context);
+    populateExpandTanhPattern(patterns);
 
     if (failed(applyFullConversion(module, target, std::move(patterns)))) {
       return signalPassFailure();
