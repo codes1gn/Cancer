@@ -9,16 +9,19 @@
 #include "Conversion/TCFToLinalg/TCFToLinalg.h"
 
 #include "../PassDetail.h"
-#include "Dialect/TCF/IR/TCFOps.h"
-#include "Dialect/TCP/IR/TCPDialect.h"
-#include "Dialect/TCP/IR/TCPOps.h"
 #include "mlir/Dialect/Linalg/IR/LinalgOps.h"
 #include "mlir/Dialect/Shape/IR/Shape.h"
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
 #include "mlir/Dialect/Tensor/IR/Tensor.h"
 #include "mlir/Dialect/Traits.h"
+// to fix memref ops
+#include "mlir/Dialect/MemRef/IR/MemRef.h"
 #include "mlir/Transforms/DialectConversion.h"
 #include "mlir/Transforms/GreedyPatternRewriteDriver.h"
+
+#include "Dialect/TCF/IR/TCFOps.h"
+#include "Dialect/TCP/IR/TCPDialect.h"
+#include "Dialect/TCP/IR/TCPOps.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;
@@ -27,8 +30,8 @@ static SmallVector<Value, 6> bypassResultShapes(Operation *op,
                                                 OpBuilder &builder) {
 
   if (auto matmul = dyn_cast<tcf::MatmulOp>(op)) {
-    auto lhsRows = builder.create<DimOp>(op->getLoc(), matmul.lhs(), 0);
-    auto rhsCols = builder.create<DimOp>(op->getLoc(), matmul.rhs(), 1);
+    auto lhsRows = builder.create<memref::DimOp>(op->getLoc(), matmul.lhs(), 0);
+    auto rhsCols = builder.create<memref::DimOp>(op->getLoc(), matmul.rhs(), 1);
     auto shape = builder.create<tensor::FromElementsOp>(
         op->getLoc(), ValueRange({lhsRows, rhsCols}));
     return {shape};
@@ -54,15 +57,15 @@ static SmallVector<Value, 6> bypassResultShapes(Operation *op,
     auto dilationWidth = dilation;
     auto paddingHeight = padding;
     auto paddingWidth = padding;
-    auto batch = builder.create<DimOp>(op->getLoc(), conv2dNCHW.in(), 0);
-    auto height = builder.create<DimOp>(op->getLoc(), conv2dNCHW.in(), 2);
-    auto width = builder.create<DimOp>(op->getLoc(), conv2dNCHW.in(), 3);
+    auto batch = builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.in(), 0);
+    auto height = builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.in(), 2);
+    auto width = builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.in(), 3);
     auto filterOutChannels =
-        builder.create<DimOp>(op->getLoc(), conv2dNCHW.filter(), 0);
+        builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.filter(), 0);
     auto filterHeight =
-        builder.create<DimOp>(op->getLoc(), conv2dNCHW.filter(), 2);
+        builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.filter(), 2);
     auto filterWidth =
-        builder.create<DimOp>(op->getLoc(), conv2dNCHW.filter(), 3);
+        builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.filter(), 3);
     // Output height
     auto twicePaddingHeight =
         builder.create<MulIOp>(op->getLoc(), paddingHeight, cI2);
@@ -114,8 +117,8 @@ public:
   LogicalResult matchAndRewrite(tcf::MatmulOp op,
                                 PatternRewriter &rewriter) const override {
     // Create the constraints, and the assuming region.
-    Value lhsK = rewriter.create<DimOp>(op.getLoc(), op.lhs(), 1);
-    Value rhsK = rewriter.create<DimOp>(op.getLoc(), op.rhs(), 0);
+    Value lhsK = rewriter.create<memref::DimOp>(op.getLoc(), op.lhs(), 1);
+    Value rhsK = rewriter.create<memref::DimOp>(op.getLoc(), op.rhs(), 0);
     Value matchingK =
         rewriter.create<CmpIOp>(op.getLoc(), CmpIPredicate::eq, lhsK, rhsK);
     Value witness = rewriter.create<shape::CstrRequireOp>(
@@ -153,12 +156,12 @@ public:
   LogicalResult matchAndRewrite(tcf::ConvNCHWOp op,
                                 PatternRewriter &rewriter) const override {
     // Create the constraints, and the assuming region.
-    Value inputCin = rewriter.create<DimOp>(op.getLoc(), op.in(), 1);
-    Value inputH = rewriter.create<DimOp>(op.getLoc(), op.in(), 2);
-    Value inputW = rewriter.create<DimOp>(op.getLoc(), op.in(), 3);
-    Value filterCin = rewriter.create<DimOp>(op.getLoc(), op.filter(), 1);
-    Value filterKH = rewriter.create<DimOp>(op.getLoc(), op.filter(), 2);
-    Value filterKW = rewriter.create<DimOp>(op.getLoc(), op.filter(), 3);
+    Value inputCin = rewriter.create<memref::DimOp>(op.getLoc(), op.in(), 1);
+    Value inputH = rewriter.create<memref::DimOp>(op.getLoc(), op.in(), 2);
+    Value inputW = rewriter.create<memref::DimOp>(op.getLoc(), op.in(), 3);
+    Value filterCin = rewriter.create<memref::DimOp>(op.getLoc(), op.filter(), 1);
+    Value filterKH = rewriter.create<memref::DimOp>(op.getLoc(), op.filter(), 2);
+    Value filterKW = rewriter.create<memref::DimOp>(op.getLoc(), op.filter(), 3);
     Value matchingCin = rewriter.create<CmpIOp>(op.getLoc(), CmpIPredicate::eq,
                                                 inputCin, filterCin);
     Value validFilterH = rewriter.create<CmpIOp>(

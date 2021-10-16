@@ -8,12 +8,9 @@
 
 #include "PassDetail.h"
 
-#include "Dialect/Refback/IR/RefbackDialect.h"
-#include "Dialect/Refback/IR/RefbackOps.h"
-#include "Dialect/TCP/IR/TCPDialect.h"
-#include "Dialect/TCP/IR/TCPOps.h"
-#include "Dialect/TCP/Transforms/Passes.h"
 #include "mlir/Dialect/Linalg/IR/LinalgOps.h"
+// to fix memref ops
+#include "mlir/Dialect/MemRef/IR/MemRef.h"
 #include "mlir/Dialect/SCF/SCF.h"
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
 #include "mlir/Dialect/Tensor/IR/Tensor.h"
@@ -21,6 +18,12 @@
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/Transforms/Bufferize.h"
 #include "mlir/Transforms/DialectConversion.h"
+
+#include "Dialect/Refback/IR/RefbackDialect.h"
+#include "Dialect/Refback/IR/RefbackOps.h"
+#include "Dialect/TCP/IR/TCPDialect.h"
+#include "Dialect/TCP/IR/TCPOps.h"
+#include "Dialect/TCP/Transforms/Passes.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;
