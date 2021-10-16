@@ -126,7 +126,11 @@ Error compileAndRun(std::string mlirFile, mlir::DialectRegistry &registry,
                     std::string invokeFunction, ArrayRef<StringRef> argValues,
                     ArrayRef<StringRef> sharedLibs, bool optimize) {
   MLIRContext context;
-  registry.loadAll(&context);
+  // registry.loadAll(&context);
+  // modify context construction method via registry
+  context.appendDialectRegistry(registry);
+  context.loadAllAvailableDialects();
+
   OwningModuleRef moduleRef = parseSourceFile(mlirFile, &context);
   if (!moduleRef)
     return make_string_error(Twine("could not open ") + mlirFile);
