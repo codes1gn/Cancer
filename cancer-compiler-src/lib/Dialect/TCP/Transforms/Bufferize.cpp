@@ -46,7 +46,7 @@ static SmallVector<Value, 6> bypassResultShapes(Operation &op) {
           op.getLoc(), pad.lowerExpansion(), ValueRange({dimIndex}));
       auto upperExpansion = builder.create<tensor::ExtractOp>(
           op.getLoc(), pad.upperExpansion(), ValueRange({dimIndex}));
-      auto operandDim = builder.create<DimOp>(op.getLoc(), pad.operand(), i);
+      auto operandDim = builder.create<memref::DimOp>(op.getLoc(), pad.operand(), i);
       auto totalExpansion =
           builder.create<AddIOp>(op.getLoc(), lowerExpansion, upperExpansion);
       auto outDim =
@@ -115,7 +115,7 @@ public:
     SmallVector<Value, 6> inputDimRequiresBroadcasting;
     for (int i = 0, e = inputType.getRank(); i < e; i++) {
       // Calculate the relevant extents.
-      Value inputExtent = rewriter.create<DimOp>(op.getLoc(), op.operand(), i);
+      Value inputExtent = rewriter.create<memref::DimOp>(op.getLoc(), op.operand(), i);
       inputDimRequiresBroadcasting.push_back(
           rewriter.create<CmpIOp>(op.getLoc(), CmpIPredicate::ne, inputExtent,
                                   outputExtents[rankDiff + i]));
@@ -151,8 +151,8 @@ public:
         inputIndices.push_back(select);
       }
       Value load =
-          rewriter.create<LoadOp>(op.getLoc(), inputMemref, inputIndices);
-      rewriter.create<StoreOp>(op.getLoc(), load, resultMemref,
+          rewriter.create<memref::LoadOp>(op.getLoc(), inputMemref, inputIndices);
+      rewriter.create<memref::StoreOp>(op.getLoc(), load, resultMemref,
                                inductionVariables);
     }
     rewriter.replaceOp(op, resultMemref);
@@ -198,7 +198,7 @@ public:
       auto dimIndex = rewriter.create<ConstantIndexOp>(op.getLoc(), i);
       auto offset = rewriter.create<tensor::ExtractOp>(
           op.getLoc(), op.lowerExpansion(), ValueRange({dimIndex}));
-      auto size = rewriter.create<DimOp>(op.getLoc(), op.operand(), i);
+      auto size = rewriter.create<memref::DimOp>(op.getLoc(), op.operand(), i);
       auto stride = c1;
       offsets.push_back(offset);
       sizes.push_back(size);

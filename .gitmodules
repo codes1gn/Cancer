@@ -10,3 +10,4 @@
 [submodule "external/iree"]
 	path = external/iree
 	url = git@github.com:google/iree.git
+    ignore = dirty

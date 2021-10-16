@@ -10,7 +10,7 @@ add_cancer_library(CANCERCAPI
   LINK_LIBS PUBLIC
   MLIRExecutionEngine
   MLIRLLVMIR
-  MLIRTargetLLVMIR
+  MLIRTargetLLVMIRExport
   CANCERInit
   CANCERDialectBasicpy
   CANCERDialectNumpy
