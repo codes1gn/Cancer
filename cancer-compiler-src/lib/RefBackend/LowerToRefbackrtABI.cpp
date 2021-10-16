@@ -171,7 +171,8 @@ static LogicalResult doDialectConversion(ModuleOp module) {
             loc, inputs[0], getABIMemrefType(inputs[0].getType()));
       });
 
-  OwningRewritePatternList patterns;
+  // change OwningRewritePatternList into RewritePatternSet
+  RewritePatternSet patterns(context);
   ConversionTarget target(*context);
   target.addLegalDialect<refbackrt::RefbackrtDialect>();
   target.addLegalDialect<StandardOpsDialect>();

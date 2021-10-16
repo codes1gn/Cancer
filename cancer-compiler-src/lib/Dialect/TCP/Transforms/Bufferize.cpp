@@ -233,7 +233,8 @@ class TCPBufferizePass : public TCPBufferizeBase<TCPBufferizePass> {
 
     BufferizeTypeConverter typeConverter;
 
-    OwningRewritePatternList patterns;
+    // change OwningRewritePatternList into RewritePatternSet
+    RewritePatternSet patterns(context);
 
     ConversionTarget target(*context);
 

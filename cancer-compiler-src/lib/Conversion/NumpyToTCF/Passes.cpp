@@ -52,7 +52,8 @@ class ConvertNumpyToTCF : public ConvertNumpyToTCFBase<ConvertNumpyToTCF> {
     FuncOp func = getOperation();
     MLIRContext *context = &getContext();
 
-    OwningRewritePatternList patterns;
+    // change OwningRewritePatternList into RewritePatternSet
+    RewritePatternSet patterns(context);
     patterns.insert<ConvertBinaryBuiltinUfuncCallOp<tcf::AddOp>>(context,
                                                                  "numpy.add");
     (void)applyPatternsAndFoldGreedily(func, std::move(patterns));

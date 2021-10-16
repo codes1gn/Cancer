@@ -220,7 +220,8 @@ public:
 
   FrozenRewritePatternList getPatterns() {
     MLIRContext *context = &getContext();
-    OwningRewritePatternList patterns;
+    // change OwningRewritePatternList into RewritePatternSet
+    RewritePatternSet patterns(context);
     patterns.insert<ConvertMatmul>(context);
     patterns.insert<ConvertConvNCHW>(context);
     return std::move(patterns);

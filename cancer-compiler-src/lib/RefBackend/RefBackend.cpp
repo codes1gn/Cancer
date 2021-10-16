@@ -121,7 +121,9 @@ class LowerAllocMemRefOps
   void runOnOperation() override {
     auto func = getOperation();
     auto *context = &getContext();
-    OwningRewritePatternList patterns;
+    // OwningRewritePatternList patterns;
+    // changed into new interface
+    RewritePatternSet patterns(context);
     patterns.insert<LowerAllocMemRefOp>(context);
     ConversionTarget target(*context);
     target.addIllegalOp<refback::AllocMemRefOp>();
@@ -176,7 +178,7 @@ struct RestrictedCanonicalizer
     }
 
     // Collect all canonicalization patterns from ops in the included dialects.
-    OwningRewritePatternList patterns;
+    RewritePatternSet patterns(context);
     for (AbstractOperation *op : context->getRegisteredOperations())
       if (dialectsToCanonicalize.count(&op->dialect))
         op->getCanonicalizationPatterns(patterns, context);

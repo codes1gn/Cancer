@@ -28,7 +28,8 @@ public:
 
   FrozenRewritePatternList getPatterns() {
     auto *context = &getContext();
-    OwningRewritePatternList patterns;
+    // change OwningRewritePatternList into RewritePatternSet
+    RewritePatternSet patterns(context);
     populateBasicpyToStdPrimitiveOpPatterns(context, patterns);
     return std::move(patterns);
   }

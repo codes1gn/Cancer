@@ -9,14 +9,17 @@
 #include "Conversion/TCFToStd/TCFToStd.h"
 
 #include "../PassDetail.h"
-#include "Dialect/TCF/IR/TCFOps.h"
-#include "Dialect/TCP/IR/TCPDialect.h"
-#include "Dialect/TCP/IR/TCPOps.h"
+// to fix Math ops reference
+#include "mlir/Dialect/Math/IR/Math.h"
 #include "mlir/Dialect/Shape/IR/Shape.h"
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
 #include "mlir/Dialect/Traits.h"
 #include "mlir/Transforms/DialectConversion.h"
 #include "mlir/Transforms/GreedyPatternRewriteDriver.h"
+
+#include "Dialect/TCF/IR/TCFOps.h"
+#include "Dialect/TCP/IR/TCPDialect.h"
+#include "Dialect/TCP/IR/TCPOps.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;
@@ -108,9 +111,9 @@ public:
 static LogicalResult
 matchAndRewriteUnaryElementwise(Operation *op, PatternRewriter &rewriter) {
   if (isa<tcf::ExpOp>(op)) {
-    rewriter.replaceOpWithNewOp<ExpOp>(op, op->getOperand(0));
+    rewriter.replaceOpWithNewOp<math::ExpOp>(op, op->getOperand(0));
   } else if (isa<tcf::TanhOp>(op)) {
-    rewriter.replaceOpWithNewOp<TanhOp>(op, op->getOperand(0));
+    rewriter.replaceOpWithNewOp<math::TanhOp>(op, op->getOperand(0));
   } else {
     op->dump();
     llvm::report_fatal_error(
@@ -135,7 +138,7 @@ namespace {
 class ConvertTCFToStd : public ConvertTCFToStdBase<ConvertTCFToStd> {
 public:
   void getDependentDialects(DialectRegistry &registry) const override {
-    registry.insert<shape::ShapeDialect>();
+    registry.insert<math::MathDialect, shape::ShapeDialect, tcp::TCPDialect>();
   }
 
   void runOnOperation() override {
@@ -144,12 +147,12 @@ public:
 
   FrozenRewritePatternList getPatterns() {
     MLIRContext *context = &getContext();
-    OwningRewritePatternList patterns;
-    patterns.insert<ConvertUnaryElementwise<tcf::ExpOp>,
-                    ConvertUnaryElementwise<tcf::TanhOp>>(context);
-    patterns.insert<ConvertBinaryElementwise<tcf::AddOp>,
-                    ConvertBinaryElementwise<tcf::MaxOp>,
-                    ConvertBinaryElementwise<tcf::MulOp>>(context);
+    RewritePatternSet patterns(context);
+    patterns.add<ConvertUnaryElementwise<tcf::ExpOp>,
+                 ConvertUnaryElementwise<tcf::TanhOp>>(context);
+    patterns.add<ConvertBinaryElementwise<tcf::AddOp>,
+                 ConvertBinaryElementwise<tcf::MaxOp>,
+                 ConvertBinaryElementwise<tcf::MulOp>>(context);
     return std::move(patterns);
   }
 };
