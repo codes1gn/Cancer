@@ -9,6 +9,7 @@
 #include "PassDetail.h"
 #include "RefBackend/RefBackend.h"
 
+#include "mlir/Dialect/MemRef/IR/MemRef.h"
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
 #include "mlir/IR/BuiltinTypes.h"
 #include "mlir/IR/Verifier.h"
@@ -130,7 +131,7 @@ public:
       for (auto newAndOldArg :
            llvm::zip(newEntry.getArguments(), oldEntry.getArguments())) {
         std::tie(newArg, oldArg) = newAndOldArg;
-        auto memref = rewriter.create<MemRefCastOp>(op.getLoc(), newArg,
+        auto memref = rewriter.create<memref::CastOp>(op.getLoc(), newArg,
                                                     oldArg.getType());
         rewriter.replaceUsesOfBlockArgument(oldArg, memref);
       }
@@ -167,7 +168,7 @@ static LogicalResult doDialectConversion(ModuleOp module) {
       [](OpBuilder &builder, UnrankedMemRefType type, ValueRange inputs,
          Location loc) -> Value {
         assert(inputs.size() == 1);
-        return builder.create<MemRefCastOp>(
+        return builder.create<memref::CastOp>(
             loc, inputs[0], getABIMemrefType(inputs[0].getType()));
       });
 

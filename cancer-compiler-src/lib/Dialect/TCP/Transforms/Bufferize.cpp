@@ -209,7 +209,7 @@ public:
     }
     rewriter.create<linalg::FillOp>(op.getLoc(), results[0], op.fillVal());
     auto unpadded =
-        rewriter.create<SubViewOp>(op.getLoc(), results[0], ValueRange(offsets),
+        rewriter.create<memref::SubViewOp>(op.getLoc(), results[0], ValueRange(offsets),
                                    ValueRange(sizes), ValueRange(strides));
     auto inputMemref = operands[0];
     rewriter.create<linalg::CopyOp>(op.getLoc(), inputMemref, unpadded);
