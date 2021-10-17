@@ -74,6 +74,4 @@ add_subdirectory(cancer-compiler-src)
 
 # add cancer-compiler utils
 add_subdirectory(cancer-compiler)
-# add_subdirectory(include)
-# add_subdirectory(lib)
 
