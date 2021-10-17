@@ -7,12 +7,13 @@
 //===----------------------------------------------------------------------===//
 
 #include "Dialect/Numpy/IR/NumpyOps.h"
-#include "Dialect/Basicpy/IR/BasicpyDialect.h"
-#include "Dialect/Numpy/IR/NumpyDialect.h"
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/FunctionImplementation.h"
 #include "mlir/IR/OpImplementation.h"
 #include "mlir/IR/PatternMatch.h"
+#include "mlir/IR/TypeUtilities.h"
+#include "Dialect/Basicpy/IR/BasicpyDialect.h"
+#include "Dialect/Numpy/IR/NumpyDialect.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;
@@ -59,6 +60,67 @@ void BuiltinUfuncCallOp::addCPAConstraints(Typing::CPA::Context &context) {
 }
 
 //----------------------------------------------------------------------------//
+// StaticInfoCast
+//----------------------------------------------------------------------------//
+
+bool StaticInfoCastOp::areCastCompatible(mlir::TypeRange inputs,
+                                         mlir::TypeRange outputs) {
+  auto input = inputs[0].cast<NdArrayType>();
+  auto output = outputs[0].cast<NdArrayType>();
+  if (input.getOptionalShape() && output.getOptionalShape()) {
+    if (failed(verifyCompatibleShape(*input.getOptionalShape(),
+                                     *output.getOptionalShape())))
+      return false;
+  }
+  return input.getDtype() == output.getDtype() ||
+         input.getDtype().isa<AnyDtypeType>() ||
+         output.getDtype().isa<AnyDtypeType>();
+}
+
+void StaticInfoCastOp::getCanonicalizationPatterns(RewritePatternSet &patterns,
+                                                   MLIRContext *context) {
+  // static_info_cast(oneUse@create_array_from_tensor(%tensor))
+  // -->
+  // create_array_from_tensor(tensor_static_info_cast(%tensor))
+  //
+  // This pattern tends to create more tensor code and less array code.
+  // This form is considered more canonical because it has same number of ops
+  // but is more analyzable.
+  //
+  // TODO: Consider a world where we numpy.ndarray can track an "immutable" bit
+  // which makes it tensor-like. Is that useful?
+  patterns.add(+[](StaticInfoCastOp op, PatternRewriter &rewriter) {
+    auto createArray = op.getOperand().getDefiningOp<CreateArrayFromTensorOp>();
+    if (!createArray || !createArray.getResult().hasOneUse())
+      return failure();
+    auto tensorCast = rewriter.create<TensorStaticInfoCastOp>(
+        op.getLoc(), op.getType().cast<NdArrayType>().toTensorType(),
+        createArray.getOperand());
+    rewriter.replaceOpWithNewOp<CreateArrayFromTensorOp>(op, op.getType(),
+                                                         tensorCast);
+    rewriter.eraseOp(createArray);
+    return success();
+  });
+}
+
+//----------------------------------------------------------------------------//
+// TensorStaticInfoCast
+//----------------------------------------------------------------------------//
+
+bool TensorStaticInfoCastOp::areCastCompatible(mlir::TypeRange inputs,
+                                               mlir::TypeRange outputs) {
+  auto input = inputs[0].cast<TensorType>();
+  auto output = outputs[0].cast<TensorType>();
+  if (input.hasRank() && output.hasRank()) {
+    if (failed(verifyCompatibleShape(input.getShape(), output.getShape())))
+      return false;
+  }
+  return input.getElementType() == output.getElementType() ||
+         input.getElementType().isa<AnyDtypeType>() ||
+         output.getElementType().isa<AnyDtypeType>();
+}
+
+//----------------------------------------------------------------------------//
 // CreateArrayFromTensorOp
 //----------------------------------------------------------------------------//
 
@@ -81,9 +143,9 @@ public:
 };
 } // namespace
 
-void CopyToTensorOp::getCanonicalizationPatterns(
-    OwningRewritePatternList &patterns, MLIRContext *context) {
-  patterns.insert<ElideCreateRedundantArrayFromTensor>(context);
+void CopyToTensorOp::getCanonicalizationPatterns(RewritePatternSet &patterns,
+                                                 MLIRContext *context) {
+  patterns.add<ElideCreateRedundantArrayFromTensor>(context);
 }
 
 #define GET_OP_CLASSES

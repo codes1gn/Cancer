@@ -19,8 +19,7 @@ namespace CANCER {
 // Conversion patterns
 //===----------------------------------------------------------------------===//
 
-void populateBasicpyToStdPrimitiveOpPatterns(
-    MLIRContext *context, OwningRewritePatternList &patterns);
+void populateBasicpyToStdPrimitiveOpPatterns(RewritePatternSet &patterns);
 
 } // namespace CANCER
 } // namespace mlir

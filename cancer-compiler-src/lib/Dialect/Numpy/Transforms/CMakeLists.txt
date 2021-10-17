@@ -1,6 +1,8 @@
 add_cancer_conversion_library(CANCERNumpyPasses
+  ArrayToTensor.cpp
   Passes.cpp
   PublicFunctionToTensor.cpp
+  RefinePublicReturn.cpp
 
   ADDITIONAL_HEADER_DIRS
   ${PROJECT_SOURCE_DIR}/include/cancer/Dialect/Numpy/Transforms

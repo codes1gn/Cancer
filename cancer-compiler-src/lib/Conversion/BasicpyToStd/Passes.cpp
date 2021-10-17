@@ -30,7 +30,7 @@ public:
     auto *context = &getContext();
     // change OwningRewritePatternList into RewritePatternSet
     RewritePatternSet patterns(context);
-    populateBasicpyToStdPrimitiveOpPatterns(context, patterns);
+    populateBasicpyToStdPrimitiveOpPatterns(patterns);
     return std::move(patterns);
   }
 };

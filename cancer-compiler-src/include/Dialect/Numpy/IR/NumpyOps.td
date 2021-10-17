@@ -12,6 +12,7 @@
 include "Dialect/Numpy/IR/NumpyDialect.td"
 include "Typing/Analysis/CPA/Interfaces.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
+include "mlir/Interfaces/CastInterfaces.td"
 include "mlir/IR/SymbolInterfaces.td"
 
 //----------------------------------------------------------------------------//
@@ -32,6 +33,52 @@ def Numpy_NarrowOp : Numpy_Op<"narrow", []> {
   );
   let assemblyFormat = [{
     $operand attr-dict `:` functional-type($operand, $result)
+  }];
+}
+
+def Numpy_StaticInfoCastOp : Numpy_Op<"static_info_cast", [
+    DeclareOpInterfaceMethods<CastOpInterface>,
+    NoSideEffect]> {
+  let summary = "Adds/removes static information from an array type.";
+  let description = [{
+    This op does not imply any runtime code. Semantically it is an identity
+    function.
+  }];
+  let arguments = (ins
+    Numpy_AnyArray:$operand
+  );
+  let results = (outs
+    Numpy_AnyArray:$result
+  );
+  let assemblyFormat = [{
+    $operand attr-dict `:` type($operand) `to` type($result)
+  }];
+  let hasCanonicalizer = 1;
+}
+
+def Numpy_TensorStaticInfoCastOp : Numpy_Op<"tensor_static_info_cast", [
+    DeclareOpInterfaceMethods<CastOpInterface>,
+    NoSideEffect]> {
+  let summary = "Adds/removes static information from a tensor type.";
+  let description = [{
+    This op does not imply any runtime code. Semantically it is an identity
+    function.
+
+    Unlike `tensor.cast`, this op allows changing dtype, following the
+    rules of numpy arrays where no runtime code is implied. In particular,
+    `!numpy.any_dtype` is compatible with all other element types, but otherwise
+    the element types must be the same. An element type of `!numpy.any_dtype`
+    represents the absence of static knowledge of the dtype. It does not
+    itself represent a concrete runtime element type.
+  }];
+  let arguments = (ins
+    Numpy_AnyTensor:$operand
+  );
+  let results = (outs
+    Numpy_AnyTensor:$result
+  );
+  let assemblyFormat = [{
+    $operand attr-dict `:` type($operand) `to` type($result)
   }];
 }
 
@@ -77,6 +124,30 @@ def Numpy_CopyToTensorOp : Numpy_Op<"copy_to_tensor", [
     $source attr-dict `:` functional-type($source, $dest)
   }];
   let hasCanonicalizer = 1;
+}
+
+def Numpy_OverwriteArrayOp : Numpy_Op<"overwrite_array", []> {
+  let summary = "Ovewrite the contents of array with a tensor.";
+  let description = [{
+    Replaces the contents of `array` with corresponding values from `tensor`.
+
+    Immediately after this op has completed, indexing `array` will result
+    in identical values as indexing into `tensor`. Of course, later ops
+    might mutate `array`, so this relationship need not hold for the entire
+    program.
+
+    This op has undefined behavior if the tensor and array have different
+    shapes or dtypes.
+  }];
+  let arguments = (ins
+    Numpy_AnyTensor:$tensor,
+    Numpy_NdArrayType:$array
+  );
+  let results = (outs
+  );
+  let assemblyFormat = [{
+    $tensor `overwrites` $array attr-dict `:` type($tensor) `,` type($array)
+  }];
 }
 
 //----------------------------------------------------------------------------//

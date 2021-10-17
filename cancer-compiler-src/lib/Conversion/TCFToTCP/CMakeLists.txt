@@ -16,4 +16,5 @@ add_cancer_conversion_library(CANCERTCFToTCP
   MLIRTransforms
   MLIRShape
   CANCERDialectTCF
+  CANCERDialectTCP
 )

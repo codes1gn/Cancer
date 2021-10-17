@@ -132,7 +132,7 @@ static Attribute convertToMLIRAttribute(const refbackrt::RtValue &value,
   } else if (value.isFloat()) {
     return builder.getF32FloatAttr(value.toFloat());
   }
-  llvm_unreachable("unsupported dtype");
+  llvm_unreachable("unsupported type");
 }
 
 static void printOutput(const refbackrt::RtValue &value, llvm::raw_ostream &os) {

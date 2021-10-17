@@ -54,7 +54,7 @@ class ConvertNumpyToTCF : public ConvertNumpyToTCFBase<ConvertNumpyToTCF> {
 
     // change OwningRewritePatternList into RewritePatternSet
     RewritePatternSet patterns(context);
-    patterns.insert<ConvertBinaryBuiltinUfuncCallOp<tcf::AddOp>>(context,
+    patterns.add<ConvertBinaryBuiltinUfuncCallOp<tcf::AddOp>>(context,
                                                                  "numpy.add");
     (void)applyPatternsAndFoldGreedily(func, std::move(patterns));
   }

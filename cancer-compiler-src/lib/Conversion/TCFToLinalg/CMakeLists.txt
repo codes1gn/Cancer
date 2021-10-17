@@ -15,5 +15,6 @@ add_cancer_conversion_library(CANCERTCFToLinalg
   MLIRPass
   MLIRTransforms
   MLIRShape
+  MLIRMemRef
   CANCERDialectTCF
 )

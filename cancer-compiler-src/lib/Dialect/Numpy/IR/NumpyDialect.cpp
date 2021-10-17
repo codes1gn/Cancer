@@ -24,6 +24,7 @@ void NumpyDialect::initialize() {
 #include "Dialect/Numpy/IR/NumpyOps.cpp.inc"
       >();
   addTypes<AnyDtypeType, NdArrayType>();
+  getContext()->loadDialect<Basicpy::BasicpyDialect>();
 }
 
 Type NumpyDialect::parseType(DialectAsmParser &parser) const {
