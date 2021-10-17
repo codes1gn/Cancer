@@ -8,6 +8,9 @@
 
 #include "CancerInit.h"
 
+#include "mlir/IR/Dialect.h"
+#include "Typing/Transforms/Passes.h"
+
 #include "Dialect/Basicpy/IR/BasicpyDialect.h"
 #include "Dialect/Basicpy/Transforms/Passes.h"
 #include "Dialect/Numpy/IR/NumpyDialect.h"
