@@ -1,5 +1,4 @@
 import ast
-import astunparse
 
 from cancer_frontend.pass_manager.transformers import *
 from cancer_frontend.pass_manager.passes.pass_base import PassBase
@@ -10,7 +9,8 @@ __all__ = [
 
 
 class StatementConversionPass(PassBase):
-    """
+    """Convert python AST nodes to MLIR AST nodes
+
     this pass converts all python statements into relevant mlir astnodes
     will find all statements nodes, and set its mast_node value,
 
@@ -63,6 +63,10 @@ class StatementConversionPass(PassBase):
 
           -- col_offset is the byte offset in the utf8 string the parser uses
           attributes (int lineno, int col_offset, int? end_lineno, int? end_col_offset)
+
+    Attributes:
+        solvers: the list of transformers that map stmt nodes to mlir astnodes, check mlir astnodes and
+                 fix dependency respectively。
     """
 
     __slots__ = [
@@ -70,7 +74,10 @@ class StatementConversionPass(PassBase):
     ]
 
     def __init__(self):
-        # type: (None) -> None
+        """initialize the StatementConversionPass class, and all attributes pass in with args.
+
+        solvers is a list contains Transformers class to convert python native to MLIR astnode.
+        """
         super().__init__()
         self.solvers = []
         self.solvers.append(StmtNodeMappingTransformer)
@@ -78,8 +85,17 @@ class StatementConversionPass(PassBase):
         self.solvers.append(StmtFixDependencyTransformer)
 
     def run_pass(self, ast_root: ast.AST) -> ast.AST:
+        """[summary]
+
+        Args:
+            ast_root (ast.AST): python native astnode.
+
+        Returns:
+            ast.AST: mlir astnode.
+        """
+
+        print("runrun pass pass")
         for _solver in self.solvers:
             ast_root = _solver().visit(ast_root)
             ast.fix_missing_locations(ast_root)
-
         return ast_root
