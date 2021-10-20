@@ -28,6 +28,8 @@ class StmtConversionReadyCheckVisitor(NodeVisitorBase):
     __slots__ = []
 
     def __init__(self):
+        """Initialize StmtConversionReadyCheckVisitor class via inherit NodeVisitorBase.
+        """
         super().__init__()
 
     def visit_FunctionDef(self, node: ast.AST) -> ast.AST:
@@ -75,17 +77,17 @@ class StmtConversionReadyCheckVisitor(NodeVisitorBase):
 
         return node
 
-    def visit_Name(self, node: ast.AST) -> ast.AST:
-        """Check Whether the Name conversion is successful.
+    # def visit_Name(self, node: ast.AST) -> ast.AST:
+    #     """Check Whether the Name conversion is successful.
 
-        Args:
-            node (ast.AST): Name with corresponding mlir astnode attribution.
+    #     Args:
+    #         node (ast.AST): Name with corresponding mlir astnode attribution.
 
-        Returns:
-            ast.AST: Name with corresponding mlir astnode attribution.
-        """
-        super().generic_visit(node)
-        assert node.mast_node is not None
-        print("\n Check Type = \n", self.pretty_mlir(node.mast_node))
+    #     Returns:
+    #         ast.AST: Name with corresponding mlir astnode attribution.
+    #     """
+    #     super().generic_visit(node)
+    #     assert node.mast_node is not None
+    #     print("\n Check Type = \n", self.pretty_mlir(node.mast_node))
         
-        return node
+    #     return node
