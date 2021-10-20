@@ -111,13 +111,20 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         super().generic_visit(node)
         print(self.__str__(), "handling visit_Return on node\n",
               astunparse.dump(node))
-
-        _returnop = ReturnOperation(match=0)
+        match = 1
+        _returnop = ReturnOperation(match)
         _returnop.values = node.value
         if node.value:
-            _returnop.values = [node.value]
-        print("retureop value:\n", _returnop.values, type(_returnop.values))
-        _returnop.types = None
+            _values = list()
+            _type = list()
+            _values.append(MlirSsaId(value='ret' + str(match), op_no=None))
+            if isinstance(node.value.value, float):
+                _type.append(astnodes.FloatType(MlirType.f32))
+            else:
+                _type = None
+            _returnop.values = _values
+            _returnop.types = _type
+
         print("returnop dump:\n", _returnop.dump)
         _returnop_wrapper = astnodes.Operation(result_list=None,
                                                op=_returnop,
@@ -126,23 +133,23 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         setattr(node, "mast_node", _returnop_wrapper)
         return node
 
-    def visit_Name(self, node: ast.AST) -> ast.AST:
-        """Method that constructs MLIR node via the func return type.
+    # def visit_Name(self, node: ast.AST) -> ast.AST:
+    #     """Method that constructs MLIR node via the func return type.
 
-        Construct MLIR node by set Name attribute "mast_node".
-        Name is return expr args.
+    #     Construct MLIR node by set Name attribute "mast_node".
+    #     Name is return expr args.
 
-        Args:
-            node (ast.AST): Name node of python ast.
+    #     Args:
+    #         node (ast.AST): Name node of python ast.
 
-        Returns:
-            ast.AST: Name node with corresponding MLIR ast node.
-        """
-        super().generic_visit(node)
-        print(self.__str__(), "visit_Name on node\n", astunparse.dump(node))
+    #     Returns:
+    #         ast.AST: Name node with corresponding MLIR ast node.
+    #     """
+    #     super().generic_visit(node)
+    #     print(self.__str__(), "visit_Name on node\n", astunparse.dump(node))
 
-        _type_wrapper = astnodes.FloatType(MlirType.f32)
+    #     _type_wrapper = astnodes.FloatType(MlirType.f32)
 
-        print("_type_wrapper:\n", self.pretty_mlir(_type_wrapper))
-        setattr(node, "mast_node", _type_wrapper)
-        return node
+    #     print("_type_wrapper:\n", self.pretty_mlir(_type_wrapper))
+    #     setattr(node, "mast_node", _type_wrapper)
+    #     return node
