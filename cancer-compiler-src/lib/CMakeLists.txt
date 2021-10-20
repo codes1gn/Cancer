@@ -4,6 +4,8 @@ add_subdirectory(RefBackend)
 add_subdirectory(Typing)
 add_subdirectory(Capi)
 
+# newly added backends
+add_subdirectory(Backends)
 
 # TODO fix this init process to opt not to init
 get_property(mlir_dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)

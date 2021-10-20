@@ -15,7 +15,10 @@ endif()
 
 # set backend option, use refjit
 option(BUILD_CANCER_REFJIT "Enables the reference JIT backend." ON)
+option(BUILD_CANCER_IREE_BACKEND "Enables the reference JIT backend." ON)
 option(CANCER_BUILD_CANCER_DYLIB "Enables shared build of NPCOMP dylib (depends on LLVM/MLIR dylib support)" ON)
+# TODO let this IREE builddir point to the build caches of IREE project
+set(CANCER_IREE_BUILDDIR "./iree_build" CACHE STRING "read from iree build cache")
 
 # build project as standalone structure, use mlir and llvm as external lib
 project(cancer LANGUAGES CXX C)
@@ -57,6 +60,39 @@ include_directories(${PROJECT_SOURCE_DIR}/cancer-compiler-src/include)
 include_directories(${PROJECT_BINARY_DIR}/cancer-compiler-src/include)
 link_directories(${LLVM_BUILD_LIBRARY_DIR})
 add_definitions(${LLVM_DEFINITIONS})
+
+# build IREE
+
+if(BUILD_CANCER_IREE_BACKEND)
+  add_compile_definitions(BUILD_CANCER_IREE_BACKEND)
+  string(APPEND CANCER_TABLEGEN_ARGS "-DBUILD_CANCER_IREE_BACKEND")
+  if (CANCER_IREE_BUILDDIR)
+    message(STATUS "importing IREE from iree_build")
+    set(IREE_DIR "${CANCER_IREE_BUILDDIR}")
+    set(IREE_FOUND 1)
+  else()
+    message(FATAL_ERROR "currently not tuned installed package of IREE")
+  endif()
+
+  # before IREE install solution done, use this way to debug with iree-build instead
+  function(link_iree_objs src dst)
+    set(src_path "${IREE_DIR}/${src}")
+    set(dst_path "${CMAKE_BINARY_DIR}/${dst}")
+    get_filename_component(src_path "${src_path}" ABSOLUTE)
+    get_filename_component(dst_dir "${dst_path}" PATH)
+    file(MAKE_DIRECTORY "${dst_dir}")
+    execute_process(
+      COMMAND
+      ${CMAKE_COMMAND} -E create_symlink "${src_path}" "${dst_path}"
+      RESULT_VARIABLE result
+    )
+    if(NOT ${result} EQUAL 0)
+      message(FATAL_ERROR "FAIL: cannot link iree build cache")
+    endif()
+  endfunction()
+  link_iree_objs(iree/tools/iree-translate backend_iree/tools/iree-translate)
+  link_iree_objs(bindings/python/pyiree/rt backend_iree/pyiree/rt)
+endif()
 
 # look for python env
 set(CANCER_PYTHON_BINDINGS_VERSION_LOCKED 1 CACHE BOOL

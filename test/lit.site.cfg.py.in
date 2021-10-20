@@ -31,6 +31,10 @@ config.host_arch = "@HOST_ARCH@"
 config.cancer_src_root = "@CMAKE_SOURCE_DIR@"
 config.cancer_obj_root = "@CMAKE_BINARY_DIR@"
 
+# this switch is for test IREE backend
+config.build_iree_backend = "@BUILD_CANCER_IREE_BACKEND@"
+
+
 # Support substitution of the tools_dir with user parameters. This is
 # used when we can't determine the tool dir at configuration time.
 try:

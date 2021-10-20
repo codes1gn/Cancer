@@ -7,8 +7,8 @@ top_dir_path=$script_path"/.."
 top_dir_realpath=`realpath $top_dir_path`
 echo "top dir = "$top_dir_realpath
 
-sh ${top_dir_realpath}/scripts/_build_dependencies.sh
-sh ${top_dir_realpath}/scripts/_build_iree.sh
+# sh ${top_dir_realpath}/scripts/_build_dependencies.sh
+# sh ${top_dir_realpath}/scripts/_build_iree.sh
 
 # create mlir build path
 mkdir ${top_dir_realpath}/build
