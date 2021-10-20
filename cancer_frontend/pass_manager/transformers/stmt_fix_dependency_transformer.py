@@ -1,5 +1,6 @@
 import ast
 import astunparse
+from astunparse.printer import Printer
 
 from cancer_frontend.scaffold.utils import *
 from .node_transformer_base import NodeTransformerBase
@@ -47,15 +48,31 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
         super().generic_visit(node)
         print(self.__str__(), "Fix handling visit_FunctionDef on node\n",
               astunparse.dump(node))
+        print("==========")
+        print(print(self.pretty_mlir(node.mast_node)))
 
         # Fix body elements in function region's block
         # Region: body (consist of a series Blocks)
+        # Need set return type use assign op when pass the return assigned variable.
         _blocks = node.mast_node.op.region.body
-        # TODO remove all hardcode in for loop
-        for _block in _blocks:
-            _block.body[0] = node.body[0].mast_node
+        operations = node.body
 
-        print(self.pretty_mlir(node.mast_node))
+        if hasattr(operations[0].mast_node.op, "type"):
+                op_type = operations[0].mast_node.op.type
+        if hasattr(operations[0].mast_node.op, "types") and isinstance(operations[0].mast_node.op.types, list):
+            op_type = operations[0].mast_node.op.types[0]
+
+
+        for operation in operations:
+            if hasattr(operation.mast_node.op,
+                       "types") and isinstance(operation.mast_node.op.types, list):
+                operation.mast_node.op.types[0] = op_type
+
+        if operations:
+            for i in range(len(_blocks)):
+                _blocks[i].body.clear()
+                for _, operation in enumerate(operations):
+                    _blocks[i].body.append(operation.mast_node)
 
         return node
 

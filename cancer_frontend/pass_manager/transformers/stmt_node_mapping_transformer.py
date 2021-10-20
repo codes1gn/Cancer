@@ -6,7 +6,7 @@ from cancer_frontend.scaffold.utils import *
 from .node_transformer_base import NodeTransformerBase
 
 from mlir import astnodes
-from mlir.dialects.standard import ReturnOperation
+from mlir.dialects.standard import ReturnOperation, ConstantOperation
 from cancer_frontend.scaffold.mlir_dialects.dialect_tcf import TCF_AddOp
 
 MlirNode = astnodes.Node
@@ -108,29 +108,68 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         Returns:
             ast.AST: Module node with corresponding MLIR ast node.
         """
+
         super().generic_visit(node)
         print(self.__str__(), "handling visit_Return on node\n",
               astunparse.dump(node))
+
+        # match represent the index of Operation position in the Region block
         match = 1
         _returnop = ReturnOperation(match)
         _returnop.values = node.value
-        if node.value:
-            _values = list()
-            _type = list()
+        _values = list()
+        _types = list()
+        if isinstance(node.value, ast.Constant):
             _values.append(MlirSsaId(value='ret' + str(match), op_no=None))
             if isinstance(node.value.value, float):
-                _type.append(astnodes.FloatType(MlirType.f32))
+                _types.append(astnodes.FloatType(MlirType.f32))
             else:
-                _type = None
+                _types = None
             _returnop.values = _values
-            _returnop.types = _type
-
-        print("returnop dump:\n", _returnop.dump)
+            _returnop.types = _types
+        
+        if isinstance(node.value, ast.Name):
+            _values.append(MlirSsaId(value=node.value.id, op_no=None))
+            _types.append(None)
+            _returnop.values = _values
+            _returnop.types = _types
+        
         _returnop_wrapper = astnodes.Operation(result_list=None,
                                                op=_returnop,
                                                location=None)
-        print(self.pretty_mlir(_returnop_wrapper))
         setattr(node, "mast_node", _returnop_wrapper)
+
+        return node
+
+    def visit_Assign(self, node: ast.AST) -> ast.AST:
+        """Method that constructs the Assign's corresponding MLIR node.
+
+        Construct MLIR node by set Assign astnode's attribute "mast_node".
+
+        Args:
+            node (ast.AST): Assign astnode of python
+
+        Returns:
+            ast.AST: Assign astnode of python with "mast_node" attributions.
+        """
+
+        super().generic_visit(node)
+        print(self.__str__(), "handling visit_Return on node\n",
+              astunparse.dump(node))
+        match = 0
+        _assignop = ConstantOperation(match, value=None, type=None)
+        _assignop.value = node.value.value
+        if isinstance(node.value.value, float):
+            _assignop.type = astnodes.FloatType(MlirType.f32)
+        _result_list = list()
+        _SsaId = MlirSsaId(value=node.targets[0].id, op_no=None)
+        _result_list.append(astnodes.OpResult(value=_SsaId, count=None))
+
+        _assignop_wrapper = astnodes.Operation(result_list=_result_list,
+                                               op=_assignop,
+                                               location=None)
+        setattr(node, "mast_node", _assignop_wrapper)
+
         return node
 
     # def visit_Name(self, node: ast.AST) -> ast.AST:
