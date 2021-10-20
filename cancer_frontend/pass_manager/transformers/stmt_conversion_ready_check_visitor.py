@@ -11,7 +11,6 @@ from cancer_frontend.scaffold.mlir_dialects.dialect_tcf import TCF_AddOp
 MlirNode = astnodes.Node
 MlirSsaId = astnodes.SsaId
 
-
 __all__ = [
     "StmtConversionReadyCheckVisitor",
 ]
@@ -25,11 +24,13 @@ class StmtConversionReadyCheckVisitor(NodeVisitorBase):
     Attributes:
         None.
     """
+
     __slots__ = []
 
     def __init__(self):
         """Initialize StmtConversionReadyCheckVisitor class via inherit NodeVisitorBase.
         """
+
         super().__init__()
 
     def visit_FunctionDef(self, node: ast.AST) -> ast.AST:
@@ -41,6 +42,7 @@ class StmtConversionReadyCheckVisitor(NodeVisitorBase):
         Returns:
             ast.AST: FunctionDef with corresponding mlir astnode attribution.
         """
+
         super().generic_visit(node)
         assert node.mast_node is not None
         print("\n Check FunctionDef = \n", self.pretty_mlir(node.mast_node))
@@ -56,6 +58,7 @@ class StmtConversionReadyCheckVisitor(NodeVisitorBase):
         Returns:
             ast.AST: Module with corresponding mlir astnode attribution.
         """
+
         super().generic_visit(node)
         assert node.mast_node is not None
         print("\n Check Module = \n", self.pretty_mlir(node.mast_node))
@@ -71,9 +74,26 @@ class StmtConversionReadyCheckVisitor(NodeVisitorBase):
         Returns:
             ast.AST: Return with corresponding mlir astnode attribution.
         """
+
         super().generic_visit(node)
         assert node.mast_node is not None
         print("\n Check ReturnOp = \n", self.pretty_mlir(node.mast_node))
+
+        return node
+
+    def visit_Assign(self, node: ast.AST) -> ast.AST:
+        """Check Whether the Assign astnode conversion is successful。
+
+        Args:
+            node (ast.AST): Assign astnode with corresponding mlir astnode attributions.
+
+        Returns:
+            ast.AST: Assign pyast with corresponding mlir astnode attributions
+        """
+
+        super().generic_visit(node)
+        assert node.mast_node is not None
+        print("\n Check AssignOp = \n", self.pretty_mlir(node.mast_node))
 
         return node
 
@@ -89,5 +109,5 @@ class StmtConversionReadyCheckVisitor(NodeVisitorBase):
     #     super().generic_visit(node)
     #     assert node.mast_node is not None
     #     print("\n Check Type = \n", self.pretty_mlir(node.mast_node))
-        
+
     #     return node
