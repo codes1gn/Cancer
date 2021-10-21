@@ -1,13 +1,14 @@
 __all__ = [
-    'classproperty',
-    'memoized_classproperty',
+    "classproperty",
+    "memoized_classproperty",
 ]
 
 # classproperty for singeton pass registry
 
 
 class classproperty(object):
-    """ @classmethod+@property """
+    """@classmethod+@property"""
+
     def __init__(self, f):
         self.f = classmethod(f)
 
@@ -16,7 +17,8 @@ class classproperty(object):
 
 
 class memoized_classproperty(object):
-    """ @classmethod+@property """
+    """@classmethod+@property"""
+
     def __init__(self, f):
         self.f = classmethod(f)
 

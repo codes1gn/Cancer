@@ -1,26 +1,26 @@
 """ Contains jit runner class for compilation and execution """
+import sys
 import inspect
 import textwrap
+import copy
+import traceback
+import types
 import ast
 import astunparse
-import copy
-import sys
 
 from typing import Callable
 from imp import new_module
-import traceback
 
-import mlir
+from mlir import parse_path
 from mlir import astnodes
 from cancer_frontend.scaffold.mlir_dialects import *
 from cancer_frontend.scaffold.utils import *
 
-
 MlirNode = astnodes.Node
-import types
+MlirSsaId = astnodes.SsaId
 
 
-def _pretty(self):
+def _pretty(self: MlirNode) -> str:
     result = self.dump_ast()
     lines = [""]
     indent = 0
@@ -67,7 +67,6 @@ def _pretty(self):
 
 MlirNode.pretty = _pretty
 
-
 __all__ = [
     "PythonRunner",
 ]
@@ -81,7 +80,7 @@ class PythonRunner:
         PythonRunner: returns the instance of this class
     """
 
-    __slots__ = []
+    __slots__ = ["pass_manager"]
 
     def __init__(self):
         """
@@ -122,7 +121,7 @@ class PythonRunner:
         Parses the code by providing its path
         :param
         """
-        return mlir.parse_path(code_path, dialects=CANCER_DIALECTS)
+        return parse_path(code_path, dialects=CANCER_DIALECTS)
 
     def parse_python(self, func: Callable) -> ast.AST:
         """
@@ -136,3 +135,18 @@ class PythonRunner:
         pyast = ast.parse(code, filename=code_file)
         ast.increment_lineno(pyast, n=start_lineno - 1)
         return pyast
+
+    # TODO may change into classmethod or staticmethod
+    def convert_python_to_mlir(self, pyast: ast.AST) -> MlirNode:
+        """
+        usage:
+        self.pass_manager = PastToMlirPassManager()
+        self.pass_manager.register_passes()
+        return self.pass_manager.run(pyast)
+        """
+        from cancer_frontend.pass_manager import PastToMlirPassManager
+
+        self.pass_manager = PastToMlirPassManager()
+        self.pass_manager.register_passes()
+        self.pass_manager.run(pyast)
+        return pyast.mast_node

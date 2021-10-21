@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# from Cancer.cancer_frontend import python
 import os
 import sys
 import subprocess
@@ -13,6 +14,8 @@ if not __TOP_DIR_PATH__.endswith(os.path.sep):
 # A CMakeExtension needs a sourcedir instead of a file list.
 # The name must be the _single_ output extension from the CMake build.
 # If you need multiple extensions, see scikit-build.
+
+
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir=""):
         Extension.__init__(self, name, sources=[])
@@ -42,13 +45,14 @@ class CMakeBuild(build_ext):
             "-DMLIR_DIR={}".format(__TOP_DIR_PATH__ + "mlir_build/install_dir/lib/cmake/mlir"),
             "-DPYTHON_EXECUTABLE={}".format(sys.executable),
             "-DLLVM_EXTERNAL_LIT={}".format(__TOP_DIR_PATH__ + "mlir_build/bin/llvm-lit"),
-            "-DCMAKE_BUILD_TYPE={}".format("DEBUG"),  # not used on MSVC, but no harm
+            # not used on MSVC, but no harm
+            "-DCMAKE_BUILD_TYPE={}".format("DEBUG"),
             "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={}".format(build_dir),
             "-DEXAMPLE_VERSION_INFO={}".format(self.distribution.get_version()),
         ]
         build_args = []
-        build_args += ["-j8"]
-        build_args += ["--verbose"]
+        # build_args += ["-j8"]
+        # build_args += ["--verbose"]
         # build_args += ["--clean-first"]
         build_args += ["--target", "cancer_compiler_module"]
 
@@ -56,13 +60,23 @@ class CMakeBuild(build_ext):
 
         subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
 
+        print("pwd:", os.getcwd())
+        """
         subprocess.check_call(
             [
-                "cp",
-                "./cancer-compiler/cancer-compiler-module/cancer_compiler_module.cpython-36m-x86_64-linux-gnu.so",
+                "copy",
+                os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/*.so",
                 build_dir,
             ],
             cwd=self.build_temp,
+        )
+
+        """
+        command_str = "cp " + os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/*.so" + " " + build_dir
+        print("copy command = ", command_str)
+        subprocess.call(
+            "cp " + os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/*.so" + " " + build_dir,
+            shell=True,
         )
 
 

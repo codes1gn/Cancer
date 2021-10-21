@@ -4,7 +4,6 @@ from mlir import parse_string
 from mlir.astnodes import Node, dump_or_value
 from mlir.dialect import Dialect, DialectOp, DialectType
 
-
 ##############################################################################
 # Dialect Types
 

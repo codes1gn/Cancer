@@ -13,9 +13,6 @@ cd ${top_dir_realpath}/mlir_build
 mkdir -p ${top_dir_realpath}/mlir_build/install_dir
 
 # try to fix linker issue
-echo "albert"
-echo $(which ld.lld)
-echo $(which ld.lld-11)
 # export LDFLAGS=-fuse-ld=$(which ld.lld)
 
 # config mlir
