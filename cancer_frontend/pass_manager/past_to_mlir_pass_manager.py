@@ -1,5 +1,5 @@
 from cancer_frontend.pass_manager.pass_manager_base import PassManagerBase
-from cancer_frontend.pass_manager.passes import *
+from cancer_frontend.pass_manager.passes import IdenticalPastPass, StatementConversionPass
 
 __all__ = [
     "PastToMlirPassManager",
@@ -7,8 +7,14 @@ __all__ = [
 
 
 class PastToMlirPassManager(PassManagerBase):
+    """The class inherit PassManagerBase that to register passes.
+
+    Attributions:
+        None.
+    """
     def register_passes(self):
-        print("PastToMlirPassManager::register_passes")
+        """Register passes via add_pass func in PassManagerBase.
+        """
         self.add_pass(IdenticalPastPass)
         self.add_pass(StatementConversionPass)
 
