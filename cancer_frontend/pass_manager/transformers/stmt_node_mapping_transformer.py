@@ -27,10 +27,11 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
     Attributes:
         None.
     """
-
     __slots__ = []
 
     def __init__(self):
+        """initialize the StatementConversionPass class.
+        """
         super().__init__()
 
     def visit_FunctionDef(self, node: ast.AST) -> ast.AST:
@@ -44,17 +45,15 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         Returns:
             ast.AST: FunctionDef node with corresponding MLIR ast node.
         """
+
         super().generic_visit(node)
         print(self.__str__(), "handling visit_FunctionDef on node\n",
               astunparse.dump(node))
 
         _block = astnodes.Block(label=None, body=[None])
         _region = astnodes.Region(body=[_block])
-        print("visit Functiondef:", type(node), " node name:\n", node.name)
         _name = astnodes.SymbolRefId(value=node.name)
         _args = None
-        # _ssaid = [MlirSsaId(value="arg0", op_no=None)]
-        # _args = [astnodes.NamedArgument(name=_ssaid, type=astnodes.FloatType(type=astnodes.FloatTypeEnum.f32))]
 
         _function = astnodes.Function(
             name=_name,
@@ -68,6 +67,7 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
                                                location=None)
         print(self.pretty_mlir(_function_wrapper))
         setattr(node, "mast_node", _function_wrapper)
+
         return node
 
     def visit_Module(self, node: ast.AST) -> ast.AST:
@@ -81,6 +81,7 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         Returns:
             ast.AST: Module node with corresponding MLIR ast node.
         """
+
         super().generic_visit(node)
         print(self.__str__(), "handling visit_Module on node\n",
               astunparse.dump(node))
@@ -95,6 +96,7 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
 
         print(self.pretty_mlir(_mlirfile))
         setattr(node, "mast_node", _mlirfile)
+
         return node
 
     def visit_Return(self, node: ast.AST) -> ast.AST:
@@ -113,12 +115,13 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         print(self.__str__(), "handling visit_Return on node\n",
               astunparse.dump(node))
 
-        # match represent the index of Operation position in the Region block
+        # TODO match represent the index of Operation position in the Region block
         match = 1
         _returnop = ReturnOperation(match)
         _returnop.values = node.value
         _values = list()
         _types = list()
+
         if isinstance(node.value, ast.Constant):
             _values.append(MlirSsaId(value='ret' + str(match), op_no=None))
             if isinstance(node.value.value, float):
@@ -127,13 +130,13 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
                 _types = None
             _returnop.values = _values
             _returnop.types = _types
-        
+
         if isinstance(node.value, ast.Name):
             _values.append(MlirSsaId(value=node.value.id, op_no=None))
             _types.append(None)
             _returnop.values = _values
             _returnop.types = _types
-        
+
         _returnop_wrapper = astnodes.Operation(result_list=None,
                                                op=_returnop,
                                                location=None)

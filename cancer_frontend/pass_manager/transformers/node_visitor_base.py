@@ -5,10 +5,25 @@ MlirNode = astnodes.Node
 
 
 class NodeVisitorBase(ast.NodeVisitor):
+    """This is a Class that inherit ast.NodeVisitor to pretty dump mlir ast node.
+
+    Attributes:
+        None.
+    """
     def __init__(self):
+        """initialize the NodevisitorBase class
+        """
         super().__init__()
 
     def pretty_mlir(self, node: MlirNode) -> str:
+        """pretty dump mlir ast node that convenient to check
+
+        Args:
+            node (MlirNode): The mlir ast node.
+
+        Returns:
+            str: pretty dumped ast node string.
+        """
         result = node.dump_ast()
         lines = [""]
         indent = 0

@@ -6,7 +6,7 @@ from cancer_frontend.scaffold.utils import *
 from .node_transformer_base import NodeTransformerBase
 
 from mlir import astnodes
-from mlir.dialects.standard import ReturnOperation
+from mlir.dialects.standard import *
 from cancer_frontend.scaffold.mlir_dialects.dialect_tcf import TCF_AddOp
 
 MlirNode = astnodes.Node
@@ -58,14 +58,14 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
         operations = node.body
 
         if hasattr(operations[0].mast_node.op, "type"):
-                op_type = operations[0].mast_node.op.type
-        if hasattr(operations[0].mast_node.op, "types") and isinstance(operations[0].mast_node.op.types, list):
+            op_type = operations[0].mast_node.op.type
+        if hasattr(operations[0].mast_node.op, "types") and isinstance(
+                operations[0].mast_node.op.types, list):
             op_type = operations[0].mast_node.op.types[0]
 
-
         for operation in operations:
-            if hasattr(operation.mast_node.op,
-                       "types") and isinstance(operation.mast_node.op.types, list):
+            if hasattr(operation.mast_node.op, "types") and isinstance(
+                    operation.mast_node.op.types, list):
                 operation.mast_node.op.types[0] = op_type
 
         if operations:
