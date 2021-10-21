@@ -122,14 +122,15 @@ bash scripts/python_test.sh
 ```
 More detailly, For given a simple python code:
 ```python
-def constant1():
-    return 
+def constant3() -> float:
+    var1 = 1.0
+    return var1
 ```
-And the corresponding python native AST is
+And the corresponding python native [AST](https://docs.python.org/3/library/ast.html) is
 ```python
 Module(
   body=[FunctionDef(
-    name='constant1',
+    name='constant3',
     args=arguments(
       posonlyargs=[],
       args=[],
@@ -138,13 +139,26 @@ Module(
       kw_defaults=[],
       kwarg=None,
       defaults=[]),
-    body=[Return(value=None)],
+    body=[
+      Assign(
+        targets=[Name(
+          id='var1',
+          ctx=Store())],
+        value=Constant(
+          value=1.0,
+          kind=None),
+        type_comment=None),
+      Return(value=Name(
+        id='var1',
+        ctx=Load()))],
     decorator_list=[],
-    returns=None,
+    returns=Name(
+      id='float',
+      ctx=Load()),
     type_comment=None)],
   type_ignores=[])
 ```
-Ok, Now we constructs the MLIR AST via above python native AST, format as follow.
+Ok, Now we constructs the [MLIR AST](https://github.com/llvm/llvm-project/blob/5b4a01d4a63cb66ab981e52548f940813393bf42/mlir/docs/LangRef.md) via above python native AST, format as follow.
 ```python
 MLIRFile(
   definitions=[],
@@ -161,7 +175,7 @@ MLIRFile(
                 result_list=[],
                 op=Function(
                   name=SymbolRefId(
-                    value='constant1'),
+                    value='constant3'),
                   args=None,
                   result_types=None,
                   attributes=None,
@@ -171,11 +185,29 @@ MLIRFile(
                         label=None,
                         body=[
                           Operation(
+                            result_list=[
+                              OpResult(
+                                value=SsaId(
+                                  value='var1',
+                                  op_no=None),
+                                count=None)],
+                            op=ConstantOperation(
+                              match=0,
+                              value=1.0,
+                              type=FloatType(
+                                type=<FloatTypeEnum.f32:'f32'>)),
+                            location=None),
+                          Operation(
                             result_list=None,
                             op=ReturnOperation(
-                              match=0,
-                              values=None,
-                              types=None),
+                              match=1,
+                              values=[
+                                SsaId(
+                                  value='var1',
+                                  op_no=None)],
+                              types=[
+                                FloatType(
+                                  type=<FloatTypeEnum.f32:'f32'>)]),
                             location=None)])]),
                   location=None),
                 location=None)])]),
@@ -183,7 +215,8 @@ MLIRFile(
 ```
 And the corresponding MLIR is
 ```python
-func @constant1(){
-  return
+func @constant3() {
+  %var1 = constant 1.0 : f32
+  return %var1 : f32
 }
 ```
