@@ -27,8 +27,7 @@ class CMakeBuild(build_ext):
         # CMake lets you override the generator - we need to check this.
         cmake_generator = "-GNinja"
 
-        build_dir = os.path.abspath(
-            os.path.dirname(self.get_ext_fullpath(ext.name)))
+        build_dir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
         if not build_dir.endswith(os.path.sep):
             build_dir += os.path.sep
 
@@ -43,16 +42,13 @@ class CMakeBuild(build_ext):
         # from Python.
         cmake_args = [
             # TODO(albert) make it none hardcode
-            "-DMLIR_DIR={}".format(__TOP_DIR_PATH__ + \
-                                   "mlir_build/install_dir/lib/cmake/mlir"),
+            "-DMLIR_DIR={}".format(__TOP_DIR_PATH__ + "mlir_build/install_dir/lib/cmake/mlir"),
             "-DPYTHON_EXECUTABLE={}".format(sys.executable),
-            "-DLLVM_EXTERNAL_LIT={}".format(__TOP_DIR_PATH__ + \
-                                            "mlir_build/bin/llvm-lit"),
+            "-DLLVM_EXTERNAL_LIT={}".format(__TOP_DIR_PATH__ + "mlir_build/bin/llvm-lit"),
             # not used on MSVC, but no harm
             "-DCMAKE_BUILD_TYPE={}".format("DEBUG"),
             "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={}".format(build_dir),
-            "-DEXAMPLE_VERSION_INFO={}".format(
-                self.distribution.get_version()),
+            "-DEXAMPLE_VERSION_INFO={}".format(self.distribution.get_version()),
         ]
         build_args = []
         # build_args += ["-j8"]
@@ -60,20 +56,27 @@ class CMakeBuild(build_ext):
         # build_args += ["--clean-first"]
         build_args += ["--target", "cancer_compiler_module"]
 
-        subprocess.check_call(["cmake", ext.sourcedir] +
-                              cmake_args, cwd=self.build_temp)
+        subprocess.check_call(["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp)
 
-        subprocess.check_call(["cmake", "--build", "."] +
-                              build_args, cwd=self.build_temp)
+        subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
 
         print("pwd:", os.getcwd())
+        """
         subprocess.check_call(
             [
-                "cp",
-                os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/cancer_compiler_module.cpython-38-x86_64-linux-gnu.so",
+                "copy",
+                os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/*.so",
                 build_dir,
             ],
             cwd=self.build_temp,
+        )
+
+        """
+        command_str = "cp " + os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/*.so" + " " + build_dir
+        print("copy command = ", command_str)
+        subprocess.call(
+            "cp " + os.getcwd() + "/build/cancer-compiler/cancer-compiler-module/*.so" + " " + build_dir,
+            shell=True,
         )
 
 
