@@ -110,23 +110,23 @@ Cancer is a multi-frontend design with preferred support for `native python` and
 
 Let's try using `native python` firstly to implement front-end functionality, as follow.
 
-<font color=Blue>**STEP1**</font>: Build and install python package
+**STEP1**: Build and install python package
 ```sh
 cd Cancer/
 bash scripts/_build_python_package.sh
 bash scripts/_install_python_package.sh
 ```
-After install python package successfully, can run the following script to test frontend functionality.
+**STEP2**: After install python package successfully, can run the following script to test frontend functionality.
 ```sh
 bash scripts/python_test.sh
 ```
-More detailly, For given a simple python code:
+More detailly, For given a simple python native code:
 ```python
 def constant3() -> float:
     var1 = 1.0
     return var1
 ```
-And the corresponding python native [AST](https://docs.python.org/3/library/ast.html) is
+Generate the following  corresponding python native [AST](https://docs.python.org/3/library/ast.html) node.
 ```python
 Module(
   body=[FunctionDef(
@@ -158,7 +158,7 @@ Module(
     type_comment=None)],
   type_ignores=[])
 ```
-Ok, Now we constructs the [MLIR AST](https://github.com/llvm/llvm-project/blob/5b4a01d4a63cb66ab981e52548f940813393bf42/mlir/docs/LangRef.md) via above python native AST, format as follow.
+Then，constructs the following [MLIR AST](https://github.com/llvm/llvm-project/blob/5b4a01d4a63cb66ab981e52548f940813393bf42/mlir/docs/LangRef.md) node based on above python native AST node.
 ```python
 MLIRFile(
   definitions=[],
@@ -213,7 +213,7 @@ MLIRFile(
                 location=None)])]),
       location=None)])
 ```
-And the corresponding MLIR is
+Finally, generate the following IR (namely Textual IR) from MLIR ast node above.
 ```python
 func @constant3() {
   %var1 = constant 1.0 : f32
