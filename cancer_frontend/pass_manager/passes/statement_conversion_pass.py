@@ -85,17 +85,18 @@ class StatementConversionPass(PassBase):
         self.solvers.append(StmtFixDependencyTransformer)
 
     def run_pass(self, ast_root: ast.AST) -> ast.AST:
-        """[summary]
+        """Run this pass to convert astnode.
 
         Args:
-            ast_root (ast.AST): python native astnode.
+            ast_root (ast.AST): python astnode.
 
         Returns:
-            ast.AST: mlir astnode.
+            ast.AST: the converted astnode after run the pass.
         """
 
         print("runrun pass pass")
         for _solver in self.solvers:
             ast_root = _solver().visit(ast_root)
             ast.fix_missing_locations(ast_root)
+
         return ast_root
