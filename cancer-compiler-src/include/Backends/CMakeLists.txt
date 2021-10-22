@@ -1,5 +1,3 @@
-set(LLVM_TARGET_DEFINITIONS Passes.td)
-mlir_tablegen(Passes.h.inc -gen-pass-decls)
-add_public_tablegen_target(CANCERIREEBackendPassIncGen)
-
-add_mlir_doc(Passes IREEBackendPasses ./ -gen-pass-doc)
+if(BUILD_CANCER_IREE_BACKEND)
+  add_subdirectory(IREE)
+endif()

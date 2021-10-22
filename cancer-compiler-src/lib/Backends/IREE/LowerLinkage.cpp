@@ -7,7 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "PassDetail.h"
-#include "Backend/IREE/Passes.h"
+#include "Backends/IREE/Passes.h"
 
 #include "mlir/IR/BuiltinOps.h"
 
@@ -17,7 +17,7 @@ using namespace mlir::CANCER::IREEBackend;
 
 namespace {
 #define GEN_PASS_REGISTRATION
-#include "Backend/IREE/Passes.h.inc"
+#include "Backends/IREE/Passes.h.inc"
 } // end namespace
 
 void mlir::CANCER::IREEBackend::registerIREEBackendPasses() {

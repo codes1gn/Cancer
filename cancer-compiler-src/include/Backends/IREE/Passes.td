@@ -6,19 +6,19 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef NPCOMP_BACKEND_IREE_PASSES
-#define NPCOMP_BACKEND_IREE_PASSES
+#ifndef CANCER_BACKEND_IREE_PASSES
+#define CANCER_BACKEND_IREE_PASSES
 
 include "mlir/Pass/PassBase.td"
 
-def LowerLinkage : Pass<"npcomp-iree-backend-lower-linkage", "ModuleOp"> {
+def LowerLinkage : Pass<"cancer-iree-backend-lower-linkage", "ModuleOp"> {
   let summary = "Lower linkage of symbols to IREE's interfaces";
   let description = [{
     IREE has a specific input modeling for linkage, which differs from
     MLIR's native modeling. This pass lowers MLIR's native linkage constructs
-    (which are otherwise used by npcomp) into the form IREE requires.
+    (which are otherwise used by cancer) into the form IREE requires.
   }];
-  let constructor = "mlir::NPCOMP::IREEBackend::createLowerLinkagePass()";
+  let constructor = "mlir::CANCER::IREEBackend::createLowerLinkagePass()";
 }
 
-#endif // NPCOMP_BACKEND_IREE_PASSES
+#endif // CANCER_BACKEND_IREE_PASSES

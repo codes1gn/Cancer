@@ -1,6 +1,6 @@
 
 #include "PassDetail.h"
-#include "Backend/IREE/Passes.h"
+#include "Backends/IREE/Passes.h"
 
 #include "mlir/IR/BuiltinOps.h"
 

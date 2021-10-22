@@ -16,7 +16,7 @@ namespace CANCER {
 namespace IREEBackend {
 
 #define GEN_PASS_CLASSES
-#include "Backend/IREE/Passes.h.inc"
+#include "Backends/IREE/Passes.h.inc"
 
 } // namespace IREEBackend
 } // namespace CANCER
