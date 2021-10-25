@@ -37,7 +37,9 @@ add_cancer_library(CANCERInit
   CANCERTCPPasses
 
   CANCERConversionPasses
+
   CANCERRefBackend
+  CANCERIREEBackend
 
   ${cancer_dialect_libs}
   ${cancer_conversion_libs}

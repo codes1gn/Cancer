@@ -24,6 +24,7 @@
 
 #include "Conversion/Passes.h"
 #include "RefBackend/RefBackend.h"
+#include "Backends/IREE/Passes.h"
 
 void mlir::CANCER::registerAllDialects(mlir::DialectRegistry &registry) {
   // clang-format off
@@ -43,4 +44,5 @@ void mlir::CANCER::registerAllPasses() {
   mlir::CANCER::registerTCPPasses();
   mlir::CANCER::registerConversionPasses();
   mlir::CANCER::registerRefBackendPasses();
+  mlir::CANCER::IREEBackend::registerIREEBackendPasses();
 }
