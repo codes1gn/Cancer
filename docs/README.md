@@ -35,7 +35,5 @@ This part of the documentation is actually generated automatically during the pr
 
 Now, we only to run:
 ```
-# auto-build hltm
 sphinx-autobuild -b html source/ build/
-
 ```
