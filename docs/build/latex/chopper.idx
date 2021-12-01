@@ -1,0 +1,56 @@
+\indexentry{module@\spxentry{module}!cancer\_frontend.python.python\_jit\_runner@\spxentry{cancer\_frontend.python.python\_jit\_runner}|hyperpage}{21}
+\indexentry{cancer\_frontend.python.python\_jit\_runner@\spxentry{cancer\_frontend.python.python\_jit\_runner}!module@\spxentry{module}|hyperpage}{21}
+\indexentry{PythonRunner (class in cancer\_frontend.python.python\_jit\_runner)@\spxentry{PythonRunner}\spxextra{class in cancer\_frontend.python.python\_jit\_runner}|hyperpage}{21}
+\indexentry{dump\_mlir() (cancer\_frontend.python.python\_jit\_runner.PythonRunner method)@\spxentry{dump\_mlir()}\spxextra{cancer\_frontend.python.python\_jit\_runner.PythonRunner method}|hyperpage}{21}
+\indexentry{dump\_python() (cancer\_frontend.python.python\_jit\_runner.PythonRunner method)@\spxentry{dump\_python()}\spxextra{cancer\_frontend.python.python\_jit\_runner.PythonRunner method}|hyperpage}{21}
+\indexentry{parse\_mlir() (cancer\_frontend.python.python\_jit\_runner.PythonRunner method)@\spxentry{parse\_mlir()}\spxextra{cancer\_frontend.python.python\_jit\_runner.PythonRunner method}|hyperpage}{21}
+\indexentry{parse\_python() (cancer\_frontend.python.python\_jit\_runner.PythonRunner method)@\spxentry{parse\_python()}\spxextra{cancer\_frontend.python.python\_jit\_runner.PythonRunner method}|hyperpage}{21}
+\indexentry{module@\spxentry{module}!cancer\_frontend.python@\spxentry{cancer\_frontend.python}|hyperpage}{22}
+\indexentry{cancer\_frontend.python@\spxentry{cancer\_frontend.python}!module@\spxentry{module}|hyperpage}{22}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.mlir\_dialects.dialect\_demo@\spxentry{cancer\_frontend.scaffold.mlir\_dialects.dialect\_demo}|hyperpage}{22}
+\indexentry{cancer\_frontend.scaffold.mlir\_dialects.dialect\_demo@\spxentry{cancer\_frontend.scaffold.mlir\_dialects.dialect\_demo}!module@\spxentry{module}|hyperpage}{22}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.mlir\_dialects.dialect\_pynative@\spxentry{cancer\_frontend.scaffold.mlir\_dialects.dialect\_pynative}|hyperpage}{22}
+\indexentry{cancer\_frontend.scaffold.mlir\_dialects.dialect\_pynative@\spxentry{cancer\_frontend.scaffold.mlir\_dialects.dialect\_pynative}!module@\spxentry{module}|hyperpage}{22}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.mlir\_dialects.dialect\_tcf@\spxentry{cancer\_frontend.scaffold.mlir\_dialects.dialect\_tcf}|hyperpage}{22}
+\indexentry{cancer\_frontend.scaffold.mlir\_dialects.dialect\_tcf@\spxentry{cancer\_frontend.scaffold.mlir\_dialects.dialect\_tcf}!module@\spxentry{module}|hyperpage}{22}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.mlir\_dialects@\spxentry{cancer\_frontend.scaffold.mlir\_dialects}|hyperpage}{22}
+\indexentry{cancer\_frontend.scaffold.mlir\_dialects@\spxentry{cancer\_frontend.scaffold.mlir\_dialects}!module@\spxentry{module}|hyperpage}{22}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.utils.class\_utils@\spxentry{cancer\_frontend.scaffold.utils.class\_utils}|hyperpage}{22}
+\indexentry{cancer\_frontend.scaffold.utils.class\_utils@\spxentry{cancer\_frontend.scaffold.utils.class\_utils}!module@\spxentry{module}|hyperpage}{22}
+\indexentry{classproperty (class in cancer\_frontend.scaffold.utils.class\_utils)@\spxentry{classproperty}\spxextra{class in cancer\_frontend.scaffold.utils.class\_utils}|hyperpage}{22}
+\indexentry{memoized\_classproperty (class in cancer\_frontend.scaffold.utils.class\_utils)@\spxentry{memoized\_classproperty}\spxextra{class in cancer\_frontend.scaffold.utils.class\_utils}|hyperpage}{22}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.utils.display\_util@\spxentry{cancer\_frontend.scaffold.utils.display\_util}|hyperpage}{23}
+\indexentry{cancer\_frontend.scaffold.utils.display\_util@\spxentry{cancer\_frontend.scaffold.utils.display\_util}!module@\spxentry{module}|hyperpage}{23}
+\indexentry{ColorPalette (class in cancer\_frontend.scaffold.utils.display\_util)@\spxentry{ColorPalette}\spxextra{class in cancer\_frontend.scaffold.utils.display\_util}|hyperpage}{23}
+\indexentry{ENDC (cancer\_frontend.scaffold.utils.display\_util.ColorPalette attribute)@\spxentry{ENDC}\spxextra{cancer\_frontend.scaffold.utils.display\_util.ColorPalette attribute}|hyperpage}{23}
+\indexentry{FAIL (cancer\_frontend.scaffold.utils.display\_util.ColorPalette attribute)@\spxentry{FAIL}\spxextra{cancer\_frontend.scaffold.utils.display\_util.ColorPalette attribute}|hyperpage}{23}
+\indexentry{HEADER (cancer\_frontend.scaffold.utils.display\_util.ColorPalette attribute)@\spxentry{HEADER}\spxextra{cancer\_frontend.scaffold.utils.display\_util.ColorPalette attribute}|hyperpage}{23}
+\indexentry{WARNING (cancer\_frontend.scaffold.utils.display\_util.ColorPalette attribute)@\spxentry{WARNING}\spxextra{cancer\_frontend.scaffold.utils.display\_util.ColorPalette attribute}|hyperpage}{23}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.utils.file\_util@\spxentry{cancer\_frontend.scaffold.utils.file\_util}|hyperpage}{23}
+\indexentry{cancer\_frontend.scaffold.utils.file\_util@\spxentry{cancer\_frontend.scaffold.utils.file\_util}!module@\spxentry{module}|hyperpage}{23}
+\indexentry{dump\_to\_file() (in module cancer\_frontend.scaffold.utils.file\_util)@\spxentry{dump\_to\_file()}\spxextra{in module cancer\_frontend.scaffold.utils.file\_util}|hyperpage}{23}
+\indexentry{read\_src() (in module cancer\_frontend.scaffold.utils.file\_util)@\spxentry{read\_src()}\spxextra{in module cancer\_frontend.scaffold.utils.file\_util}|hyperpage}{23}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.utils.import\_util@\spxentry{cancer\_frontend.scaffold.utils.import\_util}|hyperpage}{23}
+\indexentry{cancer\_frontend.scaffold.utils.import\_util@\spxentry{cancer\_frontend.scaffold.utils.import\_util}!module@\spxentry{module}|hyperpage}{23}
+\indexentry{get\_python\_library() (in module cancer\_frontend.scaffold.utils.import\_util)@\spxentry{get\_python\_library()}\spxextra{in module cancer\_frontend.scaffold.utils.import\_util}|hyperpage}{23}
+\indexentry{get\_python\_methods() (in module cancer\_frontend.scaffold.utils.import\_util)@\spxentry{get\_python\_methods()}\spxextra{in module cancer\_frontend.scaffold.utils.import\_util}|hyperpage}{23}
+\indexentry{wraps() (in module cancer\_frontend.scaffold.utils.import\_util)@\spxentry{wraps()}\spxextra{in module cancer\_frontend.scaffold.utils.import\_util}|hyperpage}{23}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.utils.json\_parser@\spxentry{cancer\_frontend.scaffold.utils.json\_parser}|hyperpage}{23}
+\indexentry{cancer\_frontend.scaffold.utils.json\_parser@\spxentry{cancer\_frontend.scaffold.utils.json\_parser}!module@\spxentry{module}|hyperpage}{23}
+\indexentry{TreeToJson (class in cancer\_frontend.scaffold.utils.json\_parser)@\spxentry{TreeToJson}\spxextra{class in cancer\_frontend.scaffold.utils.json\_parser}|hyperpage}{23}
+\indexentry{array (cancer\_frontend.scaffold.utils.json\_parser.TreeToJson attribute)@\spxentry{array}\spxextra{cancer\_frontend.scaffold.utils.json\_parser.TreeToJson attribute}|hyperpage}{23}
+\indexentry{false() (cancer\_frontend.scaffold.utils.json\_parser.TreeToJson method)@\spxentry{false()}\spxextra{cancer\_frontend.scaffold.utils.json\_parser.TreeToJson method}|hyperpage}{23}
+\indexentry{null() (cancer\_frontend.scaffold.utils.json\_parser.TreeToJson method)@\spxentry{null()}\spxextra{cancer\_frontend.scaffold.utils.json\_parser.TreeToJson method}|hyperpage}{23}
+\indexentry{number (cancer\_frontend.scaffold.utils.json\_parser.TreeToJson attribute)@\spxentry{number}\spxextra{cancer\_frontend.scaffold.utils.json\_parser.TreeToJson attribute}|hyperpage}{23}
+\indexentry{object (cancer\_frontend.scaffold.utils.json\_parser.TreeToJson attribute)@\spxentry{object}\spxextra{cancer\_frontend.scaffold.utils.json\_parser.TreeToJson attribute}|hyperpage}{23}
+\indexentry{pair (cancer\_frontend.scaffold.utils.json\_parser.TreeToJson attribute)@\spxentry{pair}\spxextra{cancer\_frontend.scaffold.utils.json\_parser.TreeToJson attribute}|hyperpage}{23}
+\indexentry{string() (cancer\_frontend.scaffold.utils.json\_parser.TreeToJson method)@\spxentry{string()}\spxextra{cancer\_frontend.scaffold.utils.json\_parser.TreeToJson method}|hyperpage}{23}
+\indexentry{true() (cancer\_frontend.scaffold.utils.json\_parser.TreeToJson method)@\spxentry{true()}\spxextra{cancer\_frontend.scaffold.utils.json\_parser.TreeToJson method}|hyperpage}{24}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold.utils@\spxentry{cancer\_frontend.scaffold.utils}|hyperpage}{24}
+\indexentry{cancer\_frontend.scaffold.utils@\spxentry{cancer\_frontend.scaffold.utils}!module@\spxentry{module}|hyperpage}{24}
+\indexentry{module@\spxentry{module}!cancer\_frontend.scaffold@\spxentry{cancer\_frontend.scaffold}|hyperpage}{24}
+\indexentry{cancer\_frontend.scaffold@\spxentry{cancer\_frontend.scaffold}!module@\spxentry{module}|hyperpage}{24}
+\indexentry{module@\spxentry{module}!cancer\_frontend.torch@\spxentry{cancer\_frontend.torch}|hyperpage}{24}
+\indexentry{cancer\_frontend.torch@\spxentry{cancer\_frontend.torch}!module@\spxentry{module}|hyperpage}{24}
+\indexentry{module@\spxentry{module}!cancer\_frontend@\spxentry{cancer\_frontend}|hyperpage}{24}
+\indexentry{cancer\_frontend@\spxentry{cancer\_frontend}!module@\spxentry{module}|hyperpage}{24}
