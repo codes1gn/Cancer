@@ -71,11 +71,6 @@ class PassManagerBase(object):
         return
 
     def schedule_passes(self) -> list:
-        """The passes schedule. 
-
-        Returns:
-            list: an ordered id list of pass
-        """
         # TODO(albert) keep dummy for now
         print("pass_manager_base::schedule_passes")
         return self._pass_id_list

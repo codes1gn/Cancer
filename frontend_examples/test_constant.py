@@ -8,11 +8,10 @@ from typing import Callable
 def analyse(the_func: Callable) -> None:
 
     # TODO wrapper this logics into functions
-    py_runner = PythonRunner()
-    pyast = py_runner.parse_python(the_func)
-    print(py_runner.dump_python(pyast))
-    mlast = py_runner.convert_python_to_mlir(pyast)
-    print(py_runner.dump_mlir(mlast))
+    pyast = PythonRunner.parse_python(the_func)
+    print(PythonRunner.dump_python(pyast))
+    mlast = PythonRunner.convert_python_to_mlir(pyast)
+    print(PythonRunner.dump_mlir(mlast))
 
 
 def test_constant():
@@ -28,7 +27,7 @@ def test_constant():
         arg0 = 1.0
         return arg0
 
-    analyse(constant1)
+    analyse(constant3)
 
 
 if __name__ == "__main__":

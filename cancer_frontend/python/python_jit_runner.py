@@ -86,48 +86,68 @@ class PythonRunner:
         """
         Initializes the PythonRunner
         """
+    @classmethod
+    def dump_mlir(cls, _ast: MlirNode) -> str:
+        """dump mlir string.
 
-    def dump_mlir(self, _ast: MlirNode) -> str:
+        Args:
+            _ast(MlirNode): mlir ast.
+
+        Returns:
+            str: mlir string.
+        """
         dump_str = ""
-        dump_str += "*******************&&&&&"
         dump_str += ColorPalette.FAIL
-        dump_str += "\ndumping mlir ast\n"
+        dump_str += "\n*****dumping mlir ast*****\n"
         dump_str += _ast.pretty()
         dump_str += ColorPalette.ENDC
         dump_str += ColorPalette.HEADER
         dump_str += "\ndumping mlir IR\n"
         dump_str += _ast.dump()
         dump_str += ColorPalette.ENDC
-        dump_str += "\n*******************&&&&&"
+        dump_str += "\n*******************\n"
         return dump_str
+    
+    @classmethod
+    def dump_python(cls, _ast: ast.AST) -> str:
+        """dump python ast and corresponding source code.
 
-    def dump_python(self, _ast: ast.AST) -> str:
+        Args:
+            _ast(ast.AST): python ast.
+
+        Returns:
+            str: python ast and corresponding source code string.
+        """
         dump_str = ""
-        dump_str += "*******************&&&&&"
         dump_str += ColorPalette.FAIL
-        dump_str += "\ndumping python ast\n"
-        # TODO use astunparse as alternative to ast pretty dump. this is not supported before py 3.8
+        dump_str += "\n*****dumping python ast****\n"
         dump_str += astunparse.dump(_ast)
         dump_str += ColorPalette.ENDC
         dump_str += ColorPalette.HEADER
-        dump_str += "\ndumping python code\n"
+        dump_str += "\n*****dumping python code*****\n"
         dump_str += astunparse.unparse(_ast)
         dump_str += ColorPalette.ENDC
-        dump_str += "\n*******************&&&&&"
+        dump_str += "\n*******************\n"
         return dump_str
 
-    def parse_mlir(self, code_path: str) -> MlirNode:
+    @classmethod
+    def parse_mlir(cls, code_path: str) -> MlirNode:
         """
         Parses the code by providing its path
         :param
         """
         return parse_path(code_path, dialects=CANCER_DIALECTS)
 
-    def parse_python(self, func: Callable) -> ast.AST:
-        """
-        Parses the code by providing its path
-        :param
-        """
+    @classmethod
+    def parse_python(cls, func: Callable) -> ast.AST:
+        """parse python source code to python ast node.
+
+        Args:
+            func (Callable): python source code.
+
+        Returns:
+            ast.AST: python astnode.
+        """        
         code_file = inspect.getsourcefile(func)
         code_lines, start_lineno = inspect.getsourcelines(func)
         code = "".join(code_lines)
@@ -136,17 +156,20 @@ class PythonRunner:
         ast.increment_lineno(pyast, n=start_lineno - 1)
         return pyast
 
-    # TODO may change into classmethod or staticmethod
-    def convert_python_to_mlir(self, pyast: ast.AST) -> MlirNode:
-        """
-        usage:
-        self.pass_manager = PastToMlirPassManager()
-        self.pass_manager.register_passes()
-        return self.pass_manager.run(pyast)
+    @classmethod
+    def convert_python_to_mlir(cls, pyast: ast.AST) -> MlirNode:
+        """The mian inference that convert python ast to mlir ast in frontend
+
+        Args:
+            pyast (ast.AST): python astnode
+
+        Returns:
+            MlirNode: mlir astnode that generated via according python astnode 
         """
         from cancer_frontend.pass_manager import PastToMlirPassManager
 
-        self.pass_manager = PastToMlirPassManager()
-        self.pass_manager.register_passes()
-        self.pass_manager.run(pyast)
+        pass_manager = PastToMlirPassManager()
+        pass_manager.register_passes()
+        pass_manager.run(pyast)
+        
         return pyast.mast_node

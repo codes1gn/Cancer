@@ -4,7 +4,7 @@ from astunparse.printer import Printer
 
 from cancer_frontend.scaffold.utils import *
 from .node_transformer_base import NodeTransformerBase
-
+from mlir.dialects.standard import ReturnOperation, ConstantOperation
 from mlir import astnodes
 from mlir.dialects.standard import *
 from cancer_frontend.scaffold.mlir_dialects.dialect_tcf import TCF_AddOp
@@ -46,28 +46,37 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
         """
 
         super().generic_visit(node)
-        print(self.__str__(), "Fix handling visit_FunctionDef on node\n",
-              astunparse.dump(node))
-        print("==========")
-        print(print(self.pretty_mlir(node.mast_node)))
-
-        # Fix body elements in function region's block
-        # Region: body (consist of a series Blocks)
-        # Need set return type use assign op when pass the return assigned variable.
+        print(self.__str__(), "Fix Transformer::handling visit_FunctionDef on node\n")
+        print("***** Python FunctionDef Node *****\n", astunparse.dump(node))
+        
+        print("***** MLIR Node fot FunctionDef *****\n",self.pretty_mlir(node.mast_node))
+        
+        # TODO Fix body elements in function region's block
+        """ 
+        Region: body (consist of a series Block)
+        Need set ReturnOp Type according Assign op when Pass the Return assigned variable.
+        """
         _blocks = node.mast_node.op.region.body
         operations = node.body
-
-        if hasattr(operations[0].mast_node.op, "type"):
+        
+        if isinstance(operations[0].mast_node.op, ConstantOperation):
             op_type = operations[0].mast_node.op.type
-        if hasattr(operations[0].mast_node.op, "types") and isinstance(
-                operations[0].mast_node.op.types, list):
+        if isinstance(operations[0].mast_node.op, ReturnOperation):
             op_type = operations[0].mast_node.op.types[0]
-
+        """
+        # if hasattr(operations[0].mast_node.op, "type"):
+        #     op_type = operations[0].mast_node.op.type
+        # if hasattr(operations[0].mast_node.op, "types") and isinstance(
+        #         operations[0].mast_node.op.types, list):
+        #     op_type = operations[0].mast_node.op.types[0]
+        """
         for operation in operations:
-            if hasattr(operation.mast_node.op, "types") and isinstance(
-                    operation.mast_node.op.types, list):
-                operation.mast_node.op.types[0] = op_type
-
+            # if hasattr(operation.mast_node.op, "types") and isinstance(
+            #         operation.mast_node.op.types, list):
+            if isinstance(operation.mast_node.op, ReturnOperation):
+                for i in range(len(operation.mast_node.op.types)):
+                    operation.mast_node.op.types[i] = op_type
+        print("len_blocks", len(_blocks))
         if operations:
             for i in range(len(_blocks)):
                 _blocks[i].body.clear()
