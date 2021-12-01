@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basicpy &mdash; Chopper 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Numpy" href="../Numpy/index.html" />
+    <link rel="prev" title="Pass And Transforms" href="../Pass_And_Transforms/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Chopper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Pass_And_Transforms/index.html">Pass And Transforms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basicpy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basicpydialect">BasicpyDialect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basicpyops">BasicpyOps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-as-i1-mlir-cancer-basicpy-asi1op"><code class="docutils literal notranslate"><span class="pre">basicpy.as_i1</span></code> (::mlir::CANCER::Basicpy::AsI1Op)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#operands">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#results">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-binary-compare-mlir-cancer-basicpy-binarycompareop"><code class="docutils literal notranslate"><span class="pre">basicpy.binary_compare</span></code> (::mlir::CANCER::Basicpy::BinaryCompareOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#attributes">Attributes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-binary-expr-mlir-cancer-basicpy-binaryexprop"><code class="docutils literal notranslate"><span class="pre">basicpy.binary_expr</span></code> (::mlir::CANCER::Basicpy::BinaryExprOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Attributes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-bool-cast-mlir-cancer-basicpy-boolcastop"><code class="docutils literal notranslate"><span class="pre">basicpy.bool_cast</span></code> (::mlir::CANCER::Basicpy::BoolCastOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-bool-constant-mlir-cancer-basicpy-boolconstantop"><code class="docutils literal notranslate"><span class="pre">basicpy.bool_constant</span></code> (::mlir::CANCER::Basicpy::BoolConstantOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Attributes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-build-dict-mlir-cancer-basicpy-builddictop"><code class="docutils literal notranslate"><span class="pre">basicpy.build_dict</span></code> (::mlir::CANCER::Basicpy::BuildDictOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-build-list-mlir-cancer-basicpy-buildlistop"><code class="docutils literal notranslate"><span class="pre">basicpy.build_list</span></code> (::mlir::CANCER::Basicpy::BuildListOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id11">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-build-tuple-mlir-cancer-basicpy-buildtupleop"><code class="docutils literal notranslate"><span class="pre">basicpy.build_tuple</span></code> (::mlir::CANCER::Basicpy::BuildTupleOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id13">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-bytes-constant-mlir-cancer-basicpy-bytesconstantop"><code class="docutils literal notranslate"><span class="pre">basicpy.bytes_constant</span></code> (::mlir::CANCER::Basicpy::BytesConstantOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id15">Attributes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-exec-discard-mlir-cancer-basicpy-execdiscardop"><code class="docutils literal notranslate"><span class="pre">basicpy.exec_discard</span></code> (::mlir::CANCER::Basicpy::ExecDiscardOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id17">Operands:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-exec-mlir-cancer-basicpy-execop"><code class="docutils literal notranslate"><span class="pre">basicpy.exec</span></code> (::mlir::CANCER::Basicpy::ExecOp)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-func-template-call-mlir-cancer-basicpy-functemplatecallop"><code class="docutils literal notranslate"><span class="pre">basicpy.func_template_call</span></code> (::mlir::CANCER::Basicpy::FuncTemplateCallOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id18">Attributes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-func-template-mlir-cancer-basicpy-functemplateop"><code class="docutils literal notranslate"><span class="pre">basicpy.func_template</span></code> (::mlir::CANCER::Basicpy::FuncTemplateOp)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-func-template-terminator-mlir-cancer-basicpy-functemplateterminatorop"><code class="docutils literal notranslate"><span class="pre">basicpy.func_template_terminator</span></code> (::mlir::CANCER::Basicpy::FuncTemplateTerminatorOp)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-numeric-constant-mlir-cancer-basicpy-numericconstantop"><code class="docutils literal notranslate"><span class="pre">basicpy.numeric_constant</span></code> (::mlir::CANCER::Basicpy::NumericConstantOp)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integer-signedness">Integer Signedness</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id21">Attributes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id22">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-singleton-mlir-cancer-basicpy-singletonop"><code class="docutils literal notranslate"><span class="pre">basicpy.singleton</span></code> (::mlir::CANCER::Basicpy::SingletonOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id23">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-slot-object-get-mlir-cancer-basicpy-slotobjectgetop"><code class="docutils literal notranslate"><span class="pre">basicpy.slot_object_get</span></code> (::mlir::CANCER::Basicpy::SlotObjectGetOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id24">Attributes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id26">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-slot-object-make-mlir-cancer-basicpy-slotobjectmakeop"><code class="docutils literal notranslate"><span class="pre">basicpy.slot_object_make</span></code> (::mlir::CANCER::Basicpy::SlotObjectMakeOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id27">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-str-constant-mlir-cancer-basicpy-strconstantop"><code class="docutils literal notranslate"><span class="pre">basicpy.str_constant</span></code> (::mlir::CANCER::Basicpy::StrConstantOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id29">Attributes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30">Results:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#basicpy-unknown-cast-mlir-cancer-basicpy-unknowncastop"><code class="docutils literal notranslate"><span class="pre">basicpy.unknown_cast</span></code> (::mlir::CANCER::Basicpy::UnknownCastOp)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id31">Operands:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id32">Results:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Numpy/index.html">Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">cancer_frontend</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Chopper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Basicpy</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Basicpy/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="basicpy">
+<h1>Basicpy<a class="headerlink" href="#basicpy" title="Permalink to this headline"></a></h1>
+<section id="basicpydialect">
+<h2>BasicpyDialect<a class="headerlink" href="#basicpydialect" title="Permalink to this headline"></a></h2>
+<!-- Autogenerated by mlir-tblgen; don't manually edit --></section>
+<section id="basicpyops">
+<h2>BasicpyOps<a class="headerlink" href="#basicpyops" title="Permalink to this headline"></a></h2>
+<!-- Autogenerated by mlir-tblgen; don't manually edit --><section id="basicpy-as-i1-mlir-cancer-basicpy-asi1op">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.as_i1</span></code> (::mlir::CANCER::Basicpy::AsI1Op)<a class="headerlink" href="#basicpy-as-i1-mlir-cancer-basicpy-asi1op" title="Permalink to this headline"></a></h3>
+<p>Evaluates an input to an i1 predicate value</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.as_i1` $operand attr-dict `:` type($operand)
+</pre></div>
+</div>
+<p>Applies the rules for interpreting a type as a boolean, returning an i1
+indicating the truthiness of the operand. Since the output of this op is
+intended to drive lower-level control flow, the i1 type is used (not the
+user level BoolType).</p>
+<section id="operands">
+<h4>Operands:<a class="headerlink" href="#operands" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">operand</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="results">
+<h4>Results:<a class="headerlink" href="#results" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>1-bit signless integer</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-binary-compare-mlir-cancer-basicpy-binarycompareop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.binary_compare</span></code> (::mlir::CANCER::Basicpy::BinaryCompareOp)<a class="headerlink" href="#basicpy-binary-compare-mlir-cancer-basicpy-binarycompareop" title="Permalink to this headline"></a></h3>
+<p>Performs a comparison between two operands</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.binary_compare` $left $operation $right attr-dict `:` type(operands)
+</pre></div>
+</div>
+<p>This op performs only one step of a potentially multi-step short circuit
+comparison. See:
+<a class="reference external" href="https://docs.python.org/3/reference/expressions.html#comparisons">https://docs.python.org/3/reference/expressions.html#comparisons</a></p>
+<section id="attributes">
+<h4>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>MLIR Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">operation</span></code></p></td>
+<td><p>::mlir::StringAttr</p></td>
+<td><p>Comparison operator</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id1">
+<h4>Operands:<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">left</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">right</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id2">
+<h4>Results:<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>Bool type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-binary-expr-mlir-cancer-basicpy-binaryexprop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.binary_expr</span></code> (::mlir::CANCER::Basicpy::BinaryExprOp)<a class="headerlink" href="#basicpy-binary-expr-mlir-cancer-basicpy-binaryexprop" title="Permalink to this headline"></a></h3>
+<p>Binary expression</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.binary_expr` $left $operation $right attr-dict `:` functional-type(operands, results)
+</pre></div>
+</div>
+<p>An expression between two operands as generated by the AST BinOp node.</p>
+<section id="id3">
+<h4>Attributes:<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 29%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>MLIR Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">operation</span></code></p></td>
+<td><p>::mlir::StringAttr</p></td>
+<td><p>Operation for a binary expression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<h4>Operands:<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">left</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">right</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id5">
+<h4>Results:<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-bool-cast-mlir-cancer-basicpy-boolcastop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.bool_cast</span></code> (::mlir::CANCER::Basicpy::BoolCastOp)<a class="headerlink" href="#basicpy-bool-cast-mlir-cancer-basicpy-boolcastop" title="Permalink to this headline"></a></h3>
+<p>Casts between BoolType and i1 (predicate value)</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.bool_cast` $operand attr-dict `:` type(operands) `-&gt;` type(results)
+</pre></div>
+</div>
+<p>When interfacing with lower level dialect or progressively lowering the
+Python BoolType away, it is often necessary to cast between it and i1,
+which is used to represent bool-ness at lower levels.</p>
+<section id="id6">
+<h4>Operands:<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">operand</span></code></p></td>
+<td><p>Python bool or i1</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id7">
+<h4>Results:<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>Python bool or i1</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-bool-constant-mlir-cancer-basicpy-boolconstantop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.bool_constant</span></code> (::mlir::CANCER::Basicpy::BoolConstantOp)<a class="headerlink" href="#basicpy-bool-constant-mlir-cancer-basicpy-boolconstantop" title="Permalink to this headline"></a></h3>
+<p>A boolean constant</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.bool_constant` $value attr-dict
+</pre></div>
+</div>
+<p>A constant of type !basicpy.BoolType that can take either an i1 value of
+0 (False) or 1 (True).</p>
+<p>Note that as in Python a BoolType can be thought of as an object,
+whereas the corresponding i1 is a numeric type suitable for use in
+contexts where storage format matters (or for interop with lower level
+dialects).</p>
+<section id="id8">
+<h4>Attributes:<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 32%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>MLIR Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<td><p>::mlir::IntegerAttr</p></td>
+<td><p>1-bit signless integer attribute</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id9">
+<h4>Results:<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>Bool type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-build-dict-mlir-cancer-basicpy-builddictop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.build_dict</span></code> (::mlir::CANCER::Basicpy::BuildDictOp)<a class="headerlink" href="#basicpy-build-dict-mlir-cancer-basicpy-builddictop" title="Permalink to this headline"></a></h3>
+<p>Builds an empty dict</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.build_dict` attr-dict `:` functional-type(operands, results)
+</pre></div>
+</div>
+<p>This op mirrors the CPython BUILD_MAP op (note naming difference).</p>
+<p>Note that as with CPython, this op only builds an empty dict; however,
+it is reserved in the future for it to take variadic operands to
+construct with a list of key/value pairs.</p>
+<section id="id10">
+<h4>Results:<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>Dict type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-build-list-mlir-cancer-basicpy-buildlistop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.build_list</span></code> (::mlir::CANCER::Basicpy::BuildListOp)<a class="headerlink" href="#basicpy-build-list-mlir-cancer-basicpy-buildlistop" title="Permalink to this headline"></a></h3>
+<p>Builds a list from operands</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.build_list` operands attr-dict `:` functional-type(operands, results)
+</pre></div>
+</div>
+<p>Constructs a new list object from its operands.</p>
+<p>TODO: Any allowable type can be expressed in lists; however, this should
+be revisited once more of the dialect infrastructure is in place and
+tightened up accordingly. At that time, appropriate constraints should
+be added that both allow correct program representation and support
+transformations to lower levels (i.e. allowing a wider set of types as
+useful for conversions).</p>
+<section id="id11">
+<h4>Operands:<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">elements</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id12">
+<h4>Results:<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>List type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-build-tuple-mlir-cancer-basicpy-buildtupleop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.build_tuple</span></code> (::mlir::CANCER::Basicpy::BuildTupleOp)<a class="headerlink" href="#basicpy-build-tuple-mlir-cancer-basicpy-buildtupleop" title="Permalink to this headline"></a></h3>
+<p>Builds a tuple from operands</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.build_tuple` operands attr-dict `:` functional-type(operands, results)
+</pre></div>
+</div>
+<p>Constructs a new tuple object from its operands.</p>
+<p>TODO: Any allowable type can be expressed in lists; however, this should
+be revisited once more of the dialect infrastructure is in place and
+tightened up accordingly. At that time, appropriate constraints should
+be added that both allow correct program representation and support
+transformations to lower levels (i.e. allowing a wider set of types as
+useful for conversions).</p>
+<section id="id13">
+<h4>Operands:<a class="headerlink" href="#id13" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">elements</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id14">
+<h4>Results:<a class="headerlink" href="#id14" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>Tuple type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-bytes-constant-mlir-cancer-basicpy-bytesconstantop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.bytes_constant</span></code> (::mlir::CANCER::Basicpy::BytesConstantOp)<a class="headerlink" href="#basicpy-bytes-constant-mlir-cancer-basicpy-bytesconstantop" title="Permalink to this headline"></a></h3>
+<p>Constant bytes value</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.bytes_constant` $value attr-dict
+</pre></div>
+</div>
+<p>A bytes value of BytesType. The value is represented by a StringAttr.</p>
+<section id="id15">
+<h4>Attributes:<a class="headerlink" href="#id15" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 40%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>MLIR Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<td><p>::mlir::StringAttr</p></td>
+<td><p>string attribute</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id16">
+<h4>Results:<a class="headerlink" href="#id16" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>Bytes type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-exec-discard-mlir-cancer-basicpy-execdiscardop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.exec_discard</span></code> (::mlir::CANCER::Basicpy::ExecDiscardOp)<a class="headerlink" href="#basicpy-exec-discard-mlir-cancer-basicpy-execdiscardop" title="Permalink to this headline"></a></h3>
+<p>Terminator for an exec block</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.exec_discard` operands attr-dict `:` type(operands)
+</pre></div>
+</div>
+<p>Discards results and terminates an exec block.</p>
+<section id="id17">
+<h4>Operands:<a class="headerlink" href="#id17" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">operands</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-exec-mlir-cancer-basicpy-execop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.exec</span></code> (::mlir::CANCER::Basicpy::ExecOp)<a class="headerlink" href="#basicpy-exec-mlir-cancer-basicpy-execop" title="Permalink to this headline"></a></h3>
+<p>Evaluates an expression being executed as a statement</p>
+<p>The result is discarded. Typically expressions are no-side-effect and
+can be re-ordered as needed. Embedding one in an exec op ensures that
+its placement in program order is preserved.</p>
+</section>
+<section id="basicpy-func-template-call-mlir-cancer-basicpy-functemplatecallop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.func_template_call</span></code> (::mlir::CANCER::Basicpy::FuncTemplateCallOp)<a class="headerlink" href="#basicpy-func-template-call-mlir-cancer-basicpy-functemplatecallop" title="Permalink to this headline"></a></h3>
+<p>Calls a function template</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.func_template_call` $callee `(` $args `)` `kw` $arg_names attr-dict `:` functional-type($args, results)
+</pre></div>
+</div>
+<p>Most function calls start with this generic calling op, which binds
+symbolically to a func_template. At this level, there are very few
+semantics associated with the call, since, often, both types and the
+specific concrete callee cannot be determined.</p>
+<p>Per python calling conventions, all functions return one result, even if
+None or a tuple (which may be syntactically unpacked to multiple
+results).</p>
+<p>If specified, the <code class="docutils literal notranslate"><span class="pre">argNames</span></code> operand is right aligned to the list of
+positional <code class="docutils literal notranslate"><span class="pre">args</span></code>, representing arguments that are special or have
+been passed with a keyword. The following arg names are special: ‘*’:
+Indicates that the argument is a positional argument pack (must be the
+first arg name, if present). ‘**’: Indicates that the argument is a
+keyword argument pack (must be the last arg name, if present).</p>
+<section id="id18">
+<h4>Attributes:<a class="headerlink" href="#id18" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 36%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>MLIR Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">callee</span></code></p></td>
+<td><p>::mlir::FlatSymbolRefAttr</p></td>
+<td><p>flat symbol reference attribute</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">arg_names</span></code></p></td>
+<td><p>::mlir::ArrayAttr</p></td>
+<td><p>string array attribute</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id19">
+<h4>Operands:<a class="headerlink" href="#id19" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">args</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id20">
+<h4>Results:<a class="headerlink" href="#id20" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-func-template-mlir-cancer-basicpy-functemplateop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.func_template</span></code> (::mlir::CANCER::Basicpy::FuncTemplateOp)<a class="headerlink" href="#basicpy-func-template-mlir-cancer-basicpy-functemplateop" title="Permalink to this headline"></a></h3>
+<p>Group of multiple overload-resolved concrete functions</p>
+<p>The outer func_template op acts as a module that can contain named
+concrete functions that are interpreted as overloads. If the function
+signature is sufficient to disambiguate (i.e. with nothing more than
+arity and MLIR argument types), then this is all that is needed.
+However, in many cases, additional attributes will need to be specified
+to further constrain types. The first matching function signature is
+selected to satisfy a <code class="docutils literal notranslate"><span class="pre">func_template_call</span></code> op.</p>
+<p>TODO: Define this extended constraint matching.</p>
+<p>Once a concrete function is selected as being applicable to a given
+call, it will typically be instantiated as a standalone, unspecialized
+function in the calling module (as a peer to the func_template). This
+function will be uniquely identified by concating the outer
+func_template’s symbol name, ‘$’, and the concrete instance’s symbol
+name.</p>
+<p>Note that the function may still be unspecialized (in that it contains
+UnknownType arguments/results), and type inference is expected to
+further specialize/inline/constrain it.</p>
+<p>By convention, func_templates are named to avoid collision for various
+uses: - Global function templates:
+“<strong>global:math:`python.qualified.name”   - Method names: “__method`method_name”
+- Attribute getter:
+“</strong>getattr<span class="math">attr_name"   - Attribute setter: "__setattr</span>attr_name”</p>
+<p>As in user-level python, for functions that bind to an instance, the
+first argument must be a concrete type for the bound instance type. In
+this way, there is one <code class="docutils literal notranslate"><span class="pre">func_template</span></code> for every unique member name
+and the normal type constraints system is used to select the overload,
+just as if it was a normal function call. It is left to utility routines
+to merge libraries in a way that preserves this invariant.</p>
+<p>TODO: This needs to be fleshed out more as some additional rules about
+ordering and conflict resolution are likely needed to make this correct.</p>
+<p>When extracting a program, it is typically necessary to create weak
+references to specific python functions and correlate them back to a
+named template defined here. Often times this can just be done
+lexically, but to avoid fragility, any func_template that correlates to
+a python runtime function will have an additional attribute <code class="docutils literal notranslate"><span class="pre">py_bind</span></code>
+that is an array of StringAttr qualified names to resolve and bind to in
+the python runtime. In cases of divergence, the symbol name of the
+template should be chosen just for uniqueness (not significance).</p>
+<p>The qualified name format for <code class="docutils literal notranslate"><span class="pre">py_bind</span></code> attribute is:
+package.name#local.qualified.name</p>
+</section>
+<section id="basicpy-func-template-terminator-mlir-cancer-basicpy-functemplateterminatorop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.func_template_terminator</span></code> (::mlir::CANCER::Basicpy::FuncTemplateTerminatorOp)<a class="headerlink" href="#basicpy-func-template-terminator-mlir-cancer-basicpy-functemplateterminatorop" title="Permalink to this headline"></a></h3>
+<p>Terminator pseudo-op for the FuncTemplateOp</p>
+</section>
+<section id="basicpy-numeric-constant-mlir-cancer-basicpy-numericconstantop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.numeric_constant</span></code> (::mlir::CANCER::Basicpy::NumericConstantOp)<a class="headerlink" href="#basicpy-numeric-constant-mlir-cancer-basicpy-numericconstantop" title="Permalink to this headline"></a></h3>
+<p>A constant from the Python3 numeric type hierarchy</p>
+<p>Basicpy re-uses core MLIR types to represent the Python3 numeric type
+hierarchy with the following mappings:</p>
+<ul class="simple">
+<li><p>Python3 <code class="docutils literal notranslate"><span class="pre">int</span></code> : In python, this type is signed, arbitrary precision
+but in typical realizations, it maps to an MLIR <code class="docutils literal notranslate"><span class="pre">IntegerType</span></code> of a
+fixed bit-width (typically si64 if no further information is known).
+In the future, there may be a real <code class="docutils literal notranslate"><span class="pre">Basicpy::IntType</span></code> that retains
+the true arbitrary precision nature, but this is deemed an
+enhancement that does not obviate the need to infer physical, sized
+types for many real-world cases. As such, the Basicpy numeric type
+hierarchy will always include physical <code class="docutils literal notranslate"><span class="pre">IntegerType</span></code>, if only to
+enable progressive lowering and interop with cases where the precise
+type is known.</p></li>
+<li><p>Python3 <code class="docutils literal notranslate"><span class="pre">float</span></code> : This is allowed to map to any legal floating
+point type on the physical machine and is usually represented as a
+double (f64). In MLIR, any <code class="docutils literal notranslate"><span class="pre">FloatType</span></code> is allowed, which
+facilitates progressive lowering and interop with cases where a more
+precise type is known.</p></li>
+<li><p>Python3 <code class="docutils literal notranslate"><span class="pre">complex</span></code> : Maps to an MLIR <code class="docutils literal notranslate"><span class="pre">ComplexType</span></code> with a
+<code class="docutils literal notranslate"><span class="pre">FloatType</span></code> elementType (note: in Python, complex numbers are
+always defined with floating point components).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool</span></code> : See <code class="docutils literal notranslate"><span class="pre">bool_constant</span></code> for a constant (i1) -&gt;
+!basicpy.BoolType constant. This constant op is not used for
+representing such bool values, even though from the Python
+perspective, bool is part of the numeric hierarchy (the distinction
+is really only necessary during promotion).</p></li>
+</ul>
+</section>
+<section id="integer-signedness">
+<h3>Integer Signedness<a class="headerlink" href="#integer-signedness" title="Permalink to this headline"></a></h3>
+<p>All <code class="docutils literal notranslate"><span class="pre">int</span></code> values in Python are signed. However, there exist special
+cases where libraries (i.e. struct packing and numpy arrays)
+interoperate with unsigned values. As such, when mapping to MLIR, Python
+integer types are represented as either signed or unsigned
+<code class="docutils literal notranslate"><span class="pre">IntegerType</span></code> types and can be lowered to signless integers as
+appropriate (typically during realization of arithmetic expressions
+where the choice is meaningful). Since it is not known at the outset
+when in lowering this information is safe to discard this
+<code class="docutils literal notranslate"><span class="pre">numeric_constant</span></code> op accepts any signedness.</p>
+<section id="id21">
+<h4>Attributes:<a class="headerlink" href="#id21" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 41%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>MLIR Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<td><p>::mlir::Attribute</p></td>
+<td><p>any attribute</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id22">
+<h4>Results:<a class="headerlink" href="#id22" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>«unnamed»</p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-singleton-mlir-cancer-basicpy-singletonop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.singleton</span></code> (::mlir::CANCER::Basicpy::SingletonOp)<a class="headerlink" href="#basicpy-singleton-mlir-cancer-basicpy-singletonop" title="Permalink to this headline"></a></h3>
+<p>Constant value for a singleton type</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.singleton` attr-dict `:` type($result)
+</pre></div>
+</div>
+<p>Some types only have a single possible value, represented by the
+SingletonAttr. This op allows creating constants of these types.</p>
+<section id="id23">
+<h4>Results:<a class="headerlink" href="#id23" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>None type or Ellipsis type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-slot-object-get-mlir-cancer-basicpy-slotobjectgetop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.slot_object_get</span></code> (::mlir::CANCER::Basicpy::SlotObjectGetOp)<a class="headerlink" href="#basicpy-slot-object-get-mlir-cancer-basicpy-slotobjectgetop" title="Permalink to this headline"></a></h3>
+<p>Gets a slot from a slot object</p>
+<p>Gets a slot from a SlotObject.</p>
+<p>Example: %0 = basicpy.slot_object_make … %1 =
+basicpy.slot_object_get %0[1] : !basicpy.SlotObject&lt;…&gt;</p>
+<section id="id24">
+<h4>Attributes:<a class="headerlink" href="#id24" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 42%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>MLIR Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>::mlir::IntegerAttr</p></td>
+<td><p>index attribute</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id25">
+<h4>Operands:<a class="headerlink" href="#id25" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>Slot object</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id26">
+<h4>Results:<a class="headerlink" href="#id26" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-slot-object-make-mlir-cancer-basicpy-slotobjectmakeop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.slot_object_make</span></code> (::mlir::CANCER::Basicpy::SlotObjectMakeOp)<a class="headerlink" href="#basicpy-slot-object-make-mlir-cancer-basicpy-slotobjectmakeop" title="Permalink to this headline"></a></h3>
+<p>Creates an instance of a SlotObject type</p>
+<p>SlotObjects are typically instances of built-in classes that have a
+fixed number of slots. Unlike in standard python, the types of each slot
+are tracked.</p>
+<p>This op has a custom assembly form which can be used when valid that
+omits the operand types (since they are equal to the types in the
+returned slot object). Example: %0 = basicpy.singleton :
+!basicpy.NoneType %1 = basicpy.slot_object_make(%0) -&gt;
+!basicpy.SlotObject</p>
+<section id="id27">
+<h4>Operands:<a class="headerlink" href="#id27" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">slots</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id28">
+<h4>Results:<a class="headerlink" href="#id28" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>Slot object</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-str-constant-mlir-cancer-basicpy-strconstantop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.str_constant</span></code> (::mlir::CANCER::Basicpy::StrConstantOp)<a class="headerlink" href="#basicpy-str-constant-mlir-cancer-basicpy-strconstantop" title="Permalink to this headline"></a></h3>
+<p>Constant string value</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.str_constant` $value attr-dict
+</pre></div>
+</div>
+<p>A string value of StrType. The value is represented by a StringAttr that
+is UTF-8 encoded.</p>
+<section id="id29">
+<h4>Attributes:<a class="headerlink" href="#id29" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 40%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>MLIR Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<td><p>::mlir::StringAttr</p></td>
+<td><p>string attribute</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id30">
+<h4>Results:<a class="headerlink" href="#id30" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>String type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basicpy-unknown-cast-mlir-cancer-basicpy-unknowncastop">
+<h3><code class="docutils literal notranslate"><span class="pre">basicpy.unknown_cast</span></code> (::mlir::CANCER::Basicpy::UnknownCastOp)<a class="headerlink" href="#basicpy-unknown-cast-mlir-cancer-basicpy-unknowncastop" title="Permalink to this headline"></a></h3>
+<p>Casts to and from the UnknownType</p>
+<p>Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>operation ::= `basicpy.unknown_cast` operands attr-dict `:` type(operands) `-&gt;` type(results)
+</pre></div>
+</div>
+<section id="id31">
+<h4>Operands:<a class="headerlink" href="#id31" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operand</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">operand</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id32">
+<h4>Results:<a class="headerlink" href="#id32" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>any type</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../Pass_And_Transforms/index.html" class="btn btn-neutral float-left" title="Pass And Transforms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Numpy/index.html" class="btn btn-neutral float-right" title="Numpy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Enflame.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
