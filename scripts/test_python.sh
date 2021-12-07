@@ -10,6 +10,7 @@ echo "top dir = "$top_dir_realpath
 
 cd ${top_dir_realpath}
 
-python frontend_examples/test_constant.py
+# python frontend_examples/test_constant.py
+python frontend_examples/test_binary.py
 # python frontend_examples/test_python.py
 # python frontend_tests/test_debug.py

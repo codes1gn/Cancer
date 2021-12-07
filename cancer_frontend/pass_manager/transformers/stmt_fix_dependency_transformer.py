@@ -58,11 +58,20 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
         """
         _blocks = node.mast_node.op.region.body
         operations = node.body
+        # * obtain func argument type to List()
+        argument_type = None
+        if node.mast_node.op.args:
+            argument_type = []
+            for nameargument in node.mast_node.op.args:
+                argument_type.append(nameargument.type)
         
-        if isinstance(operations[0].mast_node.op, ConstantOperation):
-            op_type = operations[0].mast_node.op.type
-        if isinstance(operations[0].mast_node.op, ReturnOperation):
-            op_type = operations[0].mast_node.op.types[0]
+        op_type = node.mast_node.op.result_types
+        
+        
+        # if isinstance(operations[0].mast_node.op, ConstantOperation):
+        #     op_type = operations[0].mast_node.op.type
+        # if isinstance(operations[0].mast_node.op, ReturnOperation):
+        #     op_type = operations[0].mast_node.op.types[0]
         """
         # if hasattr(operations[0].mast_node.op, "type"):
         #     op_type = operations[0].mast_node.op.type
@@ -71,8 +80,6 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
         #     op_type = operations[0].mast_node.op.types[0]
         """
         for operation in operations:
-            # if hasattr(operation.mast_node.op, "types") and isinstance(
-            #         operation.mast_node.op.types, list):
             if isinstance(operation.mast_node.op, ReturnOperation):
                 for i in range(len(operation.mast_node.op.types)):
                     operation.mast_node.op.types[i] = op_type

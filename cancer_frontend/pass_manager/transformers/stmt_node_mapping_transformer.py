@@ -6,6 +6,7 @@ from cancer_frontend.scaffold.utils import *
 from .node_transformer_base import NodeTransformerBase
 
 from mlir import astnodes
+from mlir.astnodes import CustomOperation, FunctionType, NamedArgument
 from mlir.dialects.standard import ReturnOperation, ConstantOperation
 from cancer_frontend.scaffold.mlir_dialects.dialect_tcf import TCF_AddOp
 
@@ -54,7 +55,25 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         _region = astnodes.Region(body=[_block])
         _name = astnodes.SymbolRefId(value=node.name)
         _args = None
+        if len(node.args.args) > 0:
+            _args = []
+            func_args = node.args.args
+            for arg in func_args: 
+                #TODO obtain args type
+                if arg.annotation.id == 'float':
+                    _args.append([NamedArgument(name=MlirSsaId(value=arg.arg, op_no=None),
+                                               type=astnodes.FloatType(MlirType.f32))])
+                else:
+                    #TODO: Other type
+                    pass
         _result_type = None
+        if node.returns:
+            if node.returns.id == 'float':
+                _result_type = astnodes.FloatType(MlirType.f32)
+            else:
+                #TODO: Other type
+                pass
+        
         _attributes = None
 
         _function = astnodes.Function(
@@ -172,30 +191,58 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         Returns:
             ast.AST: Assign astnode of python with mast_node attributions.
         """
-
+        
         super().generic_visit(node)
         print(self.__str__(), "Map transformer::handling visit_Assign on node.\n")
         print(">>>>>Python Assign Node:<<<<<\n",astunparse.dump(node))
-        _match = 0
-        _value = node.value.value
-        _type = None
-        if isinstance(node.value.value, float):
-            _type = astnodes.FloatType(MlirType.f32)
         
-        _assignop = ConstantOperation(match=_match, value=_value, type=_type)
-        
-        _result_list = list()
-        
-        _value = node.targets[0].id
-        _SsaId = MlirSsaId(value=_value, op_no=None)
-        _result_list.append(astnodes.OpResult(value=_SsaId, count=None))
+        # TODO: hard code to set set type == f32
+        _type = astnodes.FloatType(MlirType.f32)
+        if isinstance(node.value, ast.Constant):
+            if isinstance(node.value.value, float):
+                _match = 0
+                _value = node.value.value
+                
+                _type = astnodes.FloatType(MlirType.f32)
+            
+                _assignop = ConstantOperation(match=_match, value=_value, type=_type)
+                
+                _result_list = list()
+                
+                _value = node.targets[0].id
+                _SsaId = MlirSsaId(value=_value, op_no=None)
+                _result_list.append(astnodes.OpResult(value=_SsaId, count=None))
 
-        _assignop_wrapper = astnodes.Operation(result_list=_result_list,
-                                               op=_assignop,
-                                               location=None)
-        print(">>>>>MLIR Node for Assign:<<<<<\n", self.pretty_mlir(_assignop_wrapper))
-        setattr(node, "mast_node", _assignop_wrapper)
+                _assignop_wrapper = astnodes.Operation(result_list=_result_list,
+                                                    op=_assignop,
+                                                    location=None)
+                print(">>>>>MLIR Node for Assign:<<<<<\n", self.pretty_mlir(_assignop_wrapper))
+                setattr(node, "mast_node", _assignop_wrapper)
 
+        if isinstance(node.value, ast.BinOp):
+            _namespace = 'tcf'
+            _name = None
+            if isinstance(node.value.op, ast.Add):
+                _name = 'add'
+
+            _args = list()
+            _SsaId_left = MlirSsaId(value=node.value.left.id, op_no=None)
+            _SsaId_right = MlirSsaId(value=node.value.right.id, op_no=None)
+            _args.append([_SsaId_left, _SsaId_right])
+            
+            _argument_types = [_type, _type]
+            _result_types = [_type]
+            _type_binop = FunctionType(argument_types=_argument_types, result_types=_result_types)
+            
+            _assignop = CustomOperation(namespace=_namespace, name=_name, args=_args, type=_type_binop)
+            
+            _result_list = list()
+            _result_list.append(astnodes.OpResult(value=MlirSsaId(value=node.targets[0].id, op_no=None), count=None))
+            _assignop_wrapper = astnodes.Operation(result_list=_result_list,
+                                                    op=_assignop,
+                                                    location=None)
+            print(">>>>>MLIR Node for Assign BinOp:<<<<<\n", self.pretty_mlir(_assignop_wrapper))
+            setattr(node, "mast_node", _assignop_wrapper)
         return node
 
     # def visit_Name(self, node: ast.AST) -> ast.AST:

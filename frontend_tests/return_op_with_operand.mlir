@@ -9,7 +9,7 @@
 //  %0 =  tcf.add %arg0, %arg0 : (f32, f32) -> f32
 //  return %0 : f32
 //}
-func @constant1(){
+func @constant1() -> f32{
   return %ret1 : f32
 }
 
