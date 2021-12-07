@@ -6,7 +6,7 @@ from cancer_frontend.scaffold.utils import *
 from .node_transformer_base import NodeTransformerBase
 
 from mlir import astnodes
-from mlir.astnodes import CustomOperation, FunctionType, NamedArgument
+from mlir.astnodes import CustomOperation, FunctionType, NamedArgument, Dimension
 from mlir.dialects.standard import ReturnOperation, ConstantOperation
 from cancer_frontend.scaffold.mlir_dialects.dialect_tcf import TCF_AddOp
 
@@ -60,16 +60,30 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
             func_args = node.args.args
             for arg in func_args: 
                 #TODO obtain args type
-                if arg.annotation.id == 'float':
+                if hasattr(arg.annotation, 'id') and arg.annotation.id == 'float':
                     _args.append(NamedArgument(name=MlirSsaId(value=arg.arg, op_no=None),
                                                type=astnodes.FloatType(MlirType.f32)))
+                elif hasattr(arg.annotation, 'id') and arg.annotation.id == 'list':
+                    # TODO：list -> <?xf32> <?x?xf32> <?x?x?f32> 
+                    _type = astnodes.RankedTensorType(dimensions=[Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
+                    _args.append(NamedArgument(name=MlirSsaId(value=arg.arg, op_no=None), type=_type))
+                elif isinstance(arg.annotation, ast.Subscript) and isinstance(arg.annotation.slice, ast.Index) and arg.annotation.value.id == "List":
+                    # TODO：List[float] -> <?xf32> <?x?xf32> <?x?x?f32> 
+                    if arg.annotation.slice.value.id == 'float': # TODO: Other type, only support float now
+                        _type = astnodes.RankedTensorType(dimensions=[Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
+                        _args.append(NamedArgument(name=MlirSsaId(value=arg.arg, op_no=None), type=_type))
                 else:
                     #TODO: Other type
                     pass
         _result_type = None
         if node.returns:
-            if node.returns.id == 'float':
+            if hasattr(node.returns, 'id') and node.returns.id == 'float':
                 _result_type = astnodes.FloatType(MlirType.f32)
+            elif hasattr(node.returns, 'id') and node.returns.id == 'list':
+                _result_type = astnodes.RankedTensorType(dimensions=[Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
+            elif isinstance(arg.annotation, ast.Subscript) and isinstance(arg.annotation.slice, ast.Index) and arg.annotation.value.id == "List":
+                if arg.annotation.slice.value.id == 'float': # TODO: Other type, only support float now
+                    _result_type = astnodes.RankedTensorType(dimensions=[Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
             else:
                 #TODO: Other type
                 pass
@@ -196,8 +210,6 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         print(self.__str__(), "Map transformer::handling visit_Assign on node.\n")
         print(">>>>>Python Assign Node:<<<<<\n",astunparse.dump(node))
         
-        # TODO: hard code to set set type == f32
-        # _type = astnodes.FloatType(MlirType.f32)
         _type = None
         if isinstance(node.value, ast.Constant):
             if isinstance(node.value.value, float):
