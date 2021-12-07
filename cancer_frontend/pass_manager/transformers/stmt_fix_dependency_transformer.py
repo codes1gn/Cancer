@@ -5,6 +5,7 @@ from astunparse.printer import Printer
 from cancer_frontend.scaffold.utils import *
 from .node_transformer_base import NodeTransformerBase
 from mlir.dialects.standard import ReturnOperation, ConstantOperation
+from mlir.astnodes import CustomOperation, FunctionType, NamedArgument
 from mlir import astnodes
 from mlir.dialects.standard import *
 from cancer_frontend.scaffold.mlir_dialects.dialect_tcf import TCF_AddOp
@@ -46,11 +47,13 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
         """
 
         super().generic_visit(node)
-        print(self.__str__(), "Fix Transformer::handling visit_FunctionDef on node\n")
+        print(self.__str__(),
+              "Fix Transformer::handling visit_FunctionDef on node\n")
         print("***** Python FunctionDef Node *****\n", astunparse.dump(node))
-        
-        print("***** MLIR Node fot FunctionDef *****\n",self.pretty_mlir(node.mast_node))
-        
+
+        print("***** MLIR Node fot FunctionDef *****\n",
+              self.pretty_mlir(node.mast_node))
+
         # TODO Fix body elements in function region's block
         """ 
         Region: body (consist of a series Block)
@@ -59,30 +62,42 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
         _blocks = node.mast_node.op.region.body
         operations = node.body
         # * obtain func argument type to List()
+        # * if no arguments: argument_type=None
+        # * if arguments : argumets_type = [arg_type, ...]
         argument_type = None
         if node.mast_node.op.args:
             argument_type = []
             for nameargument in node.mast_node.op.args:
                 argument_type.append(nameargument.type)
-        
+        else:
+            argument_type = [None]
+
         op_type = node.mast_node.op.result_types
-        
-        
-        # if isinstance(operations[0].mast_node.op, ConstantOperation):
-        #     op_type = operations[0].mast_node.op.type
-        # if isinstance(operations[0].mast_node.op, ReturnOperation):
-        #     op_type = operations[0].mast_node.op.types[0]
+        return_type = node.mast_node.op.result_types
+
         """
-        # if hasattr(operations[0].mast_node.op, "type"):
-        #     op_type = operations[0].mast_node.op.type
-        # if hasattr(operations[0].mast_node.op, "types") and isinstance(
-        #         operations[0].mast_node.op.types, list):
-        #     op_type = operations[0].mast_node.op.types[0]
+        Set the Operation Type based on the Argument Type and Return Type at the time the function was defined  
         """
         for operation in operations:
-            if isinstance(operation.mast_node.op, ReturnOperation):
+            _OP = operation.mast_node.op
+            if isinstance(_OP, ReturnOperation):
                 for i in range(len(operation.mast_node.op.types)):
-                    operation.mast_node.op.types[i] = op_type
+                    _OP.types[i] = return_type
+            if isinstance(_OP, ConstantOperation):
+                _OP.type = argument_type[0]
+            if isinstance(_OP, CustomOperation):
+                # * BinOp -> add
+                if _OP.name == 'add' and isinstance(
+                        _OP.type.argument_types, list) and isinstance(
+                            _OP.type.result_types, list):
+                    for i in range(len(_OP.type.argument_types)):
+                        _OP.type.argument_types[i] = argument_type[0]
+                    for i in range(len(_OP.type.result_types)):
+                        _OP.type.result_types[i] = return_type
+                else:
+                    # TODO: add more BinOp type
+                    pass
+
         print("len_blocks", len(_blocks))
         if operations:
             for i in range(len(_blocks)):

@@ -61,8 +61,8 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
             for arg in func_args: 
                 #TODO obtain args type
                 if arg.annotation.id == 'float':
-                    _args.append([NamedArgument(name=MlirSsaId(value=arg.arg, op_no=None),
-                                               type=astnodes.FloatType(MlirType.f32))])
+                    _args.append(NamedArgument(name=MlirSsaId(value=arg.arg, op_no=None),
+                                               type=astnodes.FloatType(MlirType.f32)))
                 else:
                     #TODO: Other type
                     pass
@@ -197,13 +197,15 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         print(">>>>>Python Assign Node:<<<<<\n",astunparse.dump(node))
         
         # TODO: hard code to set set type == f32
-        _type = astnodes.FloatType(MlirType.f32)
+        # _type = astnodes.FloatType(MlirType.f32)
+        _type = None
         if isinstance(node.value, ast.Constant):
             if isinstance(node.value.value, float):
                 _match = 0
                 _value = node.value.value
                 
-                _type = astnodes.FloatType(MlirType.f32)
+                # _type = astnodes.FloatType(MlirType.f32)
+                _type = None
             
                 _assignop = ConstantOperation(match=_match, value=_value, type=_type)
                 
