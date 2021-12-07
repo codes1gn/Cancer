@@ -230,7 +230,7 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
             _args = list()
             _SsaId_left = MlirSsaId(value=node.value.left.id, op_no=None)
             _SsaId_right = MlirSsaId(value=node.value.right.id, op_no=None)
-            _args.append([_SsaId_left, _SsaId_right])
+            _args.extend([_SsaId_left, _SsaId_right])
             
             _argument_types = [_type, _type]
             _result_types = [_type]
