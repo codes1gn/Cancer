@@ -32,7 +32,7 @@ void JITModule::buildBackendCompilationPipeline(PassManager &pm,
                                                 bool optimize) {
   CANCER::RefBackendLoweringPipelineOptions options;
   options.optimize = optimize;
-  CANCER::createTCFRefBackendLoweringPipeline(pm, options);
+  CANCER::createAtirRefBackendLoweringPipeline(pm, options);
 }
 
 llvm::Expected<std::unique_ptr<JITModule>>

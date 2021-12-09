@@ -48,6 +48,7 @@ def Basicpy_BoolType : DialectType<Basicpy_Dialect,
   }];
 }
 
+// TODO remove
 def Basicpy_BytesType : DialectType<Basicpy_Dialect,
     CPred<"$_self.isa<::mlir::CANCER::Basicpy::BytesType>()">, "Bytes type">,
     BuildableType<"$_builder.getType<::mlir::CANCER::Basicpy::BytesType>()"> {
@@ -56,6 +57,7 @@ def Basicpy_BytesType : DialectType<Basicpy_Dialect,
   }];
 }
 
+// TODO remove
 def Basicpy_EllipsisType : DialectType<Basicpy_Dialect,
     CPred<"$_self.isa<::mlir::CANCER::Basicpy::EllipsisType>()">, "Ellipsis type">,
     BuildableType<"$_builder.getType<::mlir::CANCER::Basicpy::EllipsisType>()"> {
@@ -72,6 +74,7 @@ def Basicpy_NoneType : DialectType<Basicpy_Dialect,
   }];
 }
 
+// TODO remove
 def Basicpy_SlotObjectType : DialectType<Basicpy_Dialect,
     CPred<"$_self.isa<::mlir::CANCER::Basicpy::SlotObjectType>()">,
     "Slot object"> {
@@ -82,6 +85,7 @@ def Basicpy_SlotObjectType : DialectType<Basicpy_Dialect,
   }];
 }
 
+// TODO remove
 def Basicpy_StrType : DialectType<Basicpy_Dialect,
     CPred<"$_self.isa<::mlir::CANCER::Basicpy::StrType>()">,"String type">,
     BuildableType<"$_builder.getType<::mlir::CANCER::Basicpy::StrType>()"> {
@@ -143,6 +147,7 @@ def Basicpy_DictType : DialectType<Basicpy_Dialect,
 // Type/attribute predicates
 //===----------------------------------------------------------------------===//
 
+// TODO can remove, need to know who uses this
 def Basicpy_SingletonType : AnyTypeOf<[
   Basicpy_NoneType,
   Basicpy_EllipsisType

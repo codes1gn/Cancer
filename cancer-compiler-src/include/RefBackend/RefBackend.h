@@ -45,23 +45,23 @@ struct RefBackendLoweringPipelineOptions
 void createRefBackendLoweringPipeline(
     OpPassManager &pm, const RefBackendLoweringPipelineOptions &options);
 
-// Helper pipeline that runs TCF->TCP lowering.
+// Helper pipeline that runs Atir->Ctir lowering.
 //
 // For now, just piggy-back on the same set of options since this is such a
 // simple set of passes.
 //
-// TODO: Move this out of RefBackend once the TCF->TCP conversions
+// TODO: Move this out of RefBackend once the Atir->Ctir conversions
 // become more substantial.
-void createRefBackendTCFToTCPPipeline(
+void createRefBackendAtirToCtirPipeline(
     OpPassManager &pm, const RefBackendLoweringPipelineOptions &options);
 
-// Helper pipeline that runs TCF->TCP lowering before invoking
+// Helper pipeline that runs Atir->Ctir lowering before invoking
 // RefBackendLoweringPipeline.
 // For now, just piggy-back on the same set of options since this is such a
 // thin wrapper.
 // Longer-term, the reference backend should fit into some sort of
 // "target interface" and this helper won't be needed.
-void createTCFRefBackendLoweringPipeline(
+void createAtirRefBackendLoweringPipeline(
     OpPassManager &pm, const RefBackendLoweringPipelineOptions &options);
 
 } // namespace CANCER

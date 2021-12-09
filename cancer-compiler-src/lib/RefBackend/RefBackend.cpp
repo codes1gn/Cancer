@@ -8,18 +8,18 @@
 //
 // This is the base file for cancer's "reference backend".
 //
-// The input to this backend is a layer that we call "TCP" + a mix of scalar
-// ops. TCP is currently a concrete dialect, but more generally it refers to a
+// The input to this backend is a layer that we call "Ctir" + a mix of scalar
+// ops. Ctir is currently a concrete dialect, but more generally it refers to a
 // layer of the compilation stack consisting of named ops on entire tensors,
 // with their preconditions checked. For example, a "matmul" op that assumes
 // that the contracting ("k") dimensions of both operands are equal. Earlier
 // code in the compilation stack should ensure that these preconditions are met
-// (such as during TCF->TCP lowering).
+// (such as during Atir->Ctir lowering).
 //
 // The output of this backend is LLVM IR suitable for JITing.
 //
 // We expect that other backends will appear that have a similar kind of
-// interface (TCP + scalar ops ---> LLVM IR / other "executable").
+// interface (Ctir + scalar ops ---> LLVM IR / other "executable").
 //
 //===----------------------------------------------------------------------===//
 
@@ -45,13 +45,13 @@
 #include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 #include "mlir/Transforms/Passes.h"
 
-#include "Conversion/TCFToLinalg/TCFToLinalg.h"
-#include "Conversion/TCFToStd/TCFToStd.h"
-#include "Conversion/TCFToTCP/TCFToTCP.h"
+#include "Conversion/AtirToLinalg/AtirToLinalg.h"
+#include "Conversion/AtirToStd/AtirToStd.h"
+#include "Conversion/AtirToCtir/AtirToCtir.h"
 #include "Dialect/Refback/IR/RefbackOps.h"
-#include "Dialect/TCP/IR/TCPDialect.h"
-#include "Dialect/TCP/IR/TCPOps.h"
-#include "Dialect/TCP/Transforms/Passes.h"
+#include "Dialect/Ctir/IR/CtirDialect.h"
+#include "Dialect/Ctir/IR/CtirOps.h"
+#include "Dialect/Ctir/Transforms/Passes.h"
 
 using namespace mlir;
 using namespace mlir::CANCER;
@@ -71,18 +71,18 @@ void mlir::CANCER::registerRefBackendPasses() {
   mlir::PassPipelineRegistration<RefBackendLoweringPipelineOptions>(
       "refback-lowering-pipeline", "RefBackend lowering pipeline.",
       mlir::CANCER::createRefBackendLoweringPipeline);
-  // TODO: Move this out of RefBackend once the TCF->TCP conversions
+  // TODO: Move this out of RefBackend once the Atir->Ctir conversions
   // become more substantial.
   mlir::PassPipelineRegistration<RefBackendLoweringPipelineOptions>(
-      "refback-tcf-to-tcp-pipeline",
-      "RefBackend lowering pipeline converting TCF ops to TCP-level ops (not "
-      "just TCP dialect).",
-      mlir::CANCER::createRefBackendTCFToTCPPipeline);
+      "refback-atir-to-ctir-pipeline",
+      "RefBackend lowering pipeline converting Atir ops to Ctir-level ops (not "
+      "just Ctir dialect).",
+      mlir::CANCER::createRefBackendAtirToCtirPipeline);
   mlir::PassPipelineRegistration<RefBackendLoweringPipelineOptions>(
-      "tcf-refback-lowering-pipeline",
-      "RefBackend lowering pipeline, starting from TCF. (equivalent to "
-      "refback-tcf-to-tcp-pipeline + refback-lowering-pipeline)",
-      mlir::CANCER::createTCFRefBackendLoweringPipeline);
+      "atir-refback-lowering-pipeline",
+      "RefBackend lowering pipeline, starting from Atir. (equivalent to "
+      "refback-atir-to-ctir-pipeline + refback-lowering-pipeline)",
+      mlir::CANCER::createAtirRefBackendLoweringPipeline);
 }
 
 //===----------------------------------------------------------------------===//
@@ -248,7 +248,7 @@ void mlir::CANCER::createRefBackendLoweringPipeline(
   // so we try to bracket the entire bufferization pipeline with the module
   // passes to allow maximum parallelism.
   pm.addPass(createTensorConstantBufferizePass());
-  pm.addNestedPass<FuncOp>(createTCPBufferizePass());
+  pm.addNestedPass<FuncOp>(createCtirBufferizePass());
   // refback::AllocMemRefOp takes a shape (i.e. extent tensor) as an argument.
   // We need to resolve this to std.alloc which takes individual extents.
   pm.addNestedPass<FuncOp>(createLowerAllocMemRefOpsPass());
@@ -312,21 +312,21 @@ void mlir::CANCER::createRefBackendLoweringPipeline(
   }
 }
 
-void mlir::CANCER::createRefBackendTCFToTCPPipeline(
+void mlir::CANCER::createRefBackendAtirToCtirPipeline(
     OpPassManager &pm, const RefBackendLoweringPipelineOptions &options) {
-  // Convert from TCF dialect to TCP-level ops.
+  // Convert from Atir dialect to Ctir-level ops.
   //
-  // TCF has implicit broadcasting, and issues errors "inside the ops" in the
+  // Atir has implicit broadcasting, and issues errors "inside the ops" in the
   // case of invalid broadcasts.
   //
-  // TCP-level ops do not. So we need to reify the broadcasting and error
+  // Ctir-level ops do not. So we need to reify the broadcasting and error
   // checking.
   //
-  // Note that TCP-level ops includes ops outside the TCP dialect itself, such
+  // Note that Ctir-level ops includes ops outside the Ctir dialect itself, such
   // as std elementwise ops on tensors and linalg ops on tensors.
-  pm.addNestedPass<FuncOp>(createConvertTCFToStdPass());
-  pm.addNestedPass<FuncOp>(createConvertTCFToLinalgPass());
-  pm.addNestedPass<FuncOp>(createConvertTCFToTCPPass());
+  pm.addNestedPass<FuncOp>(createConvertAtirToStdPass());
+  pm.addNestedPass<FuncOp>(createConvertAtirToLinalgPass());
+  pm.addNestedPass<FuncOp>(createConvertAtirToCtirPass());
 
   if (options.optimize) {
     pm.addNestedPass<FuncOp>(createCanonicalizerPass());
@@ -334,8 +334,8 @@ void mlir::CANCER::createRefBackendTCFToTCPPipeline(
   }
 }
 
-void mlir::CANCER::createTCFRefBackendLoweringPipeline(
+void mlir::CANCER::createAtirRefBackendLoweringPipeline(
     OpPassManager &pm, const RefBackendLoweringPipelineOptions &options) {
-  createRefBackendTCFToTCPPipeline(pm, options);
+  createRefBackendAtirToCtirPipeline(pm, options);
   createRefBackendLoweringPipeline(pm, options);
 }

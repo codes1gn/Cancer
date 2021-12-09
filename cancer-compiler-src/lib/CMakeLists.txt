@@ -24,15 +24,15 @@ add_cancer_library(CANCERInit
   # Local depends
   CANCERDialectBasicpy
   CANCERDialectNumpy
-  CANCERDialectTCF
-  CANCERDialectTCP
+  CANCERDialectAtir
+  CANCERDialectCtir
   CANCERDialectRefback
   CANCERDialectRefbackrt
 
   CANCERBasicpyPasses
   CANCERNumpyPasses
-  CANCERTCFPasses
-  CANCERTCPPasses
+  CANCERAtirPasses
+  CANCERCtirPasses
 
   CANCERConversionPasses
   CANCERRefBackend

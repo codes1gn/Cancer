@@ -1,8 +1,8 @@
 add_subdirectory(BasicpyToStd)
-add_subdirectory(NumpyToTCF)
-add_subdirectory(TCFToLinalg)
-add_subdirectory(TCFToStd)
-add_subdirectory(TCFToTCP)
+add_subdirectory(NumpyToAtir)
+add_subdirectory(AtirToLinalg)
+add_subdirectory(AtirToStd)
+add_subdirectory(AtirToCtir)
 
 add_cancer_library(CANCERConversionPasses
   Passes.cpp
@@ -15,6 +15,6 @@ add_cancer_library(CANCERConversionPasses
 
   LINK_LIBS PUBLIC
   CANCERBasicpyToSTD
-  CANCERNumpyToTCF
-  CANCERTCFToTCP
+  CANCERNumpyToAtir
+  CANCERAtirToCtir
 )

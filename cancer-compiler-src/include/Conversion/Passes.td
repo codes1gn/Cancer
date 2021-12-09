@@ -25,42 +25,42 @@ def ConvertBasicpyToStd : Pass<"convert-basicpy-to-std", "FuncOp"> {
 // Numpy conversions
 //===----------------------------------------------------------------------===//
 
-def ConvertNumpyToTCF : Pass<"convert-numpy-to-tcf", "FuncOp"> {
-  let summary = "Convert the numpy dialect to supported TCF ops";
-  let constructor = "mlir::CANCER::createConvertNumpyToTCFPass()";
+def ConvertNumpyToAtir : Pass<"convert-numpy-to-atir", "FuncOp"> {
+  let summary = "Convert the numpy dialect to supported Atir dialect";
+  let constructor = "mlir::CANCER::createConvertNumpyToAtirPass()";
 }
 
 //===----------------------------------------------------------------------===//
-// TCFToTCP
+// AtirToCtir
 //===----------------------------------------------------------------------===//
 
-def ConvertTCFToLinalg : Pass<"convert-tcf-to-linalg", "FuncOp"> {
-  let summary = "Convert TCF to Linalg";
+def ConvertAtirToLinalg : Pass<"convert-atir-to-linalg", "FuncOp"> {
+  let summary = "Convert Atir to Linalg";
   let description = [{
     The intention is for this pass to convert mainly to linalg named ops.
 
-    Because linalg is at the "TCP" layer of abstraction, this pass has to
+    Because linalg is at the "Ctir" layer of abstraction, this pass has to
     concern itself with generating guards for error cases.
   }];
-  let constructor = "mlir::CANCER::createConvertTCFToLinalgPass()";
+  let constructor = "mlir::CANCER::createConvertAtirToLinalgPass()";
 }
 
 //===----------------------------------------------------------------------===//
-// TCFToStd
+// AtirToStd
 //===----------------------------------------------------------------------===//
 
-def ConvertTCFToStd : Pass<"convert-tcf-to-std", "FuncOp"> {
-  let summary = "Convert TCF to Std";
-  let constructor = "mlir::CANCER::createConvertTCFToStdPass()";
+def ConvertAtirToStd : Pass<"convert-atir-to-std", "FuncOp"> {
+  let summary = "Convert Atir to Std";
+  let constructor = "mlir::CANCER::createConvertAtirToStdPass()";
 }
 
 //===----------------------------------------------------------------------===//
-// TCFToTCP
+// AtirToCtir
 //===----------------------------------------------------------------------===//
 
-def ConvertTCFToTCP : Pass<"convert-tcf-to-tcp", "FuncOp"> {
-  let summary = "Convert TCF to TCP";
-  let constructor = "mlir::CANCER::createConvertTCFToTCPPass()";
+def ConvertAtirToCtir : Pass<"convert-atir-to-ctir", "FuncOp"> {
+  let summary = "Convert Atir to Ctir";
+  let constructor = "mlir::CANCER::createConvertAtirToCtirPass()";
 }
 
 #endif // CANCER_CONVERSION_PASSES

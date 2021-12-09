@@ -21,7 +21,7 @@ func @pow2(%arg0: tensor<f32>) -> tensor<f32> {
   // Repeatedly add the value to itself %num_iters times.
   %tensor_c1 = constant dense<1.0> : tensor<f32>
   %ret = scf.for %iv = %c0 to %num_iters step %c1 iter_args(%iter = %tensor_c1) -> tensor<f32> {
-    %doubled = tcf.add %iter, %iter : (tensor<f32>, tensor<f32>) -> tensor<f32>
+    %doubled = atir.add %iter, %iter : (tensor<f32>, tensor<f32>) -> tensor<f32>
     scf.yield %doubled : tensor<f32>
   }
   return %ret : tensor<f32>

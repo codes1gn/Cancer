@@ -9,10 +9,10 @@
 #include "Conversion/Passes.h"
 
 #include "Conversion/BasicpyToStd/Passes.h"
-#include "Conversion/NumpyToTCF/Passes.h"
-#include "Conversion/TCFToLinalg/TCFToLinalg.h"
-#include "Conversion/TCFToStd/TCFToStd.h"
-#include "Conversion/TCFToTCP/TCFToTCP.h"
+#include "Conversion/NumpyToAtir/Passes.h"
+#include "Conversion/AtirToLinalg/AtirToLinalg.h"
+#include "Conversion/AtirToStd/AtirToStd.h"
+#include "Conversion/AtirToCtir/AtirToCtir.h"
 
 //===----------------------------------------------------------------------===//
 // Pass registration

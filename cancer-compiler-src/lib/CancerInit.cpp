@@ -17,10 +17,10 @@
 #include "Dialect/Numpy/Transforms/Passes.h"
 #include "Dialect/Refback/IR/RefbackDialect.h"
 #include "Dialect/Refbackrt/IR/RefbackrtDialect.h"
-#include "Dialect/TCF/IR/TCFDialect.h"
-#include "Dialect/TCF/Transforms/Passes.h"
-#include "Dialect/TCP/IR/TCPDialect.h"
-#include "Dialect/TCP/Transforms/Passes.h"
+#include "Dialect/Atir/IR/AtirDialect.h"
+#include "Dialect/Atir/Transforms/Passes.h"
+#include "Dialect/Ctir/IR/CtirDialect.h"
+#include "Dialect/Ctir/Transforms/Passes.h"
 
 #include "Conversion/Passes.h"
 #include "RefBackend/RefBackend.h"
@@ -29,8 +29,8 @@ void mlir::CANCER::registerAllDialects(mlir::DialectRegistry &registry) {
   // clang-format off
   registry.insert<Basicpy::BasicpyDialect>();
   registry.insert<Numpy::NumpyDialect>();
-  registry.insert<tcf::TCFDialect>();
-  registry.insert<tcp::TCPDialect>();
+  registry.insert<atir::AtirDialect>();
+  registry.insert<ctir::CtirDialect>();
   registry.insert<refback::RefbackDialect>();
   registry.insert<refbackrt::RefbackrtDialect>();
   // clang-format on
@@ -39,8 +39,8 @@ void mlir::CANCER::registerAllDialects(mlir::DialectRegistry &registry) {
 void mlir::CANCER::registerAllPasses() {
   mlir::CANCER::registerBasicpyPasses();
   mlir::CANCER::registerNumpyPasses();
-  mlir::CANCER::registerTCFPasses();
-  mlir::CANCER::registerTCPPasses();
+  mlir::CANCER::registerAtirPasses();
+  mlir::CANCER::registerCtirPasses();
   mlir::CANCER::registerConversionPasses();
   mlir::CANCER::registerRefBackendPasses();
 }
