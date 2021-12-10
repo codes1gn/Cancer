@@ -37,4 +37,8 @@ optimizations to be done with only modestly complex considerations.
 }
 
 
+class Ctir_Op<string mnemonic, list<OpTrait> traits = []>
+    : Op<Ctir_Dialect, mnemonic, traits> {
+}
+
 #endif // CTIR_DIALECT

@@ -16,9 +16,6 @@ include "mlir/Interfaces/InferTypeOpInterface.td"
 include "mlir/Interfaces/ControlFlowInterfaces.td"
 include "mlir/IR/SymbolInterfaces.td"
 
-class Ctir_Op<string mnemonic, list<OpTrait> traits = []>
-    : Op<Ctir_Dialect, mnemonic, traits> {
-}
 
 def Ctir_BroadcastToOp : Ctir_Op<"broadcast_to"> {
   let summary = "Broadcasts an operand to a given shape.";

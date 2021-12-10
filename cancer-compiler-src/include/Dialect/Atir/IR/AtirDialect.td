@@ -39,4 +39,9 @@ in the most efficient way for op-by-op execution.
   }];
 }
 
+class Atir_Op<string mnemonic, list<OpTrait> traits = []>
+    : Op<Atir_Dialect, mnemonic, traits> {
+}
+
+
 #endif // #ifndef ATIR_DIALECT

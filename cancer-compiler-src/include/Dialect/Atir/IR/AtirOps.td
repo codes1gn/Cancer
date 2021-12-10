@@ -11,12 +11,6 @@
 
 include "Dialect/Atir/IR/AtirDialect.td"
 
-class Atir_Op<string mnemonic, list<OpTrait> traits = []>
-    : Op<Atir_Dialect, mnemonic, traits> {
-}
-
-// TODO: investigate effects framework for defining error semantics
-// TODO: define in a general way across the dialect what "encounters an error" means.
 
 class BinaryArithmeticOp<string mnemonic, list<OpTrait> traits = []> :
   Atir_Op<mnemonic, traits> {
