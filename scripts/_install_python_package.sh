@@ -12,8 +12,8 @@ echo "top dir = "$top_dir_realpath
 cd ${top_dir_realpath}
 
 # uninstall bad installations
-yes|pip uninstall cancer
-yes|pip uninstall pymlir
+yes|pip3 uninstall cancer
+yes|pip3 uninstall pymlir
 
 # invoke setup.py to build wheel installation pkg
 cat install_cache.txt | xargs rm -rf
@@ -21,6 +21,6 @@ python setup.py install --record install_cache.txt
 
 # install pymlir
 cd external/pymlir
-pip install .
+pip3 install .
 cd -
 
