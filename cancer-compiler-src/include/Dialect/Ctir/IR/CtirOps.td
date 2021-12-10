@@ -9,7 +9,7 @@
 #ifndef CTIR_OPS
 #define CTIR_OPS
 
-include "Dialect/Ctir/IR/CtirBase.td"
+include "Dialect/Ctir/IR/CtirDialect.td"
 include "mlir/Dialect/Shape/IR/ShapeBase.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
 include "mlir/Interfaces/InferTypeOpInterface.td"

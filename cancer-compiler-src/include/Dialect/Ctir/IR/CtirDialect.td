@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef CTIR_BASE
-#define CTIR_BASE
+#ifndef CTIR_DIALECT
+#define CTIR_DIALECT
 
 include "mlir/IR/OpBase.td"
 
@@ -37,4 +37,4 @@ optimizations to be done with only modestly complex considerations.
 }
 
 
-#endif // CTIR_BASE
+#endif // CTIR_DIALECT

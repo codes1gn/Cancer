@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef Atir_BASE
-#define Atir_BASE
+#ifndef ATIR_DIALECT
+#define ATIR_DIALECT
 
 include "mlir/IR/OpBase.td"
 
@@ -39,4 +39,4 @@ in the most efficient way for op-by-op execution.
   }];
 }
 
-#endif // #ifndef Atir_BASE
+#endif // #ifndef ATIR_DIALECT

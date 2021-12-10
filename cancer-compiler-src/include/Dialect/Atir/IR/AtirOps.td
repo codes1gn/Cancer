@@ -9,7 +9,7 @@
 #ifndef ATIR_OPS
 #define ATIR_OPS
 
-include "Dialect/Atir/IR/AtirBase.td"
+include "Dialect/Atir/IR/AtirDialect.td"
 
 class Atir_Op<string mnemonic, list<OpTrait> traits = []>
     : Op<Atir_Dialect, mnemonic, traits> {
