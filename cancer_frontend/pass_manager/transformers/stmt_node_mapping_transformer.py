@@ -236,8 +236,19 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
         if isinstance(node.value, ast.BinOp):
             _namespace = 'tcf'
             _name = None
+            # TODO: Other binary op
             if isinstance(node.value.op, ast.Add):
                 _name = 'add'
+            elif isinstance(node.value.op, ast.Sub):
+                _name = 'sub'
+            elif isinstance(node.value.op, ast.Mult):
+                _name = 'mul'
+            elif isinstance(node.value.op, ast.Sub):
+                _name = 'sub'
+            elif isinstance(node.value.op, ast.Sub):
+                _name = 'sub'
+            elif isinstance(node.value.op, ast.Sub):
+                _name = 'sub'
 
             _args = list()
             _SsaId_left = MlirSsaId(value=node.value.left.id, op_no=None)

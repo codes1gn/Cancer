@@ -26,7 +26,7 @@ def test_constant():
     def constant3() -> float:
         arg0 = 1.0
         return arg0
-
+    
     analyse(constant3)
 
 
