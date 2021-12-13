@@ -251,8 +251,17 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
                 _name = 'sub'
 
             _args = list()
-            _SsaId_left = MlirSsaId(value=node.value.left.id, op_no=None)
-            _SsaId_right = MlirSsaId(value=node.value.right.id, op_no=None)
+            
+            # * binary op have two condition：
+            # 1. scalar binary op
+            # 2. list binart op, via numpy to implement
+            _SsaId_left = _SsaId_right = None
+            if isinstance(node.value.left, ast.Call):
+                _SsaId_left = MlirSsaId(value=node.value.left.args[0].id, op_no=None)
+                _SsaId_right = MlirSsaId(value=node.value.left.args[0].id, op_no=None)
+            else:
+                _SsaId_left = MlirSsaId(value=node.value.left.id, op_no=None)
+                _SsaId_right = MlirSsaId(value=node.value.right.id, op_no=None)
             _args.extend([_SsaId_left, _SsaId_right])
             
             _argument_types = [_type, _type]

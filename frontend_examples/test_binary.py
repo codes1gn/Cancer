@@ -1,8 +1,9 @@
 """ Tests pyMLIR on examples that use the Toy dialect. """
 import os
-
+import numpy as np
 from cancer_frontend.python import PythonRunner
 from typing import Callable, List
+
 Vector = List[float]
 
 
@@ -35,11 +36,12 @@ def test_binary():
         return res
     
     def listAdd0(arg0: list, arg1: list) -> list:
-        res = arg0 + arg1
+        
+        res = np.array(arg0) + np.array(arg1)
         return res
     
     def listAdd1(arg0: List[float], arg1: List[float]) -> List[float]:
-        res = arg0 + arg1
+        res = np.array(arg0) + np.array(arg1)
         return res
     
     # analyse(add_scalar0)
@@ -55,7 +57,7 @@ def test_binary():
     # print(f'Add pass: {cunt}')
     
     # TODO: Sub OP
-    # cunt_sub = 0
+    cunt_sub = 0
     # def sub_scalar0(arg0:float) -> float:
     #     var0 = 2.0
     #     res = arg0 - var0
@@ -71,13 +73,13 @@ def test_binary():
     #     res = var0 - var1
     #     return res
     
-    # def listSub0(arg0: list, arg1: list) -> list:
-    #     res = arg0 - arg1
-    #     return res
+    def listSub0(arg0: list, arg1: list) -> list:
+        res = np.array(arg0) - np.array(arg1)
+        return res
     
-    # def listSub1(arg0: List[float], arg1: List[float]) -> List[float]:
-    #     res = arg0 - arg1
-    #     return res
+    def listSub1(arg0: List[float], arg1: List[float]) -> List[float]:
+        res = np.array(arg0) - np.array(arg1)
+        return res
     
     # analyse(sub_scalar0)
     # cunt_sub +=1
@@ -87,8 +89,8 @@ def test_binary():
     # cunt_sub +=1
     # analyse(listSub0)
     # cunt_sub +=1
-    # # analyse(listSub1)
-    # # cunt_sub +=1
+    # analyse(listSub1)
+    # cunt_sub +=1
     # print(f'cunt_sub={cunt_sub}')
     
     # TODO: Mul OP
@@ -109,24 +111,25 @@ def test_binary():
         return res
     
     def listMul0(arg0: list, arg1: list) -> list:
-        res = arg0 * arg1
+        res = np.array(arg0) * np.array(arg1)
         return res
     
     def listMul1(arg0: List[float], arg1: List[float]) -> List[float]:
-        res = arg0 * arg1
+        res = np.array(arg0) * np.array(arg1)
+        # res = arg0 * arg1
         return res
     
-    analyse(mul_scalar0)
-    cunt_mul +=1
-    analyse(mul_scalar1)
-    cunt_mul +=1
-    analyse(mul_scalar2)
-    cunt_mul +=1
-    analyse(listMul0)
-    cunt_mul +=1
-    analyse(listMul1)
-    cunt_mul +=1
-    print(f'cunt_mul={cunt_mul}')
+    # analyse(mul_scalar0)
+    # cunt_mul +=1
+    # analyse(mul_scalar1)
+    # cunt_mul +=1
+    # analyse(mul_scalar2)
+    # cunt_mul +=1
+    # analyse(listMul0)
+    # cunt_mul +=1
+    # analyse(listMul1)
+    # cunt_mul +=1
+    # print(f'cunt_mul={cunt_mul}')
     
 if __name__ == "__main__":
     test_binary()
