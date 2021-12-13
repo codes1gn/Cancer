@@ -64,13 +64,13 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
                     _args.append(NamedArgument(name=MlirSsaId(value=arg.arg, op_no=None),
                                                type=astnodes.FloatType(MlirType.f32)))
                 elif hasattr(arg.annotation, 'id') and arg.annotation.id == 'list':
-                    # TODO：list -> <?xf32> <?x?xf32> <?x?x?f32> 
-                    _type = astnodes.RankedTensorType(dimensions=[Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
+                    # TODO: list -> <?xf32> <?x?xf32> <?x?x?f32> 
+                    _type = astnodes.RankedTensorType(dimensions=[Dimension(value=None), Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
                     _args.append(NamedArgument(name=MlirSsaId(value=arg.arg, op_no=None), type=_type))
                 elif isinstance(arg.annotation, ast.Subscript) and isinstance(arg.annotation.slice, ast.Index) and arg.annotation.value.id == "List":
-                    # TODO：List[float] -> <?xf32> <?x?xf32> <?x?x?f32> 
+                    # TODO: List[float] -> <?xf32> <?x?xf32> <?x?x?f32> 
                     if arg.annotation.slice.value.id == 'float': # TODO: Other type, only support float now
-                        _type = astnodes.RankedTensorType(dimensions=[Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
+                        _type = astnodes.RankedTensorType(dimensions=[Dimension(value=None), Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
                         _args.append(NamedArgument(name=MlirSsaId(value=arg.arg, op_no=None), type=_type))
                 else:
                     #TODO: Other type
@@ -80,10 +80,10 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
             if hasattr(node.returns, 'id') and node.returns.id == 'float':
                 _result_type = astnodes.FloatType(MlirType.f32)
             elif hasattr(node.returns, 'id') and node.returns.id == 'list':
-                _result_type = astnodes.RankedTensorType(dimensions=[Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
+                _result_type = astnodes.RankedTensorType(dimensions=[Dimension(value=None), Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
             elif isinstance(arg.annotation, ast.Subscript) and isinstance(arg.annotation.slice, ast.Index) and arg.annotation.value.id == "List":
                 if arg.annotation.slice.value.id == 'float': # TODO: Other type, only support float now
-                    _result_type = astnodes.RankedTensorType(dimensions=[Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
+                    _result_type = astnodes.RankedTensorType(dimensions=[Dimension(value=None), Dimension(value=None)], element_type=astnodes.FloatType(MlirType.f32))
             else:
                 #TODO: Other type
                 pass
@@ -232,19 +232,34 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
                                                     location=None)
                 print(">>>>>MLIR Node for Assign:<<<<<\n", self.pretty_mlir(_assignop_wrapper))
                 setattr(node, "mast_node", _assignop_wrapper)
-
+        
+        
+        
         if isinstance(node.value, ast.BinOp):
             _namespace = 'tcf'
             _name = None
             # TODO: Other binary op
             if isinstance(node.value.op, ast.Add):
+                if isinstance(node.value.left, ast.Call):
+                    assert node.value.left.func.attr == "add"
+                    assert node.value.right.func.attr == "add"
+                    _name = 'add'
                 _name = 'add'
             elif isinstance(node.value.op, ast.Sub):
+                if isinstance(node.value.left, ast.Call):
+                    assert node.value.left.func.attr == "sub"
+                    assert node.value.right.func.attr == "sub"
+                    _name = 'sub'
                 _name = 'sub'
             elif isinstance(node.value.op, ast.Mult):
-                _name = 'mul'
-            elif isinstance(node.value.op, ast.Sub):
-                _name = 'sub'
+                if node.value.left.func.attr == "array":
+                    _name = 'mul'
+                elif node.value.right.func.attr == "mat":
+                    _name = 'mat'
+                else:
+                    pass 
+            elif isinstance(node.value.op, ast.Matmul):
+                _name = 'matmul'
             elif isinstance(node.value.op, ast.Sub):
                 _name = 'sub'
             elif isinstance(node.value.op, ast.Sub):
@@ -259,6 +274,7 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
             if isinstance(node.value.left, ast.Call):
                 _SsaId_left = MlirSsaId(value=node.value.left.args[0].id, op_no=None)
                 _SsaId_right = MlirSsaId(value=node.value.left.args[0].id, op_no=None)
+                
             else:
                 _SsaId_left = MlirSsaId(value=node.value.left.id, op_no=None)
                 _SsaId_right = MlirSsaId(value=node.value.right.id, op_no=None)
@@ -277,6 +293,7 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
                                                     location=None)
             print(">>>>>MLIR Node for Assign BinOp:<<<<<\n", self.pretty_mlir(_assignop_wrapper))
             setattr(node, "mast_node", _assignop_wrapper)
+        
         return node
 
     # def visit_Name(self, node: ast.AST) -> ast.AST:
