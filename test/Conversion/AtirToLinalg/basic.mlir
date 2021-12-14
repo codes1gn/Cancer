@@ -24,7 +24,7 @@ func @atir_matmul(%arg0: tensor<?x?xf32>, %arg1: tensor<?x?xf32>) -> tensor<?x?x
   return %0 : tensor<?x?xf32>
 }
 
-// CHECK-LABEL:   func @atir_conv_2d_nchw(
+// CHECK-LABEL:   func @atir_conv_2d_cfirst(
 // CHECK-SAME:                     %[[IN:[a-zA-Z0-9]+]]: tensor<?x?x?x?xf32>
 // CHECK-SAME:                     %[[FILTER:[a-zA-Z0-9]+]]: tensor<?x?x?x?xf32>) -> tensor<?x?x?x?xf32> {
 // CHECK:           %[[C0F32:.*]] = constant 0.000000e+00 : f32
@@ -62,11 +62,11 @@ func @atir_matmul(%arg0: tensor<?x?xf32>, %arg1: tensor<?x?xf32>) -> tensor<?x?x
 // CHECK:             %[[OUTWIDTH:.*]] = addi %[[WIDTHV0M1]], %[[C1]] : index
 // CHECK:             %[[SHAPE:.*]] = tensor.from_elements %[[BATCH]], %[[OUTCHANNELS]], %[[OUTHEIGHT]], %[[OUTWIDTH]] : tensor<4xindex>
 // CHECK:             %[[INIT_TENSOR:.*]] = ctir.splatted %[[C0F32]], %[[SHAPE]] : (f32, tensor<4xindex>) -> tensor<?x?x?x?xf32>
-// CHECK:             %[[CONVNCHW:.*]] = linalg.conv_2d_nchw ins(%[[IN]], %[[FILTER]] : tensor<?x?x?x?xf32>, tensor<?x?x?x?xf32>) outs(%[[INIT_TENSOR]] : tensor<?x?x?x?xf32>)  -> tensor<?x?x?x?xf32>
-// CHECK:             shape.assuming_yield %[[CONVNCHW]] : tensor<?x?x?x?xf32>
+// CHECK:             %[[CONV2DCFIRST:.*]] = linalg.conv_2d_nchw ins(%[[IN]], %[[FILTER]] : tensor<?x?x?x?xf32>, tensor<?x?x?x?xf32>) outs(%[[INIT_TENSOR]] : tensor<?x?x?x?xf32>)  -> tensor<?x?x?x?xf32>
+// CHECK:             shape.assuming_yield %[[CONV2DCFIRST]] : tensor<?x?x?x?xf32>
 // CHECK:           }
 // CHECK:           return %[[RET:.*]] : tensor<?x?x?x?xf32>
-func @atir_conv_2d_nchw(%arg0: tensor<?x?x?x?xf32>, %arg1: tensor<?x?x?x?xf32>) -> tensor<?x?x?x?xf32> {
-  %0 = atir.conv_2d_nchw %arg0, %arg1 : (tensor<?x?x?x?xf32>, tensor<?x?x?x?xf32>) -> tensor<?x?x?x?xf32>
+func @atir_conv_2d_cfirst(%arg0: tensor<?x?x?x?xf32>, %arg1: tensor<?x?x?x?xf32>) -> tensor<?x?x?x?xf32> {
+  %0 = atir.conv_2d_cfirst %arg0, %arg1 : (tensor<?x?x?x?xf32>, tensor<?x?x?x?xf32>) -> tensor<?x?x?x?xf32>
   return %0 : tensor<?x?x?x?xf32>
 }

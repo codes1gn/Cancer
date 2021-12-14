@@ -36,7 +36,7 @@ static SmallVector<Value, 6> bypassResultShapes(Operation *op,
     return {shape};
   }
   // TODO: This only supports the NCHW data format. Consider other formats and lower ranks.
-  if (auto conv2dNCHW = dyn_cast<atir::ConvNCHWOp>(op)) {
+  if (auto conv2dcfirst = dyn_cast<atir::Conv2DCFirstOp>(op)) {
     // TODO: Replace hard-coded stride/dilation/padding constant-ops.
     // TODO: Consider migrating this SSA shape-computing graph to a complex op or use the `mlir-linalg-ods-gen` approach and define a `*.tc` spec file.
     auto cI0 = builder.create<ConstantOp>(op->getLoc(), builder.getIntegerAttr(builder.getIndexType(), 0));
@@ -52,17 +52,17 @@ static SmallVector<Value, 6> bypassResultShapes(Operation *op,
     auto paddingHeight = padding;
     auto paddingWidth = padding;
     auto batch =
-        builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.in(), 0);
+        builder.create<memref::DimOp>(op->getLoc(), conv2dcfirst.in(), 0);
     auto height =
-        builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.in(), 2);
+        builder.create<memref::DimOp>(op->getLoc(), conv2dcfirst.in(), 2);
     auto width =
-        builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.in(), 3);
+        builder.create<memref::DimOp>(op->getLoc(), conv2dcfirst.in(), 3);
     auto filterOutChannels =
-        builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.filter(), 0);
+        builder.create<memref::DimOp>(op->getLoc(), conv2dcfirst.filter(), 0);
     auto filterHeight =
-        builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.filter(), 2);
+        builder.create<memref::DimOp>(op->getLoc(), conv2dcfirst.filter(), 2);
     auto filterWidth =
-        builder.create<memref::DimOp>(op->getLoc(), conv2dNCHW.filter(), 3);
+        builder.create<memref::DimOp>(op->getLoc(), conv2dcfirst.filter(), 3);
     // Output height
     auto twicePaddingHeight = builder.create<MulIOp>(op->getLoc(), paddingHeight, cI2);
     auto heightPlusTwicePadding = builder.create<SubIOp>(op->getLoc(), height, twicePaddingHeight);
@@ -132,10 +132,10 @@ public:
 } // namespace
 
 namespace {
-class ConvertConvNCHW : public OpRewritePattern<atir::ConvNCHWOp> {
+class ConvertConvNCHW : public OpRewritePattern<atir::Conv2DCFirstOp> {
 public:
   using OpRewritePattern::OpRewritePattern;
-  LogicalResult matchAndRewrite(atir::ConvNCHWOp op,
+  LogicalResult matchAndRewrite(atir::Conv2DCFirstOp op,
                                 PatternRewriter &rewriter) const override {
     // Create the constraints, and the assuming region.
     Value inputCin = rewriter.create<memref::DimOp>(op.getLoc(), op.in(), 1);
@@ -175,10 +175,10 @@ public:
         rewriter.create<ctir::SplattedOp>(op.getLoc(), op.getType(), c0, shape);
 
     // Create the ConvNCHW.
-    auto conv2dNCHW = rewriter.create<linalg::ConvNCHWOp>(
+    auto conv2dcfirst = rewriter.create<linalg::ConvNCHWOp>(
         op.getLoc(), TypeRange(op.getType()),
         ValueRange({op.in(), op.filter()}), ValueRange(initTensor));
-    rewriter.create<shape::AssumingYieldOp>(op.getLoc(), conv2dNCHW.getResults());
+    rewriter.create<shape::AssumingYieldOp>(op.getLoc(), conv2dcfirst.getResults());
 
     // Finally, replace with the results of the shape.assuming
     rewriter.replaceOp(op, assuming.getResults());
