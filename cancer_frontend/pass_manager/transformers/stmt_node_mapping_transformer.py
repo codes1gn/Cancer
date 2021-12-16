@@ -228,6 +228,12 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
             _name = 'mod'
         elif isinstance(node.op, ast.Pow):
             _name = 'pow'
+        elif isinstance(node.op, ast.BitOr):
+            _name = 'bitor'
+        elif isinstance(node.op, ast.BitXor):
+            _name = 'bitxor'
+        elif isinstance(node.op, ast.BitAnd):
+            _name = 'bitand'
         else:
             pass
             
@@ -330,6 +336,14 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
                 _name = 'lshift'
             elif isinstance(node.value.op, ast.RShift):
                 _name = 'rshift'
+            elif isinstance(node.value.op, ast.BitOr):
+                _name = 'bitor'
+            elif isinstance(node.value.op, ast.BitXor):
+                _name = 'bitxor'
+            elif isinstance(node.value.op, ast.BitAnd):
+                _name = 'bitand'
+            else:
+                pass
             _args = list()
             
             # * binary op have two condition:
