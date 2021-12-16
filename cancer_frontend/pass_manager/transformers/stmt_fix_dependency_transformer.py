@@ -90,8 +90,16 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
                 _OP.type = argument_type[0]
                 
             if isinstance(_OP, CustomOperation):
-                # * BinOp -> add/sub/mul
-                if (_OP.name == 'add' or _OP.name == 'sub' or _OP.name == 'mul') and isinstance(
+                # * BinOp -> add/sub/mul/matmul/div
+                if (_OP.name == 'add' or 
+                    _OP.name == 'sub' or 
+                    _OP.name == 'mul' or 
+                    _OP.name == 'matmul' or 
+                    _OP.name == 'div' or 
+                    _OP.name == 'mod' or
+                    _OP.name == 'pow' or
+                    _OP.name == 'lshift' or
+                    _OP.name == 'rshift') and isinstance(
                         _OP.type.argument_types, list) and isinstance(
                             _OP.type.result_types, list):
                     for i in range(len(_OP.type.argument_types)):

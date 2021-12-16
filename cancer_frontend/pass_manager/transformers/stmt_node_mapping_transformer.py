@@ -194,6 +194,68 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
 
         return node
 
+    def visit_AugAssign(self, node:ast.AST) -> ast.AST:
+        """Method that constructs the Assign  corresponding MLIR node.
+
+        Construct MLIR node by set Assign astnode  attribute mast_node.
+
+        Args:
+            node (ast.AST): Assign astnode of python
+
+        Returns:
+            ast.AST: Assign astnode of python with mast_node attributions.
+        """
+        super().generic_visit(node)
+        print(self.__str__(), "Map transformer::handling visit_AugAssign on node.\n")
+        print(">>>>>Python AugAssign Node:<<<<<\n",astunparse.dump(node))
+        
+        _type = None
+        _namespace = 'tcf'
+        _name = None
+        if isinstance(node.op, ast.Add):
+            _name = 'add'
+        elif isinstance(node.op, ast.LShift):
+            _name = 'lshift'
+        elif isinstance(node.op, ast.RShift):
+            _name = 'rshift'
+        elif isinstance(node.op, ast.Sub):
+            _name = 'sub'
+        elif isinstance(node.op, ast.Mult):
+            _name = 'mul'
+        elif isinstance(node.op, ast.Div):
+            _name = 'div'
+        elif isinstance(node.op, ast.Mod):
+            _name = 'mod'
+        elif isinstance(node.op, ast.Pow):
+            _name = 'pow'
+        else:
+            pass
+            
+        _args = list()
+            
+        # * binary op have two condition:
+        # 1. scalar binary op
+        # TODO: 2. list binart op, via numpy to implement
+        _SsaId_left = _SsaId_right = None
+        _SsaId_left = MlirSsaId(value=node.target.id, op_no=None)
+        _SsaId_right = MlirSsaId(value=node.target.id, op_no=None)
+        _args.extend([_SsaId_left, _SsaId_right])
+        
+        _argument_types = [_type, _type]
+        _result_types = [_type]
+        _type_binop = FunctionType(argument_types=_argument_types, result_types=_result_types)
+        
+        _assignop = CustomOperation(namespace=_namespace, name=_name, args=_args, type=_type_binop)
+        
+        _result_list = list()
+        _result_list.append(astnodes.OpResult(value=MlirSsaId(value=node.target.id, op_no=None), count=None))
+        _assignop_wrapper = astnodes.Operation(result_list=_result_list,
+                                                op=_assignop,
+                                                location=None)
+        print(">>>>>MLIR Node for AugAssign BinOp:<<<<<\n", self.pretty_mlir(_assignop_wrapper))
+        setattr(node, "mast_node", _assignop_wrapper)
+        return node
+        
     def visit_Assign(self, node: ast.AST) -> ast.AST:
         """Method that constructs the Assign  corresponding MLIR node.
 
@@ -255,19 +317,22 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
                 if node.value.left.func.attr == "array":
                     _name = 'mul'
                 elif node.value.right.func.attr == "mat":
-                    _name = 'mat'
+                    _name = 'matmul'
                 else:
                     pass 
-            elif isinstance(node.value.op, ast.Matmul):
-                _name = 'matmul'
-            elif isinstance(node.value.op, ast.Sub):
-                _name = 'sub'
-            elif isinstance(node.value.op, ast.Sub):
-                _name = 'sub'
-
+            elif isinstance(node.value.op, ast.Div):
+                _name = 'div'
+            elif isinstance(node.value.op, ast.Mod):
+                _name = 'mod'
+            elif isinstance(node.value.op, ast.Pow):
+                _name = 'pow'
+            elif isinstance(node.value.op, ast.LShift):
+                _name = 'lshift'
+            elif isinstance(node.value.op, ast.RShift):
+                _name = 'rshift'
             _args = list()
             
-            # * binary op have two condition：
+            # * binary op have two condition:
             # 1. scalar binary op
             # 2. list binart op, via numpy to implement
             _SsaId_left = _SsaId_right = None

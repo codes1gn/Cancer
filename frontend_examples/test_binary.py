@@ -43,7 +43,7 @@ def test_binary():
     def listAdd1(arg0: List[float], arg1: List[float]) -> List[float]:
         res = np.array(arg0) + np.array(arg1)
         return res
-    
+
     # analyse(add_scalar0)
     # cunt +=1
     # analyse(add_scalar1)
@@ -58,20 +58,20 @@ def test_binary():
     
     # TODO: Sub OP
     cunt_sub = 0
-    # def sub_scalar0(arg0:float) -> float:
-    #     var0 = 2.0
-    #     res = arg0 - var0
-    #     return res
+    def sub_scalar0(arg0:float) -> float:
+        var0 = 2.0
+        res = arg0 - var0
+        return res
 
-    # def sub_scalar1(arg0:float, arg1:float) -> float:
-    #     res = arg0 - arg1
-    #     return res
+    def sub_scalar1(arg0:float, arg1:float) -> float:
+        res = arg0 - arg1
+        return res
 
-    # def sub_scalar2() -> float:
-    #     var0 = 1.0
-    #     var1 = 2.0
-    #     res = var0 - var1
-    #     return res
+    def sub_scalar2() -> float:
+        var0 = 1.0
+        var1 = 2.0
+        res = var0 - var1
+        return res
     
     def listSub0(arg0: list, arg1: list) -> list:
         res = np.array(arg0) - np.array(arg1)
@@ -119,6 +119,7 @@ def test_binary():
         # res = arg0 * arg1
         return res
     
+    
     # analyse(mul_scalar0)
     # cunt_mul +=1
     # analyse(mul_scalar1)
@@ -131,5 +132,186 @@ def test_binary():
     # cunt_mul +=1
     # print(f'cunt_mul={cunt_mul}')
     
+    
+    # TODO: Mat OP    
+     
+    def listMat0(arg0: list, arg1: list) -> list:
+        res = np.mat(arg0) * np.mat(arg1)
+        return res
+
+    def listMat1(arg0: List[float], arg1: List[float]) -> List[float]:
+        res = np.mat(arg0) * np.mat(arg1)
+        return res
+    
+    # analyse(listMat0)
+    # analyse(listMat1)
+
+    # TODO: Div
+    def div_scalar0(arg0:float) -> float:
+        var0 = 2.0
+        res = arg0 / var0
+        return res
+    
+    def div_scalar1(arg0:float, arg1:float) -> float:
+        res = arg0 / arg1
+        return res
+
+    def div_scalar2() -> float:
+        var0 = 1.0
+        var1 = 2.0
+        res = var0 / var1
+        return res
+    
+    def listDiv0(arg0: list, arg1: list) -> list:
+        res = np.array(arg0) / np.array(arg1)
+        return res
+    
+    def listDiv1(arg0: List[float], arg1: List[float]) -> List[float]:
+        res = np.array(arg0) / np.array(arg1)
+        return res   
+    
+    # analyse(div_scalar0)
+    # analyse(div_scalar1)
+    # analyse(div_scalar2)
+    # analyse(listDiv0)
+    # analyse(listDiv1)
+    
+    # TODO: Mod
+    def mod_scalar0(arg0:float) -> float:
+        var0 = 2.0
+        res = arg0 / var0
+        return res
+    
+    def mod_scalar1(arg0:float, arg1:float) -> float:
+        res = arg0 / arg1
+        return res
+
+    def mod_scalar2() -> float:
+        var0 = 1.0
+        var1 = 2.0
+        res = var0 / var1
+        return res
+    
+    def listMod0(arg0: list, arg1: list) -> list:
+        res = np.array(arg0) / np.array(arg1)
+        return res
+    
+    def listMod1(arg0: List[float], arg1: List[float]) -> List[float]:
+        res = np.array(arg0) / np.array(arg1)
+        return res 
+
+    # analyse(mod_scalar0)
+    # analyse(mod_scalar1)
+    # analyse(mod_scalar2)
+    # analyse(listMod0)
+    # analyse(listMod1)
+    
+    # TODO: Pow
+    def pow_scalar0(arg0:float) -> float:
+        var0 = 2.0
+        res = arg0 ** var0
+        return res
+    
+    def pow_scalar1(arg0:float, arg1:float) -> float:
+        res = arg0 ** arg1
+        return res
+
+    def pow_scalar2() -> float:
+        var0 = 1.0
+        var1 = 2.0
+        res = var0 ** var1
+        return res
+    
+    def pow_scalar3(arg0:float, arg1:float) -> float:
+        arg0 **= arg1
+        return arg0
+    
+    def listPow0(arg0: list, arg1: list) -> list:
+        res = np.array(arg0) ** np.array(arg1)
+        return res
+    
+    def listPow1(arg0: List[float], arg1: List[float]) -> List[float]:
+        res = np.array(arg0) ** np.array(arg1)
+        return res 
+
+    # analyse(pow_scalar0)
+    # analyse(pow_scalar1)
+    # analyse(pow_scalar2)
+    analyse(pow_scalar3)
+    # analyse(listPow0)
+    # analyse(listPow1)
+    
+    
+    # TODO: LShift
+    def lshift_scalar0(arg0:float) -> float:
+        var0 = 2.0
+        res = arg0 << var0
+        return res
+    
+    def lshift_scalar1(arg0:float, arg1:float) -> float:
+        res = arg0 << arg1
+        return res
+
+    def lshift_scalar2() -> float:
+        var0 = 1.0
+        var1 = 2.0
+        res = var0 << var1
+        return res
+    
+    def lshift_scalar3(arg0:float, arg1:float) -> float:
+        arg0 <<= arg1
+        return arg0
+    
+    def listLshift0(arg0: list, arg1: list) -> list:
+        res = np.array(arg0) << np.array(arg1)
+        return res
+    
+    def listLshift1(arg0: List[float], arg1: List[float]) -> List[float]:
+        res = np.array(arg0) << np.array(arg1)
+        return res
+    
+    # analyse(lshift_scalar0)
+    # analyse(lshift_scalar1)
+    # analyse(lshift_scalar2)
+    # analyse(lshift_scalar3)
+    # analyse(listLshift0)
+    # analyse(listLshift1)
+    
+    # TODO: RShift
+    def rshift_scalar0(arg0:float) -> float:
+        var0 = 2.0
+        res = arg0 >> var0
+        return res
+    
+    def rshift_scalar1(arg0:float, arg1:float) -> float:
+        res = arg0 >> arg1
+        return res
+
+    def rshift_scalar2() -> float:
+        var0 = 1.0
+        var1 = 2.0
+        res = var0 >> var1
+        return res
+
+    def rshift_scalar3(arg0:float, arg1:float) -> float:
+        arg0 >>= arg1
+        return arg0
+    
+    def listRshift0(arg0: list, arg1: list) -> list:
+        res = np.array(arg0) >> np.array(arg1)
+        return res
+    
+    def listRshift1(arg0: List[float], arg1: List[float]) -> List[float]:
+        res = np.array(arg0) >> np.array(arg1)
+        return res
+    
+    # analyse(rshift_scalar0)
+    # analyse(rshift_scalar1)
+    # analyse(rshift_scalar2)
+    # analyse(rshift_scalar3)
+    # analyse(listRshift0)
+    # analyse(listRshift1)
+    
+     
 if __name__ == "__main__":
     test_binary()
