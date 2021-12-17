@@ -31,6 +31,9 @@ class ShapeRefinementPass : public AtirShapeRefinementBase<ShapeRefinementPass> 
       if (lhsType == rhsType) {
         addOp.result().setType(lhsType);
       }
+      else {
+        addOp.emitError() << "args has different shape";
+      }
     });
 
     // If the change cascaded to any returns, need to update the function

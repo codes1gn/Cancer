@@ -1,5 +1,11 @@
 // RUN: cancer-opt <%s | FileCheck %s --dump-input=fail
 
+// CHECK-LABEL: func @atir_max_test_mixed_arg_type
+func @atir_max_test_mixed_arg_type(%arg0: tensor<8xf32>, %arg1: tensor<?xf32>) {
+  // CHECK: atir.max %arg0, %arg1 : (tensor<8xf32>, tensor<?xf32>) -> tensor<?xf32>
+  %1 = atir.max %arg0, %arg1 : (tensor<8xf32>, tensor<?xf32>) -> tensor<?xf32>
+  return
+}
 
 // CHECK-LABEL: func @atir_max_test
 func @atir_max_test(%arg0: tensor<?xf32>, %arg1: tensor<?xf32>) {
