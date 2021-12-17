@@ -102,7 +102,8 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
                     _OP.name == 'rshift' or
                     _OP.name == 'bitor' or
                     _OP.name == 'bitxor' or
-                    _OP.name == 'bitand') and isinstance(
+                    _OP.name == 'bitand' or
+                    _OP.name == 'floordiv') and isinstance(
                         _OP.type.argument_types, list) and isinstance(
                             _OP.type.result_types, list):
                     for i in range(len(_OP.type.argument_types)):

@@ -234,6 +234,8 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
             _name = 'bitxor'
         elif isinstance(node.op, ast.BitAnd):
             _name = 'bitand'
+        elif isinstance(node.op, ast.FloorDiv):
+            _name = 'floordiv'
         else:
             pass
             
@@ -342,6 +344,8 @@ class StmtNodeMappingTransformer(NodeTransformerBase):
                 _name = 'bitxor'
             elif isinstance(node.value.op, ast.BitAnd):
                 _name = 'bitand'
+            elif isinstance(node.value.op, ast.FloorDiv):
+                _name = 'floordiv'
             else:
                 pass
             _args = list()
