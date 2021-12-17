@@ -375,13 +375,47 @@ def test_binary():
         res = np.array(arg0) ^ np.array(arg1)
         return res
     
-    analyse(bitxor_scalar0)
-    analyse(bitxor_scalar1)
-    analyse(bitxor_scalar2)
-    analyse(bitxor_scalar3)
-    analyse(listbitxor0)
-    analyse(listbitxor1)
+    # analyse(bitxor_scalar0)
+    # analyse(bitxor_scalar1)
+    # analyse(bitxor_scalar2)
+    # analyse(bitxor_scalar3)
+    # analyse(listbitxor0)
+    # analyse(listbitxor1)
     
-     
+    # TODO: bitAnd
+    def bitand_scalar0(arg0:float) -> float:
+        var0 = 2.0
+        res = arg0 & var0
+        return res
+    
+    def bitand_scalar1(arg0:float, arg1:float) -> float:
+        res = arg0 & arg1
+        return res
+
+    def bitand_scalar2() -> float:
+        var0 = 1.0
+        var1 = 2.0
+        res = var0 & var1
+        return res
+
+    def bitand_scalar3(arg0:float, arg1:float) -> float:
+        arg0 &= arg1
+        return arg0
+    
+    def listbitand0(arg0: list, arg1: list) -> list:
+        res = np.array(arg0) & np.array(arg1)
+        return res
+    
+    def listbitand1(arg0: List[float], arg1: List[float]) -> List[float]:
+        res = np.array(arg0) & np.array(arg1)
+        return res
+    
+    analyse(bitand_scalar0)
+    analyse(bitand_scalar1)
+    analyse(bitand_scalar2)
+    analyse(bitand_scalar3)
+    analyse(listbitand0)
+    analyse(listbitand1)
+    
 if __name__ == "__main__":
     test_binary()
