@@ -119,25 +119,5 @@ def Atir_Conv2DCFirstOp : Atir_Op<"conv_2d_cfirst"> {
   let assemblyFormat = "$in `,` $filter attr-dict `:` functional-type(operands, results)";
 }
 
-def Atir_Conv2DCLastOp : Atir_Op<"conv_2d_clast"> {
-  let summary = "2-D channel last convolution";
-  let description = [{
-    Performs 2-D convolution. This op is inspired by PyTorch's Conv2d layer (https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html).
-
-    The tensors have dimensions:
-    - in:     [N, H, W, Cin]
-    - filter: [Cout, KH, KW, Cin]
-    - result: [N, Hout, Wout, Cout]
-
-    The tensors must meet the following conditions; otherwise, this op aborts the program.
-    - H is greater than or equal to KH
-    - W is greater than or equal to KW
-    - Cin matches between in and filter
-  }];
-  let arguments = (ins 4DTensorOf<[F32]>:$in, 4DTensorOf<[F32]>:$filter);
-  let results = (outs 4DTensorOf<[F32]>:$result);
-
-  let assemblyFormat = "$in `,` $filter attr-dict `:` functional-type(operands, results)";
-}
 
 #endif // #ifndef ATIR_OPS

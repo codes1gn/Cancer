@@ -15,6 +15,9 @@ mkdir -p ${top_dir_realpath}/iree_build/iree_install
 iree_build_dir="${top_dir_realpath}/iree_build/"
 iree_install_dir="${top_dir_realpath}/iree_build/iree_install/"
 
+# preliminaries
+pip3 install absl-py
+
 cd $iree_source
 cmake -GNinja -B $iree_build_dir -S . \
         -DCMAKE_BUILD_TYPE=Release \
@@ -27,3 +30,7 @@ cmake -GNinja -B $iree_build_dir -S . \
 
 cmake --build $iree_build_dir --target install
 
+export PYTHONPATH="$iree_build_dir/bindings/python"
+
+python -c "import iree.compiler"
+python -c "import pyiree"
