@@ -45,3 +45,8 @@ func @atir_exp_test_shapedtensor_ret(%arg0: tensor<17x16xf32>) -> tensor<17x16xf
   return %0 : tensor<17x16xf32>
 }
 
+// TODO, IREE test
+func @exp(%input : tensor<f32>) -> tensor<f32> {
+  %0 = atir.exp %input : tensor<f32>
+  return %0 : tensor<f32>
+}

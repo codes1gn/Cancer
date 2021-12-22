@@ -30,7 +30,3 @@ cmake -GNinja -B $iree_build_dir -S . \
 
 cmake --build $iree_build_dir --target install
 
-export PYTHONPATH="$iree_build_dir/bindings/python"
-
-python -c "import iree.compiler"
-python -c "import pyiree"
