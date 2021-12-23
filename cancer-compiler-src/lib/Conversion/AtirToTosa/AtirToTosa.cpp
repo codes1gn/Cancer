@@ -11,6 +11,7 @@
 #include "../PassDetail.h"
 #include "Dialect/Atir/IR/AtirOps.h"
 #include "mlir/Dialect/Tosa/IR/TosaOps.h"
+#include "mlir/Dialect/Math/IR/Math.h"
 #include "mlir/Dialect/Shape/IR/Shape.h"
 
 #include "mlir/Dialect/StandardOps/IR/Ops.h"
@@ -21,11 +22,33 @@
 using namespace mlir;
 using namespace mlir::CANCER;
 
+
+
+namespace {
+class ConvertExpOp : public OpRewritePattern<atir::ExpOp> {
+public:
+  using OpRewritePattern<atir::ExpOp>::OpRewritePattern;
+  LogicalResult matchAndRewrite(atir::ExpOp op,
+                                PatternRewriter &rewriter) const override {
+    // way 2, explicit replace with replaceOp
+    auto loc = op->getLoc();
+    auto elementTy = op->getOperand(0).getType();
+    auto tosa_exp = rewriter.create<tosa::ExpOp>(loc, elementTy, op->getOperand(0));
+    rewriter.replaceOp(op, tosa_exp.getResult());
+
+    // way 1, use replaceOpWithNewOp
+    // rewriter.replaceOpWithNewOp<tosa::ExpOp>(op, elementTy, op->getOperand(0));
+
+    return success();
+  }
+};
+} // namespace
+
 namespace {
 class ConvertAtirToTosa : public ConvertAtirToTosaBase<ConvertAtirToTosa> {
 public:
   void getDependentDialects(DialectRegistry &registry) const override {
-    registry.insert<shape::ShapeDialect, tosa::TosaDialect>();
+    registry.insert<shape::ShapeDialect, tosa::TosaDialect, math::MathDialect>();
   }
 
   void runOnOperation() override {
@@ -37,7 +60,9 @@ public:
     // nothing, in order to avoid having to reintroduce the same
     // boilerplate.
     // change OwningRewritePatternList into RewritePatternSet
-    RewritePatternSet patterns(getOperation().getContext());
+    MLIRContext *context = &getContext();
+    RewritePatternSet patterns(context);
+    patterns.add<ConvertExpOp>(context);
     return std::move(patterns);
   }
 };
