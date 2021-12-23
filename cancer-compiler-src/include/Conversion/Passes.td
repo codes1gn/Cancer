@@ -60,7 +60,25 @@ def ConvertAtirToStd : Pass<"convert-atir-to-std", "FuncOp"> {
 
 def ConvertAtirToCtir : Pass<"convert-atir-to-ctir", "FuncOp"> {
   let summary = "Convert Atir to Ctir";
+  let description = [{
+    this conversion pass is placeholder
+  }];
   let constructor = "mlir::CANCER::createConvertAtirToCtirPass()";
+}
+
+//===----------------------------------------------------------------------===//
+// AtirToTosa
+//===----------------------------------------------------------------------===//
+
+def ConvertAtirToTosa : Pass<"convert-atir-to-tosa", "FuncOp"> {
+  let summary = "Convert Atir to Tosa";
+  let description = [{
+    This conversion pass is to lowering the abstract tensor
+    operation IR downstream to TOSA dialects, which is the interface
+    for temporal use until we refactor the compilation flow to
+    a better design
+  }];
+  let constructor = "mlir::CANCER::createConvertAtirToTosaPass()";
 }
 
 #endif // CANCER_CONVERSION_PASSES

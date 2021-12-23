@@ -3,6 +3,7 @@ add_subdirectory(NumpyToAtir)
 add_subdirectory(AtirToLinalg)
 add_subdirectory(AtirToStd)
 add_subdirectory(AtirToCtir)
+add_subdirectory(AtirToTosa)
 
 add_cancer_library(CANCERConversionPasses
   Passes.cpp
@@ -17,4 +18,5 @@ add_cancer_library(CANCERConversionPasses
   CANCERBasicpyToSTD
   CANCERNumpyToAtir
   CANCERAtirToCtir
+  CANCERAtirToTosa
 )
