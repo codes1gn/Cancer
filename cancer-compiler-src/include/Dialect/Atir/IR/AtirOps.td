@@ -14,13 +14,14 @@ include "Dialect/Atir/IR/AtirDialect.td"
 
 class BinaryArithmeticOp<string mnemonic, list<OpTrait> traits = []> :
   Atir_Op<mnemonic, traits> {
-  // let arguments = (ins AnyTensor:$lhs, AnyTensor:$rhs);
-  let arguments = (
-      ins 
-      TensorRankOf<[F32, I32], [0, 1, 2, 3, 4]>:$lhs,
-      TensorRankOf<[F32, I32], [0, 1, 2, 3, 4]>:$rhs);
-  let results = (outs 
-      TensorRankOf<[F32, I32], [0, 1, 2, 3, 4]>:$result);
+  let arguments = (ins AnyTensor:$lhs, AnyTensor:$rhs);
+  // let arguments = (
+  //     ins 
+  //     TensorRankOf<[F32, I32], [0, 1, 2, 3, 4]>:$lhs,
+  //     TensorRankOf<[F32, I32], [0, 1, 2, 3, 4]>:$rhs);
+  // let results = (outs 
+  //    TensorRankOf<[F32, I32], [0, 1, 2, 3, 4]>:$result);
+  let results = (outs AnyTensor:$result);
   let assemblyFormat = "$lhs `,` $rhs attr-dict `:` functional-type(operands, results)";
 }
 
@@ -53,7 +54,6 @@ class UnaryArithmeticOp<string mnemonic, list<OpTrait> traits = []> :
   Atir_Op<mnemonic,
         !listconcat(traits, [AllTypesMatch<["operand", "result"]>])>,
   AllTypesMatch<["operand", "result"]> {
-  let arguments = (ins AnyTensor:$operand);
   let arguments = (
       ins 
       TensorRankOf<[F32], [0, 1, 2, 3, 4]>:$operand);
