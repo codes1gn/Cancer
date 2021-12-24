@@ -42,6 +42,24 @@ public:
     return success();
   }
 };
+
+class ConvertTanhOp : public OpRewritePattern<atir::TanhOp> {
+public:
+  using OpRewritePattern<atir::TanhOp>::OpRewritePattern;
+  LogicalResult matchAndRewrite(atir::TanhOp op,
+                                PatternRewriter &rewriter) const override {
+    // way 2, explicit replace with replaceOp
+    auto loc = op->getLoc();
+    auto elementTy = op->getOperand(0).getType();
+    auto tosa_tanh = rewriter.create<tosa::TanhOp>(loc, elementTy, op->getOperand(0));
+    rewriter.replaceOp(op, tosa_tanh.getResult());
+
+    // way 1, use replaceOpWithNewOp
+    // rewriter.replaceOpWithNewOp<tosa::TanhOp>(op, elementTy, op->getOperand(0));
+
+    return success();
+  }
+};
 } // namespace
 
 namespace {
@@ -63,6 +81,7 @@ public:
     MLIRContext *context = &getContext();
     RewritePatternSet patterns(context);
     patterns.add<ConvertExpOp>(context);
+    patterns.add<ConvertTanhOp>(context);
     return std::move(patterns);
   }
 };
