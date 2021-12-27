@@ -11,6 +11,8 @@
 
 include "Dialect/Atir/IR/AtirDialect.td"
 
+include "mlir/Interfaces/SideEffectInterfaces.td"
+
 
 class BinaryArithmeticOp<string mnemonic, list<OpTrait> traits = []> :
   Atir_Op<mnemonic, traits> {
@@ -25,7 +27,8 @@ class BinaryArithmeticOp<string mnemonic, list<OpTrait> traits = []> :
   let assemblyFormat = "$lhs `,` $rhs attr-dict `:` functional-type(operands, results)";
 }
 
-def Atir_AddOp : BinaryArithmeticOp<"add"> {
+// we shouldn't constraint the same type/shape/elemty, since we should allow casting, broadcasting rule
+def Atir_AddOp : BinaryArithmeticOp<"add", [NoSideEffect]> {
   let summary = "Addition of two tensors.";
   let description = [{
     Addition of two tensors.
@@ -34,7 +37,7 @@ def Atir_AddOp : BinaryArithmeticOp<"add"> {
   }];
 }
 
-def Atir_MaxOp : BinaryArithmeticOp<"max"> {
+def Atir_MaxOp : BinaryArithmeticOp<"max", [NoSideEffect]> {
   let summary = "Maximum of two tensors.";
   let description = [{
     Maximum of two tensors.
@@ -43,7 +46,7 @@ def Atir_MaxOp : BinaryArithmeticOp<"max"> {
   }];
 }
 
-def Atir_MulOp : BinaryArithmeticOp<"mul"> {
+def Atir_MulOp : BinaryArithmeticOp<"mul", [NoSideEffect]> {
   let summary = "Multiply an input tensor by a scalar tensor.";
   let description = [{
     Multiplies each element of the input `input` with the scalar `other` and returns a new resulting tensor. The tensor types must match and shapes must be broadcastable.
@@ -62,14 +65,20 @@ class UnaryArithmeticOp<string mnemonic, list<OpTrait> traits = []> :
   let assemblyFormat = "$operand attr-dict `:` type($operand)";
 }
 
-def Atir_ExpOp : UnaryArithmeticOp<"exp"> {
+def Atir_ExpOp : UnaryArithmeticOp<"exp", [NoSideEffect,
+                                           SameOperandsAndResultType,
+                                           SameOperandsAndResultShape,
+                                           SameOperandsAndResultElementType]> {
   let summary = "base-e exponential";
   let description = [{
     See std.exp for more details.
   }];
 }
 
-def Atir_TanhOp : UnaryArithmeticOp<"tanh"> {
+def Atir_TanhOp : UnaryArithmeticOp<"tanh", [NoSideEffect,
+                                             SameOperandsAndResultType,
+                                             SameOperandsAndResultShape,
+                                             SameOperandsAndResultElementType]> {
   let summary = "hyperbolic tangent";
   let description = [{
     See std.tanh for more details.
