@@ -74,7 +74,7 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
 
         op_type = node.mast_node.op.result_types
         return_type = node.mast_node.op.result_types
-        
+
         # * if there no argument, set argument_type == return_type
         if not argument_type[0]:
             argument_type = [return_type]
@@ -88,27 +88,21 @@ class StmtFixDependencyTransformer(NodeTransformerBase):
                     _OP.types[i] = return_type
             if isinstance(_OP, ConstantOperation):
                 _OP.type = argument_type[0]
-                
+
             if isinstance(_OP, CustomOperation):
                 # * BinOp -> add/sub/mul/matmul/div
-                if (_OP.name == 'add' or 
-                    _OP.name == 'sub' or 
-                    _OP.name == 'mul' or 
-                    _OP.name == 'matmul' or 
-                    _OP.name == 'div' or 
-                    _OP.name == 'mod' or
-                    _OP.name == 'pow' or
-                    _OP.name == 'lshift' or
-                    _OP.name == 'rshift' or
-                    _OP.name == 'bitor' or
-                    _OP.name == 'bitxor' or
-                    _OP.name == 'bitand' or
-                    _OP.name == 'floordiv') and isinstance(
-                        _OP.type.argument_types, list) and isinstance(
-                            _OP.type.result_types, list):
+                if (_OP.name == 'add' or _OP.name == 'sub' or _OP.name == 'mul'
+                        or _OP.name == 'matmul' or _OP.name == 'div'
+                        or _OP.name == 'mod' or _OP.name == 'pow'
+                        or _OP.name == 'lshift' or _OP.name == 'rshift'
+                        or _OP.name == 'bitor' or _OP.name == 'bitxor'
+                        or _OP.name == 'bitand'
+                        or _OP.name == 'floordiv') and isinstance(
+                            _OP.type.argument_types, list) and isinstance(
+                                _OP.type.result_types, list):
                     for i in range(len(_OP.type.argument_types)):
                         _OP.type.argument_types[i] = argument_type[0]
-                        
+
                     for i in range(len(_OP.type.result_types)):
                         _OP.type.result_types[i] = return_type
                 else:
