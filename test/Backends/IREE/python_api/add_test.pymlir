@@ -7,8 +7,8 @@ import iree.runtime as ireert
 import numpy as np
 
 
-add_tosa = """
-func @add_tosa(%arg0 : tensor<4xf32>, %arg1 : tensor<4xf32>) -> tensor<4xf32> {
+tensor_add_tosa = """
+func @tensor_add_tosa(%arg0 : tensor<4xf32>, %arg1 : tensor<4xf32>) -> tensor<4xf32> {
   %0 = "tosa.add"(%arg0, %arg1) : (tensor<4xf32>, tensor<4xf32>) -> tensor<4xf32>
   return %0 : tensor<4xf32>
 }
@@ -31,13 +31,13 @@ class IREEInvoker:
         return invoke
 
 binary_dylib_tensor = ireecc.tools.compile_str(
-        add_tosa,
+        tensor_add_tosa,
         input_type="tosa",
         target_backends=["dylib"]
         )
 
 binary_vulkan_tensor = ireecc.tools.compile_str(
-        add_tosa,
+        tensor_add_tosa,
         input_type="tosa",
         target_backends=["vulkan-spirv"]
         )
@@ -78,15 +78,26 @@ result = _callable(arg0, arg1)
 print("result: ", result)
 # CHECK-VULKAN: 3.7
 
-
 # test tensor on dylib
-## vm_module = ireert.VmModule.from_flatbuffer(binary_mul_dylib_from_str)
-# config = ireert.Config(driver_name="dylib")
-# ctx = ireert.SystemContext(config=config)
-# ctx.add_vm_module(vm_module)
-# _callable = ctx.modules.module["mul_tosa"]
-# arg0 = np.array([1., 2., 3., 4.], dtype=np.float32)
-# arg1 = np.array([4., 5., 6., 7.], dtype=np.float32)
-# result = _callable(arg0, arg1)
-# np.testing.assert_allclose(result, [4., 10., 18., 28.])
-# print("result: ", result)
+vm_module = ireert.VmModule.from_flatbuffer(binary_dylib_tensor)
+config = ireert.Config(driver_name="dylib")
+ctx = ireert.SystemContext(config=config)
+ctx.add_vm_module(vm_module)
+_callable = ctx.modules.module["tensor_add_tosa"]
+arg0 = np.array([1., 2., 3., 4.], dtype=np.float32)
+arg1 = np.array([1., 2., 3., 4.], dtype=np.float32)
+result = _callable(arg0, arg1)
+print("result: ", result)
+# CHECK-DYLIB: [2. 4. 6. 8.]
+
+# test scalar on vulkan
+vm_module = ireert.VmModule.from_flatbuffer(binary_vulkan_tensor)
+config = ireert.Config(driver_name="vulkan")
+ctx = ireert.SystemContext(config=config)
+ctx.add_vm_module(vm_module)
+_callable = ctx.modules.module["tensor_add_tosa"]
+arg0 = np.array([1., 2., 3., 4.], dtype=np.float32)
+arg1 = np.array([1., 2., 3., 4.], dtype=np.float32)
+result = _callable(arg0, arg1)
+print("result: ", result)
+# CHECK-VULKAN: [2. 4. 6. 8.]
