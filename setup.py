@@ -24,7 +24,49 @@ class CMakeExtension(Extension):
 
 class CMakeBuild(build_ext):
     def build_extension(self, ext):
-        # CMake lets you override the generator - we need to check this.
+        self._build_cancer_extension_module(ext)
+        self._attach_iree_compiler(ext)
+        self._attach_iree_runtime(ext)
+
+    def _attach_iree_compiler(self, ext):
+        build_dir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
+        if not build_dir.endswith(os.path.sep):
+            build_dir += os.path.sep
+
+        new_dir = build_dir +"cancer_frontend/iree"
+
+        mkdir_cmd_str = "mkdir -p " + new_dir
+        subprocess.call(
+            mkdir_cmd_str,
+            shell=True,
+        )
+
+        cp_cmd_str = "cp -r " + os.getcwd() + "/iree_build/compiler-api/python_package/iree/compiler" + " " + new_dir
+        subprocess.call(
+            cp_cmd_str,
+            shell=True,
+        )
+
+    def _attach_iree_runtime(self, ext):
+        build_dir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
+        if not build_dir.endswith(os.path.sep):
+            build_dir += os.path.sep
+
+        new_dir = build_dir +"cancer_frontend/iree"
+
+        mkdir_cmd_str = "mkdir -p " + new_dir
+        subprocess.call(
+            mkdir_cmd_str,
+            shell=True,
+        )
+
+        cp_cmd_str = "cp -r " + os.getcwd() + "/iree_build/bindings/python/iree/runtime/" + " " + new_dir
+        subprocess.call(
+            cp_cmd_str,
+            shell=True,
+        )
+
+    def _build_cancer_extension_module(self, ext):
         cmake_generator = "-GNinja"
 
         build_dir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
