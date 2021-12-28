@@ -13,3 +13,7 @@ _deps
 dist
 install_cache.txt
 *__pycache__*
+tags
+mlir_build
+iree_build
+build
