@@ -24,3 +24,6 @@ cd external/pymlir
 pip3 install .
 cd -
 
+# setting up the installation of iree backend
+iree_build_dir="${top_dir_realpath}/iree_build/"
+export PYTHONPATH=${iree_build_dir}bindings/python:${iree_build_dir}compiler-api/python_package:$PYTHONPATH

@@ -89,7 +89,9 @@ setup(
     author_email="codefisheng@gmail.com",
     description="Composite AI Compiler Experiment Platform",
     long_description="",
-    ext_modules=[CMakeExtension("cancer_compiler_module")],
+    ext_modules=[
+        CMakeExtension("cancer_compiler_module"),
+    ],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
     packages=find_packages(),

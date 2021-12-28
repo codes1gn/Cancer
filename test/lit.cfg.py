@@ -32,7 +32,7 @@ config.test_exec_root = os.path.join(config.cancer_obj_root, "test")
 config.substitutions.append(("%PATH%", config.environment["PATH"]))
 config.substitutions.append(("%shlibext", config.llvm_shlib_ext))
 
-llvm_config.with_system_environment(["HOME", "INCLUDE", "LIB", "TMP", "TEMP"])
+llvm_config.with_system_environment(["HOME", "INCLUDE", "LIB", "TMP", "TEMP", "PYTHONPATH"])
 
 llvm_config.use_default_substitutions()
 
@@ -48,9 +48,12 @@ config.test_source_root = os.path.dirname(__file__)
 config.test_exec_root = os.path.join(config.cancer_obj_root, "test")
 config.cancer_tools_dir = os.path.join(config.cancer_obj_root, "bin")
 config.iree_tools_dir = os.path.join(config.iree_obj_root, "bin")
+config.iree_env1 = os.path.join(config.iree_obj_root, "bindings/python")
+config.iree_env2 = os.path.join(config.iree_obj_root, "compiler-api/python_package")
 
-# Tweak the PATH to include the tools dir.
+# Tweak the PATH and PYTHONPATH to include the tools dir.
 llvm_config.with_environment("PATH", config.llvm_tools_dir, append_path=True)
+
 
 config.cancer_runtime_shlib = os.path.join(
     config.cancer_obj_root, "lib", "libCANCERCompilerRuntimeShlib" + config.llvm_shlib_ext
