@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# from Cancer.cancer_frontend import python
+# from Cancer.cancer import python
 import os
 import sys
 import subprocess
@@ -33,7 +33,7 @@ class CMakeBuild(build_ext):
         if not build_dir.endswith(os.path.sep):
             build_dir += os.path.sep
 
-        new_dir = build_dir +"cancer_frontend/iree"
+        new_dir = build_dir +"cancer/iree"
 
         mkdir_cmd_str = "mkdir -p " + new_dir
         subprocess.call(
@@ -52,7 +52,7 @@ class CMakeBuild(build_ext):
         if not build_dir.endswith(os.path.sep):
             build_dir += os.path.sep
 
-        new_dir = build_dir +"cancer_frontend/iree"
+        new_dir = build_dir +"cancer/iree"
 
         mkdir_cmd_str = "mkdir -p " + new_dir
         subprocess.call(
