@@ -1,3 +1,5 @@
+# RUN: python %s 2>&1 | FileCheck %s
+
 import iree.compiler as ireecc
 import iree.runtime as ireert
 
@@ -81,8 +83,8 @@ ctx.add_vm_module(vm_module)
 _callable = ctx.modules.module["exp_scalar"]
 arg0 = np.array(1., dtype=np.float32) # np.array([1., 2., 3., 4.], dtype=np.float32)
 result = _callable(arg0)
-np.testing.assert_allclose(result, [2.718282])
 print("result: ", result)
+# CHECK: 2.718282
 
 # TODO add this (albert): way 2 low-level capi bindings to python
 
